@@ -1,7 +1,6 @@
 <?php
 require __DIR__ . './vendor/autoload.php';
 Sysurvey\SesionStatus::startSession();
-
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +14,8 @@ Sysurvey\SesionStatus::startSession();
 </head>
 
 <body class="container">
-    <?php include_once "./module/common/nav.php"; ?>
+    <a href="/module/admin">Admin</a>
+    <a href="/module/user">User</a>
 
 </body>
 <?php include_once "./module/common/cdn-js.php"; ?>

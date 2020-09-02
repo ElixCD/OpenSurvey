@@ -14,7 +14,7 @@ require $backRoot . 'vendor/autoload.php';
 </head>
 
 <body class="container">
-    <?php include_once $backRoot . "module/common/nav.php"; ?>
+    <?php include_once $backRoot . "module/user/nav.php"; ?>
     <h3>Es una vista</h3>
     <a>Tomar encuesta</a>
 
