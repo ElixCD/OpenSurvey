@@ -1,0 +1,15 @@
+{
+    "name": "sysurvey/sysurvey",
+    "description": "Simple survey system",
+    "require": {
+        "vlucas/phpdotenv": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sysurvey\\": "core/",
+            "Sysurvey\\Modules\\": "module/",
+            "Utils\\" : "utils/"
+        },
+        "files": ["lib/Helper.php"]
+    }
+}
