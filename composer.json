@@ -8,8 +8,9 @@
         "psr-4": {
             "Sysurvey\\": "core/",
             "Sysurvey\\Modules\\": "module/",
-            "Utils\\" : "utils/"
+            "Utils\\" : "utils/",
+            "Dotenv\\" : "vendor/vlucas/phpdotenv/src/"
         },
-        "files": ["lib/Helper.php"]
+        "files": ["lib/Helper.php","config/LoadEnviroment.php"]
     }
 }

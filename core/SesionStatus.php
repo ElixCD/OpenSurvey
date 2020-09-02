@@ -7,12 +7,6 @@ class SesionStatus{
             session_start();
         }
     }
-
-    static function IsStarted(){
-        if (isset($_SESSION)) {
-           return true;
-        }
-    }
     
     static function endSession(){
         if (isset($_SESSION)) {
