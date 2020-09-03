@@ -1,6 +1,6 @@
 <?php
 
-namespace Sysurvey\Modules\Common\GridList;
+namespace Sysurvey\Modules\Common\Components;
 
 use Sysurvey;
 
@@ -10,6 +10,8 @@ class GridList extends Sysurvey\ComponentBase
     public $DataCollection = array(array());
     public $TableClass;
     public $SelectColumn = false;
+    public $SelectHeaderText = "Select";
+
     public $KeyColumn;
 
     public $ActionColumn = "";
@@ -23,14 +25,14 @@ class GridList extends Sysurvey\ComponentBase
     {
         $this->Columns = count($this->DataCollection);
 
-        $salida = "";
+        $return = "";
         $tHead = "";
         $tBody = "";
 
         $tHead .= "<thead>";
         $tHead .= "<tr>";
         if ($this->SelectColumn) {
-            $tHead .= "<th>Selecccionar</th>";
+            $tHead .= "<th>".$this->SelectHeaderText."</th>";
         }
         foreach ($this->ListColumns as $values) {
             $tHead .= "<th>" . $values . "</th>";
@@ -56,10 +58,10 @@ class GridList extends Sysurvey\ComponentBase
         }
         $tBody .= "</tbody>";
 
-        $salida = "<table class='" . $this->TableClass . "'>";
-        $salida .= $tHead . $tBody;
-        $salida .= "</table>";
+        $return = "<table class='" . $this->TableClass . "'>";
+        $return .= $tHead . $tBody;
+        $return .= "</table>";
 
-        echo $salida;
+        echo $return;
     }
 }

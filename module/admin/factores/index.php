@@ -32,10 +32,12 @@ require $backRoot . 'vendor/autoload.php';
     </header>
 
     <?php
-    $grid = new Sysurvey\Modules\Common\GridList\GridList;
+    $grid = new Sysurvey\Modules\Common\Components\GridList;
     $grid->TableClass = "table";
     $grid->ListColumns = ["head 0", "head 1", "none"];
     $grid->SelectColumn = true;
+    $grid->SelectHeaderText = "Opcion";
+
 
     $grid->DataCollection = [
         ["id" => 1, "head 0" => "hola 0", "head 1" => "bye 0", "none" => "not null"],
@@ -44,6 +46,12 @@ require $backRoot . 'vendor/autoload.php';
     $grid->KeyColumn = "id";
 
     $grid->drawComponent();
+
+    $paginator = new Sysurvey\Modules\Common\Components\Paginator;
+    $paginator->CurrentPage = !isset($_GET['page']) ? 1 : $_GET['page'];
+    $paginator->VisiblePages = 4;
+    $paginator->TotalPages = 10;
+    $paginator->drawComponent();
 
     ?>
 
