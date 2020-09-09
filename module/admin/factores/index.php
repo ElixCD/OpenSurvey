@@ -1,7 +1,12 @@
 <?php
+
+use Sysurvey\Db;
+
 $backRoot = '../../../';
 require $backRoot . 'vendor/autoload.php';
-
+$factor = new Sysurvey\Factor(new Db);
+$factors = $factor->getFactors(1);
+$headers = ["Id", "Descripción"]; // array_keys($factors[0]);
 ?>
 
 <!DOCTYPE html>
@@ -19,41 +24,40 @@ require $backRoot . 'vendor/autoload.php';
 <body class="container">
     <?php
     include_once $backRoot . "module/admin/nav.php";
-    $listafactores = Sysurvey\Factores::getFactores();
     ?>
 
     <header style="display:flex;justify-content: space-between;">
         <h3>Ver Factores</h3>
-        <button type="button" class="btn btn-success" style="width:5em;">
+        <a class="btn btn-success" style="width:5em;" href="./nuevo.php">
             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
             </svg>
-        </button>
+        </a>
     </header>
 
-    <?php
-    $grid = new Sysurvey\Modules\Common\Components\GridList;
-    $grid->TableClass = "table";
-    $grid->ListColumns = ["head 0", "head 1", "none"];
-    $grid->SelectColumn = true;
-    $grid->SelectHeaderText = "Opcion";
+    <hr>
 
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <?php foreach ($headers as $key => $value) : ?>
+                    <th scope="col"><?php echo $value; ?></th>
+                <?php endforeach ?>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($factors as $row) : ?>
+                <tr>
+                    <?php foreach ($row as $key => $value) : ?>
+                        <td><?php echo $value; ?></td>
+                    <?php endforeach ?>
+                    <td><a href="./editar.php?idfactor=<?php echo $row['idfactor']; ?>">Editar</a> | Borrar</td>
 
-    $grid->DataCollection = [
-        ["id" => 1, "head 0" => "hola 0", "head 1" => "bye 0", "none" => "not null"],
-        ["id" => 2, "head 0" => "hola 1", "head 1" => "bye 1"]
-    ];
-    $grid->KeyColumn = "id";
-
-    $grid->drawComponent();
-
-    $paginator = new Sysurvey\Modules\Common\Components\Paginator;
-    $paginator->CurrentPage = !isset($_GET['page']) ? 1 : $_GET['page'];
-    $paginator->VisiblePages = 4;
-    $paginator->TotalPages = 10;
-    $paginator->drawComponent();
-
-    ?>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
 
 </body>
 <?php include_once $backRoot . "module/common/cdn-js.php"; ?>

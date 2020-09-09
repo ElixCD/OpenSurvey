@@ -2,9 +2,7 @@
 
 namespace Sysurvey\Modules\Common\Components;
 
-use Sysurvey;
-
-class Paginator extends Sysurvey\ComponentBase
+class Paginator
 {
     public $CurrentPage = 1;
     public $VisiblePages = 3;
@@ -21,6 +19,9 @@ class Paginator extends Sysurvey\ComponentBase
         $this->Dir = __DIR__;
     }
 
+    /**
+     * @return string
+     */
     public function drawComponent()
     {
         $this->PreviousPage = $this->CurrentPage - 1;
@@ -50,7 +51,7 @@ class Paginator extends Sysurvey\ComponentBase
         $return .= "<li class='page-item " . (($this->NextPage > $this->TotalPages) ? "disabled" : "") . "'><a class='page-link' href='./?page=" . $this->NextPage . "'>" . $this->NextText . "</a></li>";
         $return .= "</ul></nav>";
 
-        echo $return;
+        return $return;
     }
 
     private function startIndex()

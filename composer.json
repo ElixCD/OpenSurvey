@@ -9,7 +9,8 @@
             "Sysurvey\\": "core/",
             "Sysurvey\\Modules\\": "module/",
             "Utils\\" : "utils/",
-            "Dotenv\\" : "vendor/vlucas/phpdotenv/src/"
+            "Dotenv\\" : "vendor/vlucas/phpdotenv/src/",
+            "Models\\" : "models/"
         },
         "files": ["lib/Helper.php","config/LoadEnviroment.php"]
     }
