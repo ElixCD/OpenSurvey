@@ -1,11 +1,13 @@
 <?php
 
-namespace Models;
+namespace Models\DTO;
 
 use Sysurvey;
 use Exception;
+use Models\Factor;
+use Models\Question;
 
-class Factor
+class FactorDTO
 {
     public $factors = [];
 
@@ -22,6 +24,8 @@ class Factor
 
         foreach ($this->factors as $key => $value) {
             if ($value['idfactor'] == $idFactor) {
+
+
                 return $value;
             }
         }
@@ -30,6 +34,15 @@ class Factor
 
     function getFactors(int $idSurvey, int $numberPage)
     {
+        $factors = new Factor($this->connection);
+        
+        $factorsList = $factors->getFactors($idSurvey, 1);
+
+        foreach ($factorsList as $key => $value) {
+            $questions = new Question($this->connection);
+            $questionsList = $questions->getQuestions($key);
+        }
+
         $this->factors = $this->connection->querySelect("SELECT * FROM factor WHERE idsurvey = '$idSurvey'");
         return $this->factors;
     }

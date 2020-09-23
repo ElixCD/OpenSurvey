@@ -26,22 +26,30 @@ class Db implements IDb
 
     function querySelect(string $query)
     {
-        $result = [];
-        foreach ($this->gbd->query($query, PDO::FETCH_ASSOC) as $row) {
-            array_push($result, $row);
+        try {
+            $result = array();
+            $salida = $this->gbd->query($query, PDO::FETCH_ASSOC);
+            if ($salida != false) {
+                foreach ($salida as $row) {
+                    array_push($result, $row);
+                }
+            }else{
+                $result = false;
+            }
+            return $result;
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        return $result;
     }
 
     function queryTransaction(string $query)
     {
-        $this->gbd->beginTransaction();
-
         try {
+            $this->gbd->beginTransaction();
             $gsent = $this->gbd->prepare($query);
             $gsent->execute();
             $this->gbd->commit();
-
+            return true;
         } catch (\Throwable $th) {
             $this->gbd->rollBack();
             throw $th;

@@ -1,13 +1,16 @@
 <?php
 
-use Sysurvey\Db;
+use Sysurvey\DB;
 
-$backRoot = '../../../';
+$backRoot = '../../../../';
 require $backRoot . 'vendor/autoload.php';
+$headers = ["Id", "Descripción", "Factor"];
 
-$factor = new Sysurvey\Factor(new Db);
+$id = $_GET['idSurvey'];
 
-$headers = ["Id", "Descripción"]; // array_keys($factors[0]);
+$factores = new Models\Factor(new Db());
+$listaFactores = $factores->getFactors($id, 1);
+
 ?>
 
 <!DOCTYPE html>
@@ -18,22 +21,21 @@ $headers = ["Id", "Descripción"]; // array_keys($factors[0]);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sysurvey - Admin</title>
     <?php include_once $backRoot . "module/common/cdn-css.php"; ?>
-    <link rel="stylesheet" href="../../../public/css/estilos_base.css">
-
+    <link rel="stylesheet" href="../../../../public/css/estilos_base.css">
 </head>
 
 <body class="container">
     <?php
-    include_once $backRoot . "module/admin/nav.php";
+    include_once $backRoot . "module/admin/surveys/survey-nav.php";
     ?>
 
     <header style="display:flex;justify-content: space-between;">
-        <h3>Editar Factores</h3>
+        <h3>Nueva pregunta</h3>
     </header>
 
     <hr>
 
-    <table class="table">
+    <table class="table table-sm">
         <thead class="thead-dark">
             <tr>
                 <?php foreach ($headers as $key => $value) : ?>
@@ -44,11 +46,19 @@ $headers = ["Id", "Descripción"]; // array_keys($factors[0]);
         <tbody>
             <tr>
                 <td></td>
-                <td><input type="text" id='descripcion' placeholder="Descripción"></td>
-                <td><button onclick="javascript:SaveFactor('new');">Guardar</button></td>
+                <td><input type="text" id='description' placeholder="Descripción"></td>
+                <td>
+                    <select id='description' placeholder="Descripción">
+                        <option> -- Seleccione un factor -- </option>
+                        <?php foreach ($listaFactores as $key => $factor) : ?>
+                            <option value="<?php echo $key; ?>"><?php echo $factor; ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </td>
             </tr>
         </tbody>
     </table>
+    <button class="btn btn-success" onclick="javascript:SaveFactor('new');">Guardar</button>
 </body>
 
 <?php include_once $backRoot . "module/common/cdn-js.php"; ?>
@@ -56,7 +66,7 @@ $headers = ["Id", "Descripción"]; // array_keys($factors[0]);
 </html>
 
 <script>
-    function SaveFactor(accion) {
+    function SaveFactor(action) {
         // De esta forma se obtiene la instancia del objeto XMLHttpRequest
         if (window.XMLHttpRequest) {
             connection = new XMLHttpRequest();
@@ -64,15 +74,16 @@ $headers = ["Id", "Descripción"]; // array_keys($factors[0]);
             connection = new ActiveXObject("Microsoft.XMLHTTP");
         }
 
-        let d = document.getElementById('descripcion').value;
+        let d = document.getElementById('description').value;
+        let f = document.getElementById('factor').value;
 
         // Preparando la función de respuesta
         connection.onreadystatechange = response;
 
         // Realizando la petición HTTP con método POST
-        connection.open('POST', 'save-factor.php');
+        connection.open('POST', 'save-question.php');
         connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        connection.send("accion=" + accion + "&d=" + d);
+        connection.send("action=" + action + "&d=" + d + "&f=" + f);
 
     }
 
@@ -80,8 +91,8 @@ $headers = ["Id", "Descripción"]; // array_keys($factors[0]);
         if (connection.readyState == 4) {
             let obj = JSON.parse(connection.responseText);
             alert(obj.msj);
-            if(obj.error == false)
-                location.href="/module/admin/factores/";
+            if (obj.error == false)
+                location.href = "/module/admin/surveys/factors/";
 
         }
     }
