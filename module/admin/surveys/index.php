@@ -28,34 +28,43 @@ require $backRoot . 'vendor/autoload.php';
 
     <header style="display:flex;justify-content: space-between;">
         <div class="col-8">
-            <h3>Ver Encuestas</h3>
+            <h1>Encuestas</h1>
         </div>
-        <div class="col-4">
-            <a class="btn btn-success" onclick="ViewLoad('Nuevo');Breadcrumb('Nuevo');">Nuevo</a>
+        <div class="col-4" id="new-survey">
+            <a class="btn btn-success" onclick="ViewLoad('Nuevo');Breadcrumb('Encuestas','Nuevo');">Nuevo</a>
         </div>
     </header>
 
     <hr>
 
-    <main id="main">
-
-    </main>
+    <main id="main"></main>
 </body>
 <?php include_once $backRoot . "module/common/cdn-js.php"; ?>
 
 </html>
 
 <script>
-    ViewLoad('listar');
+    let actionCookie = getCookie('vista');
+    ViewLoad(actionCookie);
+    Breadcrumb('Encuestas',actionCookie);
 
-    function Breadcrumb(action) {
+    function setCookieAction(action){
+        document.cookie = "vista="+action;
+    }
+
+    function Breadcrumb(index, action) {
         let cont = document.getElementById('breadcrumb-list');
         let contains = false;
+        let newSurvey = document.getElementById('new-survey');
 
-        if (action == 'listar' || action == '') {
-            cont.innerHTML = '<li class="breadcrumb-item">Encuestas</li>';
+
+        setCookieAction(action);
+        if (action == 'listar' || action == undefined  || action == 'undefined' || action == '' ) {
+            cont.innerHTML = '<li class="breadcrumb-item">'+index+'</li>';
+            newSurvey.style.display='block';
         } else {
-            cont.innerHTML = '<li class="breadcrumb-item"><a onclick="ViewLoad(\'Index\');">Encuestas</a></li><li class="breadcrumb-item active">' + action + '</li>';
+            cont.innerHTML = '<li class="breadcrumb-item alert-link"><a onclick="setCookieAction();" href="/module/admin/surveys">'+index+'</a></li><li class="breadcrumb-item active">' + action + '</li>';
+            newSurvey.style.display = 'none';
         }
     }
 
