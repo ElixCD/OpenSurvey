@@ -5,7 +5,7 @@ use Sysurvey\Db;
 $backRoot = '../../../';
 require $backRoot . 'vendor/autoload.php';
 
-$id = $_GET['idSurvey'];
+$id = $_POST['idSurvey'];
 $survey = new Models\Survey(new Db());
 $currentSurvey = $survey->getSurvey($id);
 // $headers = ["Id", "Descripción"];

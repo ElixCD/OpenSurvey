@@ -1,5 +1,5 @@
 
-function ViewLoad(action) {
+function ViewLoad(action,method = 'POST', params = '') {
     // De esta forma se obtiene la instancia del objeto XMLHttpRequest
     if (window.XMLHttpRequest) {
         connection = new XMLHttpRequest();
@@ -18,9 +18,9 @@ function ViewLoad(action) {
     };
 
     // Realizando la petición HTTP con método POST
-    connection.open('POST', action.toLowerCase() + '.php');
+    connection.open(method, action.toLowerCase() + '.php');
     connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    connection.send();
+    connection.send(params);
 }
 
 function getCookie(cname) {

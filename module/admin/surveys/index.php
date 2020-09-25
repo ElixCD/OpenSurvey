@@ -101,4 +101,5 @@ require $backRoot . 'vendor/autoload.php';
         text.data = text.data == "Editar" ? "Guardar" : "Editar";
         element.disabled = !element.disabled;
     }
+    
 </script>

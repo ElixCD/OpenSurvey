@@ -28,7 +28,7 @@ $headers = ["Id", "Descripción"];
                                 <td><?php echo $value; ?></td>
                             <?php endif ?>
                         <?php endforeach ?>
-                        <td><a class="alert-link" onclick="Breadcrumb('Encuestas','Editar');ViewLoad('Editar');">Editar</a> | Borrar </td>
+                        <td><a class="alert-link" onclick="Breadcrumb('Encuestas','Editar');ViewLoad('Editar','POST','action=Editar&idSurvey=<?php echo $row['idsurvey']; ?>');">Editar</a> | Borrar </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
