@@ -24,12 +24,12 @@ switch ($action) {
             $result = $survey->updateSurvey($newSurvey);
             break;
         }
-    case 'delete': {    
-            $result =$survey->deleteSurvey($newSurvey);
+    case 'delete': {
+            $result = $survey->deleteSurvey($newSurvey);
             break;
         }
     default:
-        # code...
+        $result = false;
         break;
 }
 
