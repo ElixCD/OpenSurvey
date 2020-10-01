@@ -25,17 +25,18 @@ $ListRubric = $rubric->getRubrics($id);
 
 ?>
 
-<h4>Titulo de encuesta</h4>
+<!-- <h4>Titulo de encuesta</h4> -->
 <div class="row ">
     <div class="col card-group">
-        <div class="card col-md-2 mb-3 pl-0 pr-0">
+        <!-- <div class="card col-md-2 mb-3 pl-0 pr-0">
             <div class="card-header card-header-dark">Id</div>
             <div class="card-body">
-                <label class="form-control"><?php echo $currentSurvey['idsurvey']; ?></label>
+                <label class="form-control"><?php //echo $currentSurvey['idsurvey']; 
+                                            ?></label>
             </div>
-        </div>
-        <div class="card col-md-8 mb-3 pl-0 pr-0">
-            <div class="card-header card-header-dark">Descripcion</div>
+        </div> -->
+        <div class="card col-md-10 mb-3 pl-0 pr-0">
+            <div class="card-header card-header-dark">Titulo</div>
             <div class="card-body">
                 <input type="text" class="form-control" id='description' placeholder="Descripción" value="<?php echo $currentSurvey['name']; ?>" disabled>
             </div>
@@ -81,9 +82,6 @@ $ListRubric = $rubric->getRubrics($id);
 <div class="tab-content" id="myTabContent" style="border-top-right-radius: 0.25rem;border-bottom: #dee2e6 solid 1px;border-left: #dee2e6 solid 1px;border-right: #dee2e6 solid 1px;">
     <div class="tab-pane fade show active" id="questions" role="tabpanel" aria-labelledby="questions-tab">
         <div class="col-12 p-3">
-            <a class="btn btn-success" href="./factors/nuevo.php?idSurvey=<?php echo $id; ?>">
-                Nuevo
-            </a>
             <?php if ($ListQuestions !== false) : ?>
                 <?php if (count($ListQuestions) > 0) : ?>
                     <table class="table table-sm">
@@ -101,6 +99,14 @@ $ListRubric = $rubric->getRubrics($id);
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td class="">
+
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 <?php else : ?>
                     <p>No se encontrarón datos</p>
@@ -108,6 +114,11 @@ $ListRubric = $rubric->getRubrics($id);
             <?php else : ?>
                 <p>No se encontrarón datos</p>
             <?php endif ?>
+        </div>
+        <div  class="col-12 pb-3">
+            <a class="btn btn-success" href="./factors/nuevo.php?idSurvey=<?php echo $id; ?>">
+                Nuevo
+            </a>
         </div>
     </div>
     <div class="tab-pane fade" id="rubric" role="tabpanel" aria-labelledby="rubric-tab">
@@ -118,6 +129,7 @@ $ListRubric = $rubric->getRubrics($id);
                         <thead class="thead-dark">
                             <tr>
                                 <th>Rubrica</th>
+                                <th>Valor</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -138,6 +150,11 @@ $ListRubric = $rubric->getRubrics($id);
             <?php else : ?>
                 <p>No se encontrarón datos</p>
             <?php endif ?>
+        </div>
+        <div  class="col-12 pb-3">
+            <a class="btn btn-success" href="./factors/nuevo.php?idSurvey=<?php echo $id; ?>">
+                Nuevo
+            </a>
         </div>
     </div>
 </div>

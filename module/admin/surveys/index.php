@@ -55,13 +55,13 @@ require $backRoot . 'vendor/autoload.php';
         let contains = false;
         let newSurvey = document.getElementById('new-survey');
 
-        setCookieAction('vista', action, 0);
+        setCookie('vista', action, 0);
 
         if (action == 'listar' || action == undefined || action == 'undefined' || action == '') {
             cont.innerHTML = '<li class="breadcrumb-item">' + index + '</li>';
             newSurvey.style.display = 'block';
         } else {
-            cont.innerHTML = '<li class="breadcrumb-item alert-link"><a onclick="setCookieAction(\'vista\',\'\',0);" href="/module/admin/surveys">' + index + '</a></li><li class="breadcrumb-item active">' + action + '</li>';
+            cont.innerHTML = '<li class="breadcrumb-item alert-link"><a onclick="setCookie(\'vista\',\'\',0);" href="/module/admin/surveys">' + index + '</a></li><li class="breadcrumb-item active">' + action + '</li>';
             newSurvey.style.display = 'none';
         }
     }
@@ -72,14 +72,14 @@ require $backRoot . 'vendor/autoload.php';
         } else if (window.ActiveXObject) {
             connection = new ActiveXObject("Microsoft.XMLHTTP");
         }
-
+        let id = getIdSurvey();
         let d = document.getElementById('description').value;
 
-        connection.onreadystatechange = Redirection;
+        connection.onreadystatechange = UpdateElement;
 
         connection.open('POST', 'save-surveys.php');
         connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        connection.send("action=" + action + "&d=" + d);
+        connection.send("action=" + action+ "&idsurvey=" + id + "&d=" + d);
     }
 
     function EnableEdition(e) {

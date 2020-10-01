@@ -6,7 +6,7 @@ use Sysurvey\Db;
 
 $action = $_POST['action'];
 $newSurvey = [
-    "idsurvey" => isset($_POST['idsurvey']) ? (int) isset($_POST['idsurvey']) : "",
+    "idsurvey" => isset($_POST['idsurvey']) ? (int) $_POST['idsurvey'] : "",
     "name" => isset($_POST['d']) ? $_POST['d'] : "",
     "idmodule" => 2
 ];

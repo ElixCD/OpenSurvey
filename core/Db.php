@@ -48,8 +48,7 @@ class Db implements IDb
             $this->gbd->beginTransaction();
             $gsent = $this->gbd->prepare($query);
             $gsent->execute();
-            $this->gbd->commit();
-            return true;
+            return $this->gbd->commit();
         } catch (\Throwable $th) {
             $this->gbd->rollBack();
             throw $th;

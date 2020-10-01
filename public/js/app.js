@@ -20,18 +20,17 @@ function ViewLoad(action, method = 'POST', params = '') {
 }
 
 function CleanCookies() {
-    setCookieAction('vista', '', 0);
-    setCookieAction('idSurvey', '', 0);
+    setCookie('vista', '', 0);
+    setCookie('idSurvey', '', 0);
 
 }
 
 function setIdSurvey(value) {
-    setCookieAction('idSurvey', value, 0);
-    console.log(idSurvey);
+    setCookie('idSurvey', value, 0);
 }
 
 function getIdSurvey() {
-    getCookieAction('idSurvey');
+    return getCookie('idSurvey');
 }
 
 function Redirection() {
@@ -45,7 +44,14 @@ function Redirection() {
     }
 }
 
-function setCookieAction(cname, cvalue, exdays) {
+function UpdateElement() {
+    if (connection.readyState == 4) {
+        let obj = JSON.parse(connection.responseText);
+        alert(obj.msj);
+    }
+}
+
+function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "vista=" + d.toUTCString();
