@@ -16,32 +16,42 @@ $id = $_GET['idSurvey'];
 
 </head>
 
-<body class="container">
+<body class="container-fluid">
     <?php
     include_once $backRoot . "module/admin/surveys/survey-nav.php";
     ?>
+    <nav id="breadcrumb" aria-label="breadcrumb">
+        <ol id="breadcrumb-list" class="breadcrumb">
+            <li class="breadcrumb-item active">Encuestas</li>
+        </ol>
+    </nav>
 
     <header style="display:flex;justify-content: space-between;">
-        <h3>Nuevo Factor</h3>
+        <div class="col-8">
+            <h1>Nuevo Factor</h1>
+        </div>
     </header>
-
     <hr>
 
-    <table class="table table-sm">
-        <thead class="thead-dark">
-            <tr>
-                <th>Id</th>
-                <th>Descripción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-                <td><input type="text" id='description' placeholder="Descripción"></td>
-                <td><button class="btn btn-success" onclick="javascript:SaveFactor('new');">Guardar</button></td>
-            </tr>
-        </tbody>
-    </table>
+    <main id="main">
+        <div class="col-12">
+
+            <table class="table table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" id='description' placeholder="Descripción"></td>
+                        <td><button class="btn btn-success" onclick="javascript:SaveFactor('new');">Guardar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 
 <?php include_once $backRoot . "module/common/cdn-js.php"; ?>
@@ -49,6 +59,8 @@ $id = $_GET['idSurvey'];
 </html>
 
 <script>
+    console.log(document.referrer);
+
     function SaveFactor(action) {
         // De esta forma se obtiene la instancia del objeto XMLHttpRequest
         if (window.XMLHttpRequest) {
@@ -59,13 +71,18 @@ $id = $_GET['idSurvey'];
 
         let d = document.getElementById('description').value;
 
-        // Preparando la función de respuesta
-        connection.onreadystatechange = response;
+        if (d != '') {
+            // Preparando la función de respuesta
+            connection.onreadystatechange = response;
 
-        // Realizando la petición HTTP con método POST
-        connection.open('POST', 'save-factor.php');
-        connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        connection.send("action=" + action + "&idSurvey=" + <?php echo $id; ?> + "&d=" + d);
+            // Realizando la petición HTTP con método POST
+            connection.open('POST', 'save-factor.php');
+            connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            connection.send("action=" + action + "&idSurvey=" + <?php echo $id; ?> + "&d=" + d);
+
+        } else {
+            alert('La caja de texto no puede estar vacia.');
+        }
 
     }
 
@@ -74,8 +91,8 @@ $id = $_GET['idSurvey'];
             let obj = JSON.parse(connection.responseText);
             alert(obj.msj);
             if (obj.error == false)
-                window.history.back();
-            // location.href = "/module/admin/surveys/factors/";
+                //window.history.back();
+                location.href = document.referrer;
 
         }
     }

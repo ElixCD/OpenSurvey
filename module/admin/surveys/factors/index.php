@@ -5,13 +5,12 @@ use Sysurvey\Db;
 $backRoot = '../../../../';
 require $backRoot . 'vendor/autoload.php';
 
-$id = $_GET['idSurvey'];
+$id = 2; // $_GET['idSurvey'];
 $survey = new Models\Survey(new Db());
 $currentSurvey = $survey->getSurvey($id);
 
 $factor = new Models\Factor(new Db);
 $factors = $factor->getFactors($id, 1);
-$headers = ["Id", "Descripción"];
 ?>
 
 <!DOCTYPE html>
@@ -23,19 +22,27 @@ $headers = ["Id", "Descripción"];
     <title>Sysurvey - Admin</title>
     <?php include_once $backRoot . "module/common/cdn-css.php"; ?>
     <link rel="stylesheet" href="../../../../public/css/estilos_base.css">
+
 </head>
 
-<body class="container-fluid h-100">
+<body class="container-fluid">
 
-<?php
+    <?php
     // include_once $backRoot . "module/admin/nav.php";
     include_once $backRoot . "module/admin/surveys/survey-nav.php";
     ?>
 
-    <main class="col offset-2 offset-lg-0 bg-faded py-2" id="main">
+    <nav id="breadcrumb" aria-label="breadcrumb">
+        <ol id="breadcrumb-list" class="breadcrumb">
+            <li class="breadcrumb-item active">Encuestas</li>
+        </ol>
+    </nav>
 
-        <header style="display:flex;justify-content: space-between;" class="col-sm-12">
+    <header style="display:flex;justify-content: space-between;">
+        <div class="col-8">
             <h3>Ver Factores</h3>
+        </div>
+        <div class="col-4" id="new-survey">
             <?php if ($factors !== false) : ?>
                 <a class="btn btn-success" style="width:5em;" href="./nuevo.php">
                     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -43,44 +50,43 @@ $headers = ["Id", "Descripción"];
                     </svg>
                 </a>
             <?php endif ?>
-        </header>
+        </div>
+    </header>
+    <hr>
 
-        <hr>
-
-        <?php if ($factors !== false) : ?>
-            <?php if (count($factors) > 0) : ?>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <?php foreach ($headers as $key => $value) : ?>
-                                <th scope="col"><?php echo $value; ?></th>
-                            <?php endforeach ?>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($factors as $row) : ?>
+    <main id="main ">
+        <div class="col-12">
+            <?php if ($factors !== false) : ?>
+                <?php if (count($factors) > 0) : ?>
+                    <table class="table">
+                        <thead class="thead-dark">
                             <tr>
-                                <?php foreach ($row as $key => $value) : ?>
-                                    <td><?php echo $value; ?></td>
-                                <?php endforeach ?>
-                                <td><a href="./editar.php?idfactor=<?php echo $row['idfactor']; ?>">Editar</a> | Borrar</td>
+                                <th>Id</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
                             </tr>
-                        <?php endforeach ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($factors as $row) : ?>
+                                <tr>
+                                    <td><?php echo $row['idfactor']; ?></td>
+                                    <td><?php echo $row['description']; ?></td>
+                                    <td><a href="./editar.php?idfactor=<?php echo $row['idfactor']; ?>">Editar</a> | Borrar</td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                <?php else : ?>
+                    <p>No se encontrarón datos</p>
+                <?php endif ?>
             <?php else : ?>
-                <p>No se encontrarón datos</p>
+                <p>No se encontro la tabla</p>
             <?php endif ?>
-        <?php else : ?>
-            <p>No se encontro la tabla</p>
-        <?php endif ?>
-        </main>
-
-    
-
+        </div>
+    </main>
 
 </body>
+
 <?php include_once $backRoot . "module/common/cdn-js.php"; ?>
 
 </html>

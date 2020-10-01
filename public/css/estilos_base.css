@@ -1,9 +1,24 @@
 .menu-items li a {
-    color: rgb(224, 224, 224)!important;
-    
+    color: rgb(224, 224, 224) !important;
+
 }
 
 .menu-items li a:hover {
-    color: rgb(255, 255, 255)!important;
+    color: rgb(255, 255, 255) !important;
     font-weight: bold;
+}
+
+.row-group {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.card-header-dark {
+    background-color: #343a40 !important;
+    color: #ddd;
+}
+
+.card-body-ligth {
+    background-color: rgba(0, 0, 0, 0.05);
+
 }

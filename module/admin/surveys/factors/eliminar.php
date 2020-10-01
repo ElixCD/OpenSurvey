@@ -24,7 +24,7 @@ $headers = ["Id", "Descripción"];
 
 </head>
 
-<body class="container">
+<body class="container-fluid">
     <?php
     include_once $backRoot . "module/admin/surveys/survey-nav.php";
     ?>
