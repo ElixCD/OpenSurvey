@@ -5,7 +5,6 @@ namespace Models;
 use Sysurvey;
 use Exception;
 
-
 class Question
 {
     public $questions = [];
@@ -19,9 +18,9 @@ class Question
 
     function getQuestion(int $idQuestion)
     {
-        $this->questionss = $this->connection->querySelect("SELECT * FROM questions WHERE idquestions = '" . $idQuestion . "'");
+        $this->questions = $this->connection->querySelect("SELECT * FROM questions WHERE idquestions = '" . $idQuestion . "'");
 
-        foreach ($this->questionss as $key => $value) {
+        foreach ($this->questions as $key => $value) {
             if ($value['idquestions'] == $idQuestion) {
                 return $value;
             }
@@ -31,8 +30,8 @@ class Question
 
     function getQuestions(int $numberPage)
     {
-        $this->questionss = $this->connection->querySelect("SELECT * FROM questions");
-        return $this->questionss;
+        $this->questions = $this->connection->querySelect("SELECT * FROM questions");
+        return $this->questions;
     }
 
     function saveQuestion($questions)

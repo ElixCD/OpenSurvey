@@ -19,6 +19,9 @@ $factorsList = $factores->getFactors($id, 1);
 $question = new Models\Question(new Db());
 $ListQuestions = $question->getQuestions($id);
 
+$rubric = new Models\Rubric(new Db());
+$ListRubric = $rubric->getRubrics($id);
+
 
 ?>
 
@@ -78,25 +81,23 @@ $ListQuestions = $question->getQuestions($id);
 <div class="tab-content" id="myTabContent" style="border-top-right-radius: 0.25rem;border-bottom: #dee2e6 solid 1px;border-left: #dee2e6 solid 1px;border-right: #dee2e6 solid 1px;">
     <div class="tab-pane fade show active" id="questions" role="tabpanel" aria-labelledby="questions-tab">
         <div class="col-12 p-3">
+            <a class="btn btn-success" href="./factors/nuevo.php?idSurvey=<?php echo $id; ?>">
+                Nuevo
+            </a>
             <?php if ($ListQuestions !== false) : ?>
                 <?php if (count($ListQuestions) > 0) : ?>
                     <table class="table table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Precgunta</th>
+                                <th>Pregunta</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($ListQuestions as $row) : ?>
                                 <tr>
-                                    <?php foreach ($row as $key => $value) : ?>
-                                        <?php if ($key == 'description') : ?>
-                                            <td><?php echo $value; ?></td>
-                                        <?php endif ?>
-                                    <?php endforeach ?>
-                                    <td><a href="./editar.php?idSurvey=<?php //echo $row['idquestions']; 
-                                                                        ?>">Editar</a> | Borrar </td>
+                                    <td><?php echo $row['value']; ?></td>
+                                    <td><a href="./editar.php?idSurvey=<?php echo $row['idquestion']; ?>">Editar</a> | Borrar </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
@@ -111,23 +112,20 @@ $ListQuestions = $question->getQuestions($id);
     </div>
     <div class="tab-pane fade" id="rubric" role="tabpanel" aria-labelledby="rubric-tab">
         <div class="col-12 p-3">
-            <?php if ($factorsList !== false) : ?>
-                <?php if (count($factorsList) > 0) : ?>
+            <?php if ($ListRubric !== false) : ?>
+                <?php if (count($ListRubric) > 0) : ?>
                     <table class="table table-sm">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Factor</th>
+                                <th>Rubrica</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($factorsList as $row) : ?>
+                            <?php foreach ($ListRubric as $row) : ?>
                                 <tr>
-                                    <?php foreach ($row as $key => $value) : ?>
-                                        <?php if ($key == 'description') : ?>
-                                            <td><?php echo $value; ?></td>
-                                        <?php endif ?>
-                                    <?php endforeach ?>
+                                    <td><?php echo $row['description']; ?></td>
+                                    <td><?php echo $row['value']; ?></td>
                                     <td><a href="./editar.php?idSurvey=<?php //echo $row['idquestions']; 
                                                                         ?>">Editar</a> | Borrar </td>
                                 </tr>
@@ -144,31 +142,31 @@ $ListQuestions = $question->getQuestions($id);
     </div>
 </div>
 
-<div class="col-12 p-3">
+<div class="col-12 p-4">
     <button class="btn btn-success" onclick="javascript:SaveSurvey('update');">Guardar</button>
-
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
         Launch demo modal
     </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
