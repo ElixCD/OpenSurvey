@@ -16,25 +16,10 @@ $currentSurvey = $survey->getSurvey($id);
 $factores = new Models\Factor(new Db());
 $factorsList = $factores->getFactors($id, 1);
 
-$question = new Models\Question(new Db());
-$ListQuestions = $question->getQuestions($id);
-
-$rubric = new Models\Rubric(new Db());
-$ListRubric = $rubric->getRubrics($id);
-
-
 ?>
 
-<!-- <h4>Titulo de encuesta</h4> -->
 <div class="row ">
     <div class="col card-group">
-        <!-- <div class="card col-md-2 mb-3 pl-0 pr-0">
-            <div class="card-header card-header-dark">Id</div>
-            <div class="card-body">
-                <label class="form-control"><?php //echo $currentSurvey['idsurvey']; 
-                                            ?></label>
-            </div>
-        </div> -->
         <div class="card col-md-10 mb-3 pl-0 pr-0">
             <div class="card-header card-header-dark">Titulo</div>
             <div class="card-body">
@@ -55,7 +40,7 @@ $ListRubric = $rubric->getRubrics($id);
     </div>
     <?php if ($factorsList !== false) : ?>
         <div class="col-8">
-            <select class="form-control" id='description'>
+            <select class="form-control" id='description' onchange="UpdateList(this)">
                 <option> -- Seleccione un factor -- </option>
                 <?php foreach ($factorsList as $key => $factor) : ?>
                     <option value="<?php echo $factor['idfactor']; ?>"><?php echo $factor['description']; ?></option>
@@ -81,39 +66,8 @@ $ListRubric = $rubric->getRubrics($id);
 </ul>
 <div class="tab-content" id="myTabContent" style="border-top-right-radius: 0.25rem;border-bottom: #dee2e6 solid 1px;border-left: #dee2e6 solid 1px;border-right: #dee2e6 solid 1px;">
     <div class="tab-pane fade show active" id="questions" role="tabpanel" aria-labelledby="questions-tab">
-        <div class="col-12 p-3">
-            <?php if ($ListQuestions !== false) : ?>
-                <?php if (count($ListQuestions) > 0) : ?>
-                    <table class="table table-sm">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Pregunta</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($ListQuestions as $row) : ?>
-                                <tr>
-                                    <td><?php echo $row['value']; ?></td>
-                                    <td><a href="./editar.php?idSurvey=<?php echo $row['idquestion']; ?>">Editar</a> | Borrar </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td class="">
-
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                <?php else : ?>
-                    <p>No se encontrarón datos</p>
-                <?php endif ?>
-            <?php else : ?>
-                <p>No se encontrarón datos</p>
-            <?php endif ?>
+        <div id="question-list" class="col-12 p-3">
+            
         </div>
         <div  class="col-12 pb-3">
             <a class="btn btn-success" href="./factors/nuevo.php?idSurvey=<?php echo $id; ?>">
@@ -122,34 +76,8 @@ $ListRubric = $rubric->getRubrics($id);
         </div>
     </div>
     <div class="tab-pane fade" id="rubric" role="tabpanel" aria-labelledby="rubric-tab">
-        <div class="col-12 p-3">
-            <?php if ($ListRubric !== false) : ?>
-                <?php if (count($ListRubric) > 0) : ?>
-                    <table class="table table-sm">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Rubrica</th>
-                                <th>Valor</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($ListRubric as $row) : ?>
-                                <tr>
-                                    <td><?php echo $row['description']; ?></td>
-                                    <td><?php echo $row['value']; ?></td>
-                                    <td><a href="./editar.php?idSurvey=<?php //echo $row['idquestions']; 
-                                                                        ?>">Editar</a> | Borrar </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                <?php else : ?>
-                    <p>No se encontrarón datos</p>
-                <?php endif ?>
-            <?php else : ?>
-                <p>No se encontrarón datos</p>
-            <?php endif ?>
+        <div  id="rubric-list" class="col-12 p-3">
+            
         </div>
         <div  class="col-12 pb-3">
             <a class="btn btn-success" href="./factors/nuevo.php?idSurvey=<?php echo $id; ?>">

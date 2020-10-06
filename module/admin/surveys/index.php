@@ -79,7 +79,7 @@ require $backRoot . 'vendor/autoload.php';
 
         connection.open('POST', 'save-surveys.php');
         connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        connection.send("action=" + action+ "&idsurvey=" + id + "&d=" + d);
+        connection.send("action=" + action + "&idsurvey=" + id + "&d=" + d);
     }
 
     function EnableEdition(e) {
@@ -115,5 +115,35 @@ require $backRoot . 'vendor/autoload.php';
         connection.open(method, url + '.php');
         connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         connection.send(params);
+    }
+
+    function UpdateList(e) {
+        window.fetch('./questions/listar.php', {
+                method: 'post',
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                },
+                body: 'idFactor=' + e.value
+            })
+            .then(function(responseObj) {
+                return responseObj.text();
+            })
+            .then(function(text) {
+                document.getElementById('question-list').innerHTML = text;
+            });
+
+        window.fetch('./rubrics/listar.php?idFactor=' + e.value, {
+                method: 'post',
+                headers: {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                },
+                body: 'idFactor=' + e.value
+            })
+            .then(function(responseObj) {
+                return responseObj.text();
+            })
+            .then(function(text) {
+                document.getElementById('rubric-list').innerHTML = text;
+            });
     }
 </script>

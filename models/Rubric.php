@@ -28,9 +28,9 @@ class Rubric
         return false;
     }
 
-    function getRubrics(int $numberPage)
+    function getRubrics(int $idFactor, int $numberPage)
     {
-        $this->rubrics = $this->connection->querySelect("SELECT * FROM rubric");
+        $this->rubrics = $this->connection->querySelect("SELECT * FROM rubric WHERE idfactor = " . $idFactor);
         return $this->rubrics;
     }
 

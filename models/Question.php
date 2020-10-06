@@ -28,9 +28,9 @@ class Question
         return false;
     }
 
-    function getQuestions(int $numberPage)
+    function getQuestions(int $idFactor, int $numberPage)
     {
-        $this->questions = $this->connection->querySelect("SELECT * FROM questions");
+        $this->questions = $this->connection->querySelect("SELECT * FROM questions WHERE idfactor = " . $idFactor);
         return $this->questions;
     }
 
