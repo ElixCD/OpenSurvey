@@ -2,7 +2,8 @@
     "name": "sysurvey/sysurvey",
     "description": "Simple survey system",
     "require": {
-        "vlucas/phpdotenv": "^5.1"
+        "vlucas/phpdotenv": "^5.1",
+        "catfan/medoo": "^1.7"
     },
     "autoload": {
         "psr-4": {
