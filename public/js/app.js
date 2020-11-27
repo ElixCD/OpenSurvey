@@ -19,11 +19,53 @@ function ViewLoad(action, method = 'POST', params = '') {
     connection.send(params);
 }
 
+function QuestionList(idFactor, idcontainer) {
+    window.fetch('/module/admin/surveys/questions/listar.php', {
+        method: 'post',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: 'idFactor=' + idFactor
+    })
+        .then(function (responseObj) {
+            return responseObj.text();
+        })
+        .then(function (text) {
+            document.getElementById(idcontainer).innerHTML = text;
+        });
+}
+
+function RubricList(idFactor) {
+    window.fetch('/module/admin/surveys/rubrics/listar.php', {
+        method: 'post',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: 'idFactor=' + idFactor
+    })
+        .then(function (responseObj) {
+            return responseObj.json();
+        });
+}
+
+
+function EnableComponents(trigger, componentsList) {
+    let text = trigger.firstChild;
+
+    array.forEach(element => {
+        let element = document.getElementById('description');
+        element.disabled = !element.disabled;
+    });
+}
+
+
 function CleanCookies() {
     setCookie('vista', '', 0);
     setCookie('idSurvey', '', 0);
 
 }
+
+
 
 function setIdSurvey(value) {
     setCookie('idSurvey', value, 0);

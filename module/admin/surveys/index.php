@@ -49,6 +49,7 @@ require $backRoot . 'vendor/autoload.php';
     let actionCookie = getCookie('vista');
     ViewLoad(actionCookie);
     Breadcrumb('Encuestas', actionCookie);
+    let actionQuestion = '';
 
     function Breadcrumb(index, action) {
         let cont = document.getElementById('breadcrumb-list');
@@ -118,32 +119,54 @@ require $backRoot . 'vendor/autoload.php';
     }
 
     function UpdateList(e) {
-        window.fetch('./questions/listar.php', {
-                method: 'post',
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-                },
-                body: 'idFactor=' + e.value
-            })
-            .then(function(responseObj) {
-                return responseObj.text();
-            })
-            .then(function(text) {
-                document.getElementById('question-list').innerHTML = text;
-            });
+        QuestionList(e.value);
 
-        window.fetch('./rubrics/listar.php?idFactor=' + e.value, {
+
+        // window.fetch('/module/admin/surveys/questions/listar.php', {
+        //         method: 'post',
+        //         headers: {
+        //             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        //         },
+        //         body: 'idFactor=' + e.value
+        //     })
+        //     .then(function(responseObj) {
+        //         return responseObj.text();
+        //     })
+        //     .then(function(text) {
+        //         document.getElementById('question-list').innerHTML = text;
+        //     });
+
+        // window.fetch('./rubrics/listar.php', {
+        //         method: 'post',
+        //         headers: {
+        //             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        //         },
+        //         body: 'idFactor=' + e.value
+        //     })
+        //     .then(function(responseObj) {
+        //         return responseObj.text();
+        //     })
+        //     .then(function(text) {
+        //         document.getElementById('rubric-list').innerHTML = text;
+        //     });
+    }
+
+    function SaveQuestion(id) {
+        let e = document.getElementById('factor-list');
+        let d = document.getElementById('question-text');
+
+        window.fetch('./questions/save-question.php', {
                 method: 'post',
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
                 },
-                body: 'idFactor=' + e.value
+                body: updateQuestion = "new" ? "action=" + actionQuestion + "&idfactor=" + e.value + "&d=" + d.value : "action=" + actionQuestion + "&idfactor=" + e.value + "&d=" + d.value + "&idquestion=" + idq
             })
             .then(function(responseObj) {
                 return responseObj.text();
             })
             .then(function(text) {
-                document.getElementById('rubric-list').innerHTML = text;
+                UpdateList(e);
             });
     }
 </script>

@@ -10,7 +10,6 @@ else
 
 $question = new Models\Question(new Db());
 $ListQuestions = $question->getQuestions($id,1);
-
 ?>
 
 <?php if ($ListQuestions !== false) : ?>
@@ -26,7 +25,7 @@ $ListQuestions = $question->getQuestions($id,1);
                 <?php foreach ($ListQuestions as $row) : ?>
                     <tr>
                         <td><?php echo $row['value']; ?></td>
-                        <td><a href="./editar.php?idSurvey=<?php echo $row['idquestion']; ?>">Editar</a> | Borrar </td>
+                        <td><a href="" data-toggle="modal" data-target="#question-modal" onclick="javascript:actionQuestion='update';" >Editar</a> | Borrar </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
@@ -34,7 +33,6 @@ $ListQuestions = $question->getQuestions($id,1);
                 <tr>
                     <td></td>
                     <td class="">
-
                     </td>
                 </tr>
             </tfoot>

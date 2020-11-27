@@ -40,7 +40,7 @@ $factorsList = $factores->getFactors($id, 1);
     </div>
     <?php if ($factorsList !== false) : ?>
         <div class="col-8">
-            <select class="form-control" id='description' onchange="UpdateList(this)">
+            <select id="factor-list" class="form-control" id='description' onchange="UpdateList(this)">
                 <option> -- Seleccione un factor -- </option>
                 <?php foreach ($factorsList as $key => $factor) : ?>
                     <option value="<?php echo $factor['idfactor']; ?>"><?php echo $factor['description']; ?></option>
@@ -69,8 +69,8 @@ $factorsList = $factores->getFactors($id, 1);
         <div id="question-list" class="col-12 p-3">
             
         </div>
-        <div  class="col-12 pb-3">
-            <a class="btn btn-success" href="./factors/nuevo.php?idSurvey=<?php echo $id; ?>">
+        <div  class="col-12 pb-3">        
+            <a class="btn btn-success" data-toggle="modal" data-target="#question-modal" onclick="javascript:actionQuestion='new';">
                 Nuevo
             </a>
         </div>
@@ -111,7 +111,31 @@ $factorsList = $factores->getFactors($id, 1);
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="question-modal" tabindex="-1" aria-labelledby="question-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="question-modalLabel">Pregunta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <label for="question-text">Ingrese la pregunta</label>
+                    <input id="question-text" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="SaveQuestion(this)" data-dismiss="modal">Guardar</button>
             </div>
         </div>
     </div>

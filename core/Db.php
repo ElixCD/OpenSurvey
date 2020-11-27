@@ -7,7 +7,6 @@ use PDOException;
 
 class Db implements IDb
 {
-
     private $gbd;
 
     function __construct()

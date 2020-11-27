@@ -38,7 +38,7 @@ class Question
     {
         try {
             $param = $questions['description'];
-            return $this->connection->queryTransaction("INSERT INTO questions VALUES (NULL, '" . $questions['value'] . "', '" . $questions['idsurvey'] . "', '" . $questions['idfactor'] . "' )");
+            return $this->connection->queryTransaction("INSERT INTO questions VALUES (NULL, '" . $questions['value'] . "', '" . $questions['idfactor'] . "' )");
         } catch (\Throwable $th) {
             return $th;
         }
