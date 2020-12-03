@@ -1,0 +1,146 @@
+/* @media screen and (max-width: 992px) {
+    .btn .btn-single-icon {
+        font-size: .6rem !important;
+    }
+}
+ */
+ 
+.btn .btn-single-icon {
+    margin-bottom: 0px;
+}
+
+a {
+    color: #1925c5;
+}
+
+a:hover {
+    color: #525cf3;
+    /* font-weight: bold; */
+    text-decoration: underline;
+}
+
+.sidebar {
+    background-color: #343a40;
+    color: white;
+}
+
+.sidebar .logo a.logo-normal {
+    color: lavender;
+    font-weight: bolder;
+}
+
+.sidebar .nav p,
+.sidebar .nav i {
+    color: lavender;
+}
+
+.sidebar .nav .active p,
+.sidebar .nav .active i {
+    color: white;
+
+}
+
+.main-panel {
+    background-color: #d1dce8;
+}
+
+.breadcrumb {
+    margin: 0px;
+    /* font-size: 1.5em; */
+    background-color: transparent;
+}
+
+.breadcrumb-item {
+    font-weight: bolder;
+    text-decoration: underline;
+
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+    text-decoration: none;
+
+}
+
+.text-primary {
+    color: #002fff !important;
+}
+
+nav.navbar.navbar-expand-lg.navbar-transparent.navbar-absolute.fixed-top {
+    box-shadow: 0px 5px 15px #868282;
+    background-color: #d1dce8 !important;
+    position: sticky;
+}
+
+.main-panel .content {
+    margin-top: 0px;
+    padding: 15px 15px 5px 15px !important;
+}
+
+.card .card-header-primary .card-icon,
+.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
+.card .card-header-primary .card-text {
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(39, 44, 176, 0.4);
+}
+
+.card .card-header-primary .card-icon,
+.card .card-header-primary .card-text,
+.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
+.card.bg-primary,
+.card.card-rotate.bg-primary .front,
+.card.card-rotate.bg-primary .back {
+    background: linear-gradient(60deg, #4d47bc, #3624aa);
+}
+
+.card {
+    margin-bottom: 15px;
+}
+
+footer,
+footer.footer {
+    padding: 0.55rem;
+}
+
+.card-header.card-header-default {
+    color: black;
+    background-color: grey;
+}
+
+.btn,
+.card-header,
+.nav-link,
+.card {
+    border-radius: 0px !important;
+}
+
+.btn {
+    padding:12px 15px;
+}
+
+
+
+/* a.nav-link{
+    color: #000000 !important;
+    background: slategray !important;
+} */
+
+.multiselect {
+    padding: 1em;
+    width: 100%;
+    height: 15em;
+    border: solid 1px #c0c0c0;
+    overflow: auto;
+}
+
+.multiselect label {
+    display: block;
+}
+
+/* .multiselect-on { */
+/* color: #ffffff; */
+/* background-color: #000099; */
+/* } */
+
+.btn-link .material-icons {
+    font-size: 1.5rem !important;
+}
