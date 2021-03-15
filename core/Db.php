@@ -12,7 +12,7 @@ class Db implements IDb
     function __construct()
     {
         try {
-            $this->gbd = new PDO('mysql:dbname=' . $_ENV['DB'] . ';host=127.0.0.1;', $_ENV['USR'], $_ENV['SECRET_KEY']);
+            $this->gbd = new PDO('mysql:dbname=' . $_ENV['DB'] . ';host=' . $_ENV['HOST'] . ';', $_ENV['USR'], $_ENV['SECRET_KEY']);
         } catch (PDOException $e) {
             echo 'Falló la conexión: ' . $e->getMessage();
         }
@@ -23,7 +23,7 @@ class Db implements IDb
         return $this->gbd;
     }
 
-    function querySelect(string $query)
+    function querySelect(string $query) : array
     {
         try {
             $result = array();
@@ -41,7 +41,7 @@ class Db implements IDb
         }
     }
 
-    function queryTransaction(string $query)
+    function queryTransaction(string $query) : bool
     {
         try {
             $this->gbd->beginTransaction();

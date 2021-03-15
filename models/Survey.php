@@ -20,7 +20,7 @@ class Survey
 
     function getSurvey(int $idSurvey)
     {
-        $this->surveys = $this->connection->querySelect("SELECT * FROM survey WHERE idsurvey = '" . $idSurvey . "'");
+        $this->surveys = $this->connection->querySelect("SELECT * FROM surveys WHERE idsurvey = '" . $idSurvey . "'");
 
         foreach ($this->surveys as $key => $value) {
             if ($value['idsurvey'] == $idSurvey) {
@@ -32,14 +32,14 @@ class Survey
 
     function getSurveys(int $numberPage)
     {
-        $this->surveys = $this->connection->querySelect("SELECT * FROM survey");
+        $this->surveys = $this->connection->querySelect("SELECT * FROM surveys");
         return $this->surveys;
     }
 
     function saveSurvey($survey)
     {
         try {
-            return $this->connection->queryTransaction("INSERT INTO survey VALUES (NULL, '" . $survey['name'] . "', '" . $survey['idmodule'] . "'  )");
+            return $this->connection->queryTransaction("INSERT INTO surveys VALUES (NULL, '" . $survey['name'] . "', '" . $survey['idmodule'] . "'  )");
         } catch (\Throwable $th) {
             return $th;
         }
@@ -48,7 +48,7 @@ class Survey
     function updateSurvey($survey = [])
     {
         try {
-            $query = "UPDATE survey SET name = '" . $survey['name'] . "', idmodule = '" . $survey['idmodule'] . "' WHERE idsurvey = " . (int) $survey['idsurvey'];
+            $query = "UPDATE surveys SET name = '" . $survey['name'] . "', idmodule = '" . $survey['idmodule'] . "' WHERE idsurvey = " . (int) $survey['idsurvey'];
             return $this->connection->queryTransaction($query);
         } catch (\Throwable $th) {
             return $th;
@@ -59,7 +59,7 @@ class Survey
     {
         try {
             $param = $survey['idsurvey'];
-            return $this->connection->queryTransaction("DELETE FROM survey WHERE idsurvey = '" . $param . "' )");
+            return $this->connection->queryTransaction("DELETE FROM surveys WHERE idsurvey = '" . $param . "' )");
         } catch (\Throwable $th) {
             return $th;
         }

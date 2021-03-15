@@ -1,146 +1,164 @@
-/* @media screen and (max-width: 992px) {
-    .btn .btn-single-icon {
-        font-size: .6rem !important;
-    }
-}
- */
- 
-.btn .btn-single-icon {
-    margin-bottom: 0px;
+main {
+    padding-top: 7.5em;
+    overflow: hidden !important;
 }
 
-a {
-    color: #1925c5;
+/*** Bootstrap overwrite ***/
+.btn {
+    border-radius: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-a:hover {
-    color: #525cf3;
-    /* font-weight: bold; */
-    text-decoration: underline;
+.btn-link {
+    border-radius: 0;
+    box-shadow: none;
 }
 
-.sidebar {
-    background-color: #343a40;
-    color: white;
+.btn-link-primary {
+    color: #007bff
 }
 
-.sidebar .logo a.logo-normal {
-    color: lavender;
-    font-weight: bolder;
+.btn-link-secondary {
+    color: #6c757d
 }
 
-.sidebar .nav p,
-.sidebar .nav i {
-    color: lavender;
+.btn-link-success {
+    color: #28a745
 }
 
-.sidebar .nav .active p,
-.sidebar .nav .active i {
-    color: white;
-
+.btn-link-danger {
+    color: #dc3545
 }
 
-.main-panel {
-    background-color: #d1dce8;
+.btn-link-warning {
+    color: #ffc107
+}
+
+.btn-link-info {
+    color: #17a2b8
+}
+
+.btn-link-dark {
+    color: #343a40
+}
+
+.fixed-top {
+    z-index: 1030 !important;
+    top: 0;
 }
 
 .breadcrumb {
-    margin: 0px;
-    /* font-size: 1.5em; */
-    background-color: transparent;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.breadcrumb-item {
+.breadcrumb-item a {
     font-weight: bolder;
     text-decoration: underline;
-
 }
 
-.breadcrumb-item.active {
+.breadcrumb-item span {
     color: #6c757d;
     text-decoration: none;
-
-}
-
-.text-primary {
-    color: #002fff !important;
-}
-
-nav.navbar.navbar-expand-lg.navbar-transparent.navbar-absolute.fixed-top {
-    box-shadow: 0px 5px 15px #868282;
-    background-color: #d1dce8 !important;
-    position: sticky;
-}
-
-.main-panel .content {
-    margin-top: 0px;
-    padding: 15px 15px 5px 15px !important;
-}
-
-.card .card-header-primary .card-icon,
-.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
-.card .card-header-primary .card-text {
-    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(39, 44, 176, 0.4);
-}
-
-.card .card-header-primary .card-icon,
-.card .card-header-primary .card-text,
-.card .card-header-primary:not(.card-header-icon):not(.card-header-text),
-.card.bg-primary,
-.card.card-rotate.bg-primary .front,
-.card.card-rotate.bg-primary .back {
-    background: linear-gradient(60deg, #4d47bc, #3624aa);
-}
-
-.card {
-    margin-bottom: 15px;
-}
-
-footer,
-footer.footer {
-    padding: 0.55rem;
-}
-
-.card-header.card-header-default {
-    color: black;
-    background-color: grey;
-}
-
-.btn,
-.card-header,
-.nav-link,
-.card {
-    border-radius: 0px !important;
-}
-
-.btn {
-    padding:12px 15px;
 }
 
 
-
-/* a.nav-link{
-    color: #000000 !important;
-    background: slategray !important;
-} */
-
-.multiselect {
-    padding: 1em;
-    width: 100%;
-    height: 15em;
-    border: solid 1px #c0c0c0;
-    overflow: auto;
+/*** Menú ***/
+.menu {
+    list-style: none;
+    line-height: 42px;
+    margin: 2em auto;
+    padding-left: 0;
+    width: 15em;
+    z-index: 2050;
 }
 
-.multiselect label {
+.menu a {
+    color: var(--light);
     display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
 }
 
-/* .multiselect-on { */
-/* color: #ffffff; */
-/* background-color: #000099; */
-/* } */
+.menu a:hover {
+    margin-left: 1em;
+    transition: .4s ease-in;
+}
 
-.btn-link .material-icons {
-    font-size: 1.5rem !important;
+.menu li {
+    margin-bottom: 5px;
+    padding-left: 1.5em;
+}
+
+.menu li a i.material-icons {
+    vertical-align: sub;
+}
+
+
+.menu li:hover {
+    transition: .4s ease-in;
+}
+
+/*** Posición adaptativa menú ***/
+#menu {
+    height: 100%;
+}
+
+nav#nav-menu {
+    padding-right: .25em;
+    position: fixed;
+    left: -15.9em;
+    z-index: 1040;
+    height: 100%;
+    top: 55px;
+    transition: all .4s;
+    box-shadow: none;
+}
+
+nav#nav-menu.mostrar {
+    position: fixed;
+    left: 0;
+    box-shadow: 0px 15px 8px 8px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    height: 100%;
+}
+
+/** Estilos Encabezado **/
+div#nav-head {
+    font-size: 1.5em;
+    top: 0;
+    color: #fff;
+    height: 60px;
+    box-shadow: 0px 15px 8px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1050;
+    width: 100%;
+    padding-left: 1em;
+
+}
+
+div.logo {
+    padding: 9px 10px 0px 0;
+}
+
+#mostrar-nav {
+    width: 60px;
+    height: 49px;
+    z-index: 1050;
+    font-size: 1.5em;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    transition: all .35s;
+}
+
+/*** Multiselect ***/
+
+.multiselect-picker {
+    border: #d1dce8 1px solid;
+    height: 150px;
+    overflow-y: scroll;
+    padding: 10px;
+    max-width: 250px;
+    max-height: 250px;
+    border-radius: 5px;
 }

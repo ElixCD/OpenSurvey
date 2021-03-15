@@ -10,7 +10,7 @@ Sysurvey\SesionStatus::startSession();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sysurvey</title>
-    <?php include_once "./module/common/cdn-css.php"; ?>
+    <?php include_once "./module/common/register-css.php"; ?>
 </head>
 
 <body class="container">
@@ -18,6 +18,6 @@ Sysurvey\SesionStatus::startSession();
     <a href="/module/user">User</a>
 
 </body>
-<?php include_once "./module/common/cdn-js.php"; ?>
+<?php include_once "./module/common/register-js.php"; ?>
 
 </html>
