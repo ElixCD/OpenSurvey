@@ -7,3 +7,12 @@ function toggle() {
         menu.classList.add("mostrar");
     }
 }
+
+function UpdateElement() {
+    if (connection.readyState == 4) {
+        let obj = JSON.parse(connection.responseText);
+        
+        alert(obj.msj);
+        
+    }
+}

@@ -1,13 +1,15 @@
 <?php
-// echo $_SERVER["REQUEST_URI"];
+// echo $_SERVER["REQUEST_URI"]."<br>";
 $lng = explode('/', trim($_SERVER["REQUEST_URI"], '/'));
 // print_r($lng);
+// print_r("<br>");
 
-if (count($lng) > 3)
-    $module = strtolower($lng[3]);
-else
+// if (count($lng) > 3)
+//     $module = strtolower($lng[3]);
+// else
     $module = strtolower($lng[2]);
 
+// print_r("-".$module."<br>");
 
 $moduleName = "";
 $actionName = "";
@@ -41,6 +43,8 @@ switch ($module) {
         break;
 }
 
+// print_r("+".$moduleName."<br>");
+
 if ($module != 'dashboard') {
 
     $action = (count($lng) > 4) ? strtolower(str_ireplace(".php", "", $lng[4])) : "";
@@ -65,7 +69,7 @@ if ($module != 'dashboard') {
             $actionName = "Contestar";
             break;
         default:
-            $actionName = "";
+            $actionName = "Index";
             break;
     }
 }

@@ -12,6 +12,6 @@
             "Dotenv\\" : "vendor/vlucas/phpdotenv/src/",
             "Models\\" : "models/"
         },
-        "files": ["lib/Helper.php","config/LoadEnviroment.php"]
+        "files": ["config/LoadEnviroment.php","lib/Helper.php"]
     }
 }

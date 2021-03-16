@@ -1,5 +1,18 @@
 <?php
+require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
+
+use Sysurvey\Db;
+use Models\Factor;
+use Models\Rubric;
+
+$dbFactor = new Factor(new Db());
+$factor = $dbFactor->getFactor(1);
+
+$dbRubrica = new Rubric(new Db());
+$listaRubricas = $dbRubrica->getRubrics(1);
+$headers = ["Id", "Descripción", "Valor"];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,23 +44,17 @@ include_once "../../common/getPath.php";
                     <div class="card-body">
                         <form>
                             <div class="row">
-                                <div class="col-md-12 ">
+                                <div class="col-10 ">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre del factor</label>
-                                        <input type="text" class="form-control" name="factorname" id="factorname" value="Verdadero / Falso">
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
-                                            Activo
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
+                                        <input type="text" class="form-control" name="factorname" id="factorname" value="<?php echo $factor['description']; ?>">
                                     </div>
                                 </div>
+                                <div class="col-2  text-right mt-4 pt-2">
+                                    <button type="button" class="btn btn-primary" onclick="javascript: location.href = document.referrer;">Guardar</button>
+                                </div>
 
-                                <div class="col-md-12 text-right  pb-2 mb-3 border-bottom">
+                                <div class="col-md-12 text-right py-2 my-3 border-bottom">
                                     <a href="" class="btn btn-success" data-toggle="modal" data-target="#rubricModal">Nueva rúbrica</a>
                                 </div>
 
@@ -61,36 +68,23 @@ include_once "../../common/getPath.php";
                                                 <th>Acción</th>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Verdadero</td>
-                                                    <td>5</td>
-                                                    <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a href="" data-toggle="modal" data-target="#rubricModal" class="btn btn-primary" title="Editar">
-                                                                <span class="material-icons">create</span>
-                                                            </a>
-                                                            <a href="" data-toggle="modal" data-target="#deleteRubricModal" class="btn btn-danger" title="Eliminar">
-                                                                <span class="material-icons">delete</span>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Falso</td>
-                                                    <td>0</td>
-                                                    <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <a href="" data-toggle="modal" data-target="#rubricModal" class="btn btn-primary" title="Editar">
-                                                                <span class="material-icons">create</span>
-                                                            </a>
-                                                            <a href="" data-toggle="modal" data-target="#deleteRubricModal" class="btn btn-danger" title="Eliminar">
-                                                                <span class="material-icons">delete</span>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                <?php foreach ($listaRubricas as $rubrica) : ?>
+                                                    <tr>
+                                                        <td><?php echo $rubrica['idrubric']; ?></td>
+                                                        <td><?php echo $rubrica['description']; ?></td>
+                                                        <td><?php echo $rubrica['value']; ?></td>
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                                <a href="" data-toggle="modal" data-target="#rubricModal" class="btn btn-primary" title="Editar">
+                                                                    <span class="material-icons">create</span>
+                                                                </a>
+                                                                <a href="" data-toggle="modal" data-target="#deleteRubricModal" class="btn btn-danger" title="Eliminar">
+                                                                    <span class="material-icons">delete</span>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -98,8 +92,7 @@ include_once "../../common/getPath.php";
                             </div>
                             <div class="row">
                                 <div class="col-md-12 text-right">
-                                    <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
-                                    <button type="button" class="btn btn-primary" onclick="javascript: location.href = document.referrer;">Guardar</button>
+                                    <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Volver</button>
                                 </div>
                             </div>
                         </form>

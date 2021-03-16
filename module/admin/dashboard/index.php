@@ -1,4 +1,5 @@
 <?php
+require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 ?>
 <!DOCTYPE html>

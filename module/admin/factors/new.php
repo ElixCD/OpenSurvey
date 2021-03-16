@@ -1,5 +1,7 @@
 <?php
+require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,11 +42,8 @@ include_once "../../common/getPath.php";
                                 <div class="col-md-12">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
+                                            <input class="form-check-input" type="checkbox" value=""  id="create-rubric">
                                             Crear rúbrica
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
                                         </label>
                                     </div>
                                 </div>
@@ -53,7 +52,7 @@ include_once "../../common/getPath.php";
                             <div class="row">
                                 <div class="col-md-12 text-right">
                                     <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
-                                    <button type="button" class="btn btn-primary" onclick="location.href = document.referrer;">Guardar</button>
+                                    <button type="button" class="btn btn-primary" onclick="SaveFactor('new');">Guardar</button>
                                 </div>
                             </div>
                         </form>
@@ -66,6 +65,31 @@ include_once "../../common/getPath.php";
     <?php
     include_once "../../common/register-js.php";
     ?>
+
+    <script type="text/javascript">
+        function SaveFactor(action) {
+            if (window.XMLHttpRequest) {
+                connection = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                connection = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            
+            let d = document.getElementById('factorname').value;
+            let r = document.getElementById('create-rubric').value;
+
+            connection.onreadystatechange = function (){
+                UpdateElement();
+                // if(r == true){
+                //     location.href = "./edit.php?id="
+                // }
+            }
+
+            connection.open('POST', './save.php');
+            connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            connection.send("action=" + action  + "&d=" + d);
+        }
+    </script>
+
 </body>
 
 </html>

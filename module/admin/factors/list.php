@@ -1,5 +1,14 @@
 <?php
+require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
+
+use Sysurvey\Db;
+use Models\Factor;
+
+$dbFactor = new Factor(new Db());
+$factorList = $dbFactor->getFactors(1);
+$headers = ["Id", "Descripción"];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,40 +47,25 @@ include_once "../../common/getPath.php";
                                 <thead class="thead-dark text-primary">
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Rubrica</th>
                                     <th>Acción</th>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Verdadero / Falso</td>
-                                        <td>Rubrica 1</td>
-                                        <td>
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">create</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Cuantitativo</td>
-                                        <td>Rubrica 15</td>
-                                        <td>
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">create</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php foreach ($factorList as $factor) : ?>
+                                        <tr>
+                                            <td><?php echo $factor['idfactor']; ?></td>
+                                            <td><?php echo $factor['description']; ?></td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <a class="btn btn-primary" href="./edit.php?id=<?php echo $factor['idfactor']; ?>" title="Editar">
+                                                        <i class="material-icons">create</i>
+                                                    </a>
+                                                    <a class="btn btn-danger" title="Eliminar">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

@@ -1,6 +1,6 @@
 <?php
 require '../../../vendor/autoload.php';
-include_once "../../common/getPath.php";
+include_once '../../common/getPath.php';
 
 use Sysurvey\Db;
 use Models\Survey;
