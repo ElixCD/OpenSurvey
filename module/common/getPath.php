@@ -4,7 +4,7 @@ $lng = explode('/', trim($_SERVER["REQUEST_URI"], '/'));
 //  print_r($lng);
 //  print_r("<br>");
 
-if( str_contains($lng[count($lng)-1],".php")  ){
+if( stristr ($lng[count($lng)-1],".php")  ){
     $module = strtolower($lng[count($lng)-2]);
 }
 else{
