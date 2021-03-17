@@ -5,5 +5,6 @@ interface IDb{
     function getConnection();
     function querySelect(string $query): array;
     // function query(string $query, $parameters = []);
-    function queryTransaction(string $query) : bool;
+    function queryTransaction(string $query);
+    // function query(string $query);
 }

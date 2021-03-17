@@ -2,13 +2,6 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Sysurvey\Db;
-use Models\Factor;
-
-$dbFactor = new Factor(new Db());
-$factorList = $dbFactor->getFactors(1);
-$headers = ["Id", "Descripción"];
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,43 +34,60 @@ $headers = ["Id", "Descripción"];
                         <h4 class="card-title ">Factores registrados</h4>
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead class="thead-dark text-primary">
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Acción</th>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($factorList as $factor) : ?>
-                                        <tr>
-                                            <td><?php echo $factor['idfactor']; ?></td>
-                                            <td><?php echo $factor['description']; ?></td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <a class="btn btn-primary" href="./edit.php?id=<?php echo $factor['idfactor']; ?>" title="Editar">
-                                                        <i class="material-icons">create</i>
-                                                    </a>
-                                                    <a class="btn btn-danger" title="Eliminar">
-                                                        <i class="material-icons">delete</i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="card-body" id="factors">
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
+
+
     <?php
     include_once "../../common/register-js.php";
     ?>
+
+    <script type="text/javascript">
+        let factorAction = "";
+        let idFactor = 0;
+
+        function setValues(action, id) {
+            factorAction = action;
+            idFactor = id;
+        }
+
+        function SaveFactor() {
+            connection = createConnection();
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4) {
+                    let obj = JSON.parse(connection.responseText);
+                    LoadFactors();
+                    factorAction = "";
+                    idFactor = 0;
+                    alert(obj.msj);
+                }
+            }
+
+            execute(connection, 'POST', './save-factor.php', "action=" + factorAction + "&idfactor=" + idFactor);
+        }
+
+        function LoadFactors() {
+            connection = createConnection();
+
+            let d = document.getElementById('factors');
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4) {
+                    d.innerHTML = connection.responseText;
+                }
+            }
+
+            execute(connection, 'GET', './load.php');
+        }
+
+        window.onload = LoadFactors();
+    </script>
 </body>
 
 </html>

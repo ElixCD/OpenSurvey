@@ -32,7 +32,7 @@ class Factor
     {
         // $this->factors = $this->connection->querySelect("SELECT * FROM factors WHERE users_iduser = '$idUser'");
         $this->factors = $this->connection->querySelect("SELECT * FROM factors");
-        
+
         return $this->factors;
     }
 
@@ -40,7 +40,7 @@ class Factor
     {
         try {
             // $param = $factor['description'];
-            return $this->connection->queryTransaction("INSERT INTO factors VALUES (NULL, '" . $factor['description'] . "', '".$factor['idsurvey']."' )");
+            return $this->connection->queryTransaction("INSERT INTO factors VALUES (NULL, '" . $factor['description'] . "', '" . $factor['users_iduser'] . "' )");
         } catch (\Throwable $th) {
             return $th;
         }
@@ -60,7 +60,7 @@ class Factor
     {
         try {
             $param = $factor['idfactor'];
-            return $this->connection->queryTransaction("DELETE FROM factors WHERE idfactor = '" . $param . "' )");
+            return $this->connection->queryTransaction("DELETE FROM factors WHERE idfactor = '" . $param . "'");
         } catch (\Throwable $th) {
             return $th;
         }

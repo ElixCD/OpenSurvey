@@ -6,6 +6,7 @@ use Sysurvey\Db;
 $action = $_POST['action'];
 $newFactor = [
     "idsurvey" => isset($_POST['idsurvey']) ? (int) $_POST['idsurvey'] : "",
+    "idfactor" => isset($_POST['idfactor']) ? (int) $_POST['idfactor'] : "",
     "description" => isset($_POST['d']) ? $_POST['d'] : "",
     "users_iduser" => 1
 ];
@@ -22,11 +23,11 @@ switch ($action) {
             break;
         }
     case 'update': {
-            $result = $factor->saveFactor($newFactor);
+            $result = $factor->updateFactor($newFactor);
             break;
         }
     case 'delete': {
-            $result = $factor->saveFactor($newFactor);
+            $result = $factor->deleteFactor($newFactor);
             break;
         }
     default:
@@ -35,10 +36,11 @@ switch ($action) {
 }
 
 if ($result) {
-    $arr = ["msj" => $result, "error" => false];
+    $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
 } else {
     $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
 }
 
 $json = json_encode($arr);
-print_r($result);
+
+print_r($json);

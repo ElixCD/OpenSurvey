@@ -4,14 +4,16 @@ include_once "../../common/getPath.php";
 
 use Sysurvey\Db;
 use Models\Factor;
-use Models\Rubric;
+// use Models\Rubric;
+
+$idFactor = $_GET['id'];
 
 $dbFactor = new Factor(new Db());
-$factor = $dbFactor->getFactor(1);
+$factor = $dbFactor->getFactor($idFactor);
 
-$dbRubrica = new Rubric(new Db());
-$listaRubricas = $dbRubrica->getRubrics(1);
-$headers = ["Id", "Descripción", "Valor"];
+// $dbRubrica = new Rubric(new Db());
+// $listaRubricas = $dbRubrica->getRubrics($idFactor);
+// $headers = ["Id", "Descripción", "Valor"];
 
 ?>
 <!DOCTYPE html>
@@ -51,44 +53,17 @@ $headers = ["Id", "Descripción", "Valor"];
                                     </div>
                                 </div>
                                 <div class="col-2  text-right mt-4 pt-2">
-                                    <button type="button" class="btn btn-primary" onclick="javascript: location.href = document.referrer;">Guardar</button>
+                                    <button type="button" class="btn btn-primary" onclick="SaveFactor('update');">Guardar</button>
                                 </div>
 
                                 <div class="col-md-12 text-right py-2 my-3 border-bottom">
-                                    <a href="" class="btn btn-success" data-toggle="modal" data-target="#rubricModal">Nueva rúbrica</a>
+                                    <a href="" class="btn btn-success" data-toggle="modal" data-target="#rubricModal" onclick="rubricAction='new'; ClearRubricFields();">Nueva rúbrica</a>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead class="thead-dark text-primary">
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Valor</th>
-                                                <th>Acción</th>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($listaRubricas as $rubrica) : ?>
-                                                    <tr>
-                                                        <td><?php echo $rubrica['idrubric']; ?></td>
-                                                        <td><?php echo $rubrica['description']; ?></td>
-                                                        <td><?php echo $rubrica['value']; ?></td>
-                                                        <td>
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a href="" data-toggle="modal" data-target="#rubricModal" class="btn btn-primary" title="Editar">
-                                                                    <span class="material-icons">create</span>
-                                                                </a>
-                                                                <a href="" data-toggle="modal" data-target="#deleteRubricModal" class="btn btn-danger" title="Eliminar">
-                                                                    <span class="material-icons">delete</span>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                <div class="col-md-12" id="rubrics">
+
                                 </div>
+
                             </div>
                             <div class="row">
                                 <div class="col-md-12 text-right">
@@ -123,14 +98,14 @@ $headers = ["Id", "Descripción", "Valor"];
                         <div class="col-md-12">
                             <div class="form-group bmd-form-group">
                                 <label class="bmd-label-floating">Valor de rúbrica</label>
-                                <input type="text" class="form-control" name="value" id="value">
+                                <input type="text" class="form-control" name="rubricvalue" id="rubricvalue">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveRubric()">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -157,7 +132,7 @@ $headers = ["Id", "Descripción", "Valor"];
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Aceptar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveRubric()">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -166,6 +141,83 @@ $headers = ["Id", "Descripción", "Valor"];
     <?php
     include_once "../../common/register-js.php";
     ?>
+    <script type="text/javascript">
+        let rubricAction = "";
+        let idRubric = 0;
+
+        function setValues(action, id) {
+            rubricAction = action;
+            idRubric = id;
+        }
+
+        function ClearRubricFields() {
+            document.getElementById('rubricname').value = "";
+            document.getElementById('rubricvalue').value = "";
+        }
+
+        function SaveFactor(action) {
+            connection = createConnection();
+
+            let d = document.getElementById('factorname').value;
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4 && connection.status == 200) {
+                    let obj = JSON.parse(connection.responseText);
+                    alert(obj.msj);
+                }
+            }
+
+            execute(connection, 'POST', './save-factor.php', "action=" + action + "&idfactor=" + <?php echo $idFactor; ?> + "&d=" + d);
+        }
+
+        function CurrentRubric() {
+            document.getElementById('rubricname').value = document.getElementById('desc-lbl' + idRubric).value;
+            document.getElementById('rubricvalue').value = document.getElementById('val-lbl' + idRubric).value;
+
+        }
+
+        function SaveRubric() {
+            let d = document.getElementById('rubricname').value;
+            let v = document.getElementById('rubricvalue').value;
+
+            connection = createConnection();
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4 && connection.status == 200) {
+                    let obj = JSON.parse(connection.responseText);
+                    LoadRubric();
+                    alert(obj.msj);
+                    rubricAction = "";
+                    idRubric = 0;
+                    ClearRubricFields();
+                }
+            }
+
+            if (idRubric == 0) {
+                params = "action=" + rubricAction + "&idfactor=" + <?php echo $idFactor; ?> + "&d=" + d + "&v=" + v;
+            } else {
+                params = "action=" + rubricAction + "&idfactor=" + <?php echo $idFactor; ?> + "&idrubric=" + idRubric + "&d=" + d + "&v=" + v;
+            }
+
+            execute(connection, 'POST', './rubric/save-rubric.php', params);
+        }
+
+        function LoadRubric() {
+            connection = createConnection();
+
+            let d = document.getElementById('rubrics');
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4 && connection.status == 200) {
+                    d.innerHTML = connection.responseText;
+                }
+            }
+
+            execute(connection, 'GET', './rubric/load.php?idfactor=<?php echo $idFactor; ?>');
+        }
+
+        window.onload = LoadRubric();
+    </script>
 </body>
 
 </html>

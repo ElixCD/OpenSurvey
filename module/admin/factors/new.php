@@ -42,7 +42,7 @@ include_once "../../common/getPath.php";
                                 <div class="col-md-12">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value=""  id="create-rubric">
+                                            <input class="form-check-input" type="checkbox" value="" id="create-rubric">
                                             Crear rúbrica
                                         </label>
                                     </div>
@@ -73,20 +73,24 @@ include_once "../../common/getPath.php";
             } else if (window.ActiveXObject) {
                 connection = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            
-            let d = document.getElementById('factorname').value;
-            let r = document.getElementById('create-rubric').value;
 
-            connection.onreadystatechange = function (){
-                UpdateElement();
-                // if(r == true){
-                //     location.href = "./edit.php?id="
-                // }
+            let d = document.getElementById('factorname').value;
+            let r = document.getElementById('create-rubric').checked;
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4) {
+                    let obj = JSON.parse(connection.responseText);
+                    alert(obj.msj);
+                    if (r == true && obj.error == false) {
+
+                        location.href = "./edit.php?id=" + obj.opt;
+                    }
+                }
             }
 
-            connection.open('POST', './save.php');
+            connection.open('POST', './save-factor.php');
             connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            connection.send("action=" + action  + "&d=" + d);
+            connection.send("action=" + action + "&d=" + d);
         }
     </script>
 

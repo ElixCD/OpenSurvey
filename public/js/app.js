@@ -1,3 +1,22 @@
+
+function createConnection() {
+    if (window.XMLHttpRequest) {
+        connection = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        connection = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return connection;
+}
+
+function execute(connection, method, url, params = "") {
+    connection.open(method, url, true);
+    if (method != 'GET') {
+        connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    }
+    connection.send(params);
+}
+
+
 function toggle() {
     var menu = document.getElementById("nav-menu");
     if (menu.classList.contains("mostrar")) {
@@ -11,8 +30,6 @@ function toggle() {
 function UpdateElement() {
     if (connection.readyState == 4) {
         let obj = JSON.parse(connection.responseText);
-        
-        alert(obj.msj);
-        
+        return obj;
     }
 }

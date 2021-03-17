@@ -23,7 +23,7 @@ class Db implements IDb
         return $this->gbd;
     }
 
-    function querySelect(string $query) : array
+    function querySelect(string $query): array
     {
         try {
             $result = array();
@@ -32,7 +32,7 @@ class Db implements IDb
                 foreach ($salida as $row) {
                     array_push($result, $row);
                 }
-            }else{
+            } else {
                 $result = false;
             }
             return $result;
@@ -41,13 +41,25 @@ class Db implements IDb
         }
     }
 
-    function queryTransaction(string $query) : bool
+    function queryTransaction(string $query)
     {
         try {
+            $last = 0;
             $this->gbd->beginTransaction();
             $gsent = $this->gbd->prepare($query);
-            $gsent->execute();
-            return $this->gbd->commit();
+
+            if ($gsent->execute()) {
+                $last = $this->gbd->lastInsertId();
+            }
+            if ($this->gbd->commit()) {
+                if ($last != 0) {
+                    return $last;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
         } catch (\Throwable $th) {
             $this->gbd->rollBack();
             throw $th;

@@ -1,15 +1,17 @@
 <?php
-// echo $_SERVER["REQUEST_URI"]."<br>";
+//  echo $_SERVER["REQUEST_URI"]."<br>";
 $lng = explode('/', trim($_SERVER["REQUEST_URI"], '/'));
-// print_r($lng);
-// print_r("<br>");
+//  print_r($lng);
+//  print_r("<br>");
 
-// if (count($lng) > 3)
-//     $module = strtolower($lng[3]);
-// else
-    $module = strtolower($lng[2]);
+if( str_contains($lng[count($lng)-1],".php")  ){
+    $module = strtolower($lng[count($lng)-2]);
+}
+else{
+    $module = strtolower($lng[count($lng)-1]);
+}
 
-// print_r("-".$module."<br>");
+//  print_r("-".$module."<br>");
 
 $moduleName = "";
 $actionName = "";

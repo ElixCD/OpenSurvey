@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . './vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 Sysurvey\SesionStatus::startSession();
 ?>
 
@@ -14,8 +14,8 @@ Sysurvey\SesionStatus::startSession();
 </head>
 
 <body class="container">
-    <a href="/module/admin">Admin</a>
-    <a href="/module/user">User</a>
+    <a href="module/admin">Admin</a>
+    <a href="module/user">User</a>
 
 </body>
 <?php include_once "./module/common/register-js.php"; ?>
