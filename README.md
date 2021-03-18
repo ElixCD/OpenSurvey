@@ -1,10 +1,11 @@
 # Sysurvey
-A little and simple survey system OOP based.
+A little and simple survey system.
 
-Is a excercise of PHP with OOP and the actual state is only incomplete core.
-Conatains only some  user components.
+Is an excercise of PHP with OOP, the actual state is incomplete core and some modules are finished.
 
-To install must be download source code, extract and copy to web root directory.
+Require PHP 7.4.4+ and Composer 2.0.9+.
 
-At the moment only was tested in windows machine with IIS, require PHP 7.4.4+.
-
+Installation
++ Clone/download source code into web directory
++ Execute 'composer install' in terminal
++ Change name to .env_example file to .env and modify enviroment values correspond to your machine and database server.
