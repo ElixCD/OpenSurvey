@@ -46,7 +46,7 @@ class Factor
         }
     }
 
-    function updateFactor($factor = [])
+    function updateFactor($factor)
     {
         try {
             $query = "UPDATE factors SET description = '" . $factor['description'] . "' WHERE idfactor = " . (int) $factor['idfactor'];

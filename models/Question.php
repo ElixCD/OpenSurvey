@@ -28,26 +28,26 @@ class Question
         return false;
     }
 
-    function getQuestions(int $idFactor, int $numberPage)
+    function getQuestions(int $idSurvey, int $numberPage)
     {
-        $this->questions = $this->connection->querySelect("SELECT * FROM questions WHERE idfactor = " . $idFactor);
+        $this->questions = $this->connection->querySelect("SELECT * FROM questions WHERE surveys_idsurvey = " . $idSurvey);
         return $this->questions;
     }
 
-    function saveQuestion($questions)
+    function saveQuestion($question)
     {
         try {
-            $param = $questions['description'];
-            return $this->connection->queryTransaction("INSERT INTO questions VALUES (NULL, '" . $questions['value'] . "', '" . $questions['idfactor'] . "' )");
+            // $param = $question['description'];
+            return $this->connection->queryTransaction("INSERT INTO questions VALUES (NULL, '" . $question['value'] . "', " . $question['mandatory'] . ", " . $question['idfactor'] . ", " . $question['idsurvey'] . " )");
         } catch (\Throwable $th) {
             return $th;
         }
     }
 
-    function updateQuestion($questions = [])
+    function updateQuestion($question)
     {
         try {
-            $query = "UPDATE questions SET value = '" . $questions['value'] . "', idsurvey = '" . $questions['idsurvey'] . "' idfactor = '" . $questions['idfactor'] . "' WHERE idquestions = " . (int) $questions['idquestions'];
+            $query = "UPDATE questions SET value = '" . $question['value'] . "', mandatory = " . $question['mandatory'] . ", surveys_idsurvey = " . $question['idsurvey'] . ", factors_idfactor = " . $question['idfactor'] . " WHERE idquestion = " . (int) $question['idquestion'];
             return $this->connection->queryTransaction($query);
         } catch (\Throwable $th) {
             return $th;
@@ -57,8 +57,8 @@ class Question
     function deleteQuestion($questions)
     {
         try {
-            $param = $questions['idquestions'];
-            return $this->connection->queryTransaction("DELETE FROM questions WHERE idquestions = '" . $param . "' )");
+            $param = $questions['idquestion'];
+            return $this->connection->queryTransaction("DELETE FROM questions WHERE idquestion = " . $param . "");
         } catch (\Throwable $th) {
             return $th;
         }

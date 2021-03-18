@@ -39,7 +39,7 @@ class Survey
     function saveSurvey($survey)
     {
         try {
-            return $this->connection->queryTransaction("INSERT INTO surveys VALUES (NULL, '" . $survey['name'] . "', '" . $survey['idmodule'] . "'  )");
+            return $this->connection->queryTransaction("INSERT INTO surveys VALUES (NULL, '" . $survey['name'] . "', " . $survey['active'] . "  )");
         } catch (\Throwable $th) {
             return $th;
         }
@@ -48,7 +48,7 @@ class Survey
     function updateSurvey($survey = [])
     {
         try {
-            $query = "UPDATE surveys SET name = '" . $survey['name'] . "', idmodule = '" . $survey['idmodule'] . "' WHERE idsurvey = " . (int) $survey['idsurvey'];
+            $query = "UPDATE surveys SET name = '" . $survey['name'] . "', active = " . $survey['active'] . " WHERE idsurvey = " . (int) $survey['idsurvey'];
             return $this->connection->queryTransaction($query);
         } catch (\Throwable $th) {
             return $th;

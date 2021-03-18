@@ -2,12 +2,12 @@
 require '../../../vendor/autoload.php';
 include_once '../../common/getPath.php';
 
-use Sysurvey\Db;
-use Models\Survey;
+// use Sysurvey\Db;
+// use Models\Survey;
 
-$Survey = new Survey(new Db());
-$Surveys = $Survey->getSurveys(1);
-$headers = ["Id", "Descripción"];
+// $Survey = new Survey(new Db());
+// $Surveys = $Survey->getSurveys(1);
+// $headers = ["Id", "Descripción"];
 
 ?>
 <!DOCTYPE html>
@@ -43,138 +43,8 @@ $headers = ["Id", "Descripción"];
                         <h4 class="card-title ">Encuestas registradas</h4>
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead class="thead-dark text-primary">
-                                    <th class="text-center">
-                                        ID
-                                    </th>
-                                    <th class="text-center">
-                                        Name
-                                    </th>
-                                    <th class="text-center">
-                                        Accion
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">
-                                            1
-                                        </td>
-                                        <td>
-                                            Dakota Rice sgserger tgj gdfgdf dfghdf
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <!-- <a href="#" class="btn btn-info btn-fab btn-fab-mini btn-link">
-                                                        <span class="material-icons">pageview</span>
-                                                    </a> -->
-                                                <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            2
-                                        </td>
-                                        <td>
-                                            Minerva Hooper gh gdfdfgh ght retyer bghrtert
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <!-- <a href="#" class="btn btn-info btn-fab btn-fab-mini btn-link">
-                                                        <span class="material-icons">pageview</span>
-                                                    </a> -->
-                                                <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons" >delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            3
-                                        </td>
-                                        <td>
-                                            Sage Rodriguez
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            4
-                                        </td>
-                                        <td>
-                                            Philip Chaney
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            5
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">
-                                            6
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a class="btn btn-primary" href="./edit.php" title="Editar">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a class="btn btn-danger" title="Eliminar">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div id="surveys" class="card-body">
+
                     </div>
                 </div>
             </div>
@@ -184,6 +54,48 @@ $headers = ["Id", "Descripción"];
     <?php
     include_once "../../common/register-js.php";
     ?>
+    
+    <script type="text/javascript">
+        let surveyAction = "";
+        let idSurvey = 0;
+
+        function setValues(action, id) {
+            surveyAction = action;
+            idSurvey = id;
+        }
+
+        function SaveSurvey() {
+            connection = createConnection();
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4) {
+                    let obj = JSON.parse(connection.responseText);
+                    LoadSurveys();
+                    surveyAction = "";
+                    idSurvey = 0;
+                    alert(obj.msj);
+                }
+            }
+
+            execute(connection, 'POST', './save-factor.php', "action=" + surveyAction + "&idSurvey=" + idSurvey);
+        }
+
+        function LoadSurveys() {
+            connection = createConnection();
+
+            let d = document.getElementById('surveys');
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4) {
+                    d.innerHTML = connection.responseText;
+                }
+            }
+
+            execute(connection, 'GET', './load.php');
+        }
+
+        window.onload = LoadSurveys();
+    </script>
 
 </body>
 

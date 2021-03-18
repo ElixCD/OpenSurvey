@@ -68,11 +68,9 @@ include_once "../../common/getPath.php";
 
     <script type="text/javascript">
         function SaveFactor(action) {
-            if (window.XMLHttpRequest) {
-                connection = new XMLHttpRequest();
-            } else if (window.ActiveXObject) {
-                connection = new ActiveXObject("Microsoft.XMLHTTP");
-            }
+            backUrl = document.referrer;
+
+            connection = createConnection();
 
             let d = document.getElementById('factorname').value;
             let r = document.getElementById('create-rubric').checked;
@@ -81,16 +79,16 @@ include_once "../../common/getPath.php";
                 if (connection.readyState == 4) {
                     let obj = JSON.parse(connection.responseText);
                     alert(obj.msj);
-                    if (r == true && obj.error == false) {
-
-                        location.href = "./edit.php?id=" + obj.opt;
+                    if (obj.error == false) {
+                        if (r == true) {
+                            location.href = "./edit.php?id=" + obj.opt;
+                        } else {
+                            location.href = backUrl;
+                        }
                     }
                 }
             }
-
-            connection.open('POST', './save-factor.php');
-            connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            connection.send("action=" + action + "&d=" + d);
+            execute(connection, 'POST', './save-factor.php', "action=" + action + "&d=" + d);
         }
     </script>
 

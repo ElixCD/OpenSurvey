@@ -40,17 +40,14 @@ include_once "../../common/getPath.php";
                                     <div class="col-md-12">
                                         <div class="form-check">
                                             <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                Crear cuestionario
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
+                                                <input class="form-check-input" type="checkbox" value="" id="add-question">
+                                                Agregar preguntas
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-12 text-right">
                                         <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                        <button type="button" class="btn btn-primary" onclick="SaveSurvey('new');">Guardar</button>
                                     </div>
                                 </div>
                             </div>
@@ -64,6 +61,33 @@ include_once "../../common/getPath.php";
     <?php
     include_once "../../common/register-js.php";
     ?>
+
+    <script type="text/javascript">
+        function SaveSurvey(action) {
+            let backUrl = document.referrer;
+            connection = createConnection();
+
+            let d = document.getElementById('surveyname').value;
+            let r = document.getElementById('add-question').checked;
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4) {
+                    let obj = JSON.parse(connection.responseText);
+                    alert(obj.msj);
+                    if (obj.error == false) {
+                        if (r == true) {
+                            location.href = "./edit.php?id=" + obj.opt;
+                        } else {
+                            location.href = backUrl;
+                        }
+                    }
+                }
+            }
+
+            execute(connection, 'POST', './save-survey.php', "action=" + action + "&name=" + d + "&active=true")
+
+        }
+    </script>
 
 </body>
 

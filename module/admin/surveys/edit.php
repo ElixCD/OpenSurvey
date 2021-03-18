@@ -1,5 +1,22 @@
 <?php
+require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
+
+use Sysurvey\Db;
+use Models\Survey;
+use Models\Factor;
+// use Models\Rubric;
+
+$idSurvey = $_GET['id'];
+
+$dbSurvey = new Survey(new Db());
+$survey = $dbSurvey->getSurvey($idSurvey);
+
+$dbFactor = new Factor(new Db());
+$factors = $dbFactor->getFactors(1);
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,21 +51,17 @@ include_once "../../common/getPath.php";
                                 <div class="col-md-12">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre de encuesta</label>
-                                        <input type="text" class="form-control" name="surveyname" id="surveyname" value="Encuesta 1">
+                                        <input type="text" class="form-control" name="surveyname" id="surveyname" value="<?php echo $survey['name'] ?>">
                                     </div>
                                     <div class="form-group form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
+                                            <input class="form-check-input" type="checkbox" value="" id="survey-active" name="survey-active" <?php echo $survey['active'] == 1 ? "checked" : ""; ?>>
                                             Activo
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
                                         </label>
                                     </div>
                                 </div>
-
                                 <div class="col-md-12 text-right">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="button" class="btn btn-primary" onclick="SaveSurvey('update');">Guardar</button>
                                 </div>
                             </div>
                         </form>
@@ -60,128 +73,15 @@ include_once "../../common/getPath.php";
                                     </div>
                                     <div class="card-body ">
                                         <div class="col-12 text-right mb-2">
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#addModal">
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#addModal" onclick="questionAction='new'; ClearQuestionFields();">
                                                 <span class="material-icons">add_circle_outline</span>
                                                 <span class="btn-single-icon">Agregar</span>
                                             </button>
                                         </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead class="thead-dark text-primary">
-                                                    <th class="text-center">ID</th>
-                                                    <th class="text-center">Pregunta</th>
-                                                    <th class="text-center">Factor</th>
-                                                    <th class="text-center">Accion</th>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-center">1</td>
-                                                        <td>¿Pregunta 1?</td>
-                                                        <td class="text-center">Si/No</td>
-                                                        <td class="text-center">
+                                        <div id="question-list">
 
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-
-                                                                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Editar">
-                                                                    <i class="material-icons">edit</i>
-                                                                </button>
-                                                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" title="Eliminar">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-
-                                                                <!-- <a class="btn btn-primary" href="./edit.php">
-                                                                    <i class="material-icons">edit</i>
-                                                                </a>
-                                                                <a class="btn btn-danger">
-                                                                    <i class="material-icons">delete</i>
-                                                                </a> -->
-                                                            </div>
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">2</td>
-                                                        <td>¿Questión numero 2?</td>
-                                                        <td class="text-center">Si/No</td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Editar">
-                                                                    <i class="material-icons">edit</i>
-                                                                </button>
-                                                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" title="Eliminar">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">3</td>
-                                                        <td>¿Completas la tercera pregunta?</td>
-                                                        <td class="text-center">Si/No</td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Editar">
-                                                                    <i class="material-icons">edit</i>
-                                                                </button>
-                                                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" title="Eliminar">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">4</td>
-                                                        <td>¿Estas seguro de continuar con esta
-                                                            cuarta pregunta?</td>
-                                                        <td class="text-center">Si/No</td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Editar">
-                                                                    <i class="material-icons">edit</i>
-                                                                </button>
-                                                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" title="Eliminar">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">5</td>
-                                                        <td>Casí terminamos, ¿Continuamos con la
-                                                            quinta pregunta?</td>
-                                                        <td class="text-center">Si/No</td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Editar">
-                                                                    <i class="material-icons">edit</i>
-                                                                </button>
-                                                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" title="Eliminar">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">6</td>
-                                                        <td>Por fin la ultima pregunta. ¿Seguro
-                                                            que deseas terminar el cuestionario?
-                                                        </td>
-                                                        <td class="text-center">Si/No</td>
-                                                        <td class="text-center">
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Editar">
-                                                                    <i class="material-icons">edit</i>
-                                                                </button>
-                                                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" title="Eliminar">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
                                         </div>
-                                        <nav aria-label="Page navigation example">
+                                        <!-- <nav aria-label="Page navigation example">
                                             <ul class="pagination">
                                                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                                 <li class="page-item"><a class="page-link" href="#">1</a>
@@ -193,13 +93,13 @@ include_once "../../common/getPath.php";
                                                 <li class="page-item"><a class="page-link" href="#">Next</a>
                                                 </li>
                                             </ul>
-                                        </nav>
+                                        </nav> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3 text-right">
                                 <!-- <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button> -->
-                                <button type="submit" class="btn btn-primary">Volver</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href = document.referrer;">Volver</button>
                             </div>
                         </div>
                     </div>
@@ -207,10 +107,6 @@ include_once "../../common/getPath.php";
             </div>
         </div>
     </main>
-
-    <?php
-    include_once "../../common/register-js.php";
-    ?>
 
     <!-- Modal add question -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
@@ -235,18 +131,25 @@ include_once "../../common/getPath.php";
                                 <label>Nombre de los factores</label>
                                 <select class="form-control selectpicker" data-style="btn btn-link" name="factores" id="factores">
                                     <option value=""> -- Seleccione un valor -- </option>
-                                    <option value="1" selected>Si/No</option>
-                                    <option value="1">Factor 1</option>
-                                    <option value="2">Factor 2</option>
-                                    <option value="3">Factor 3</option>
-                                    <option value="4">Factor 4</option>
+                                    <?php foreach ($factors as $factor) : ?>
+                                        <option value="<?php echo $factor['idfactor'] ?>"><?php echo $factor['description'] ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
+                            <div class="col-md-12">
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" value="" id="mandatory" name="mandatory" >
+                                    Obligatorio
+                                </label>
+                            </div>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Aceptar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveQuestion()">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -270,13 +173,97 @@ include_once "../../common/getPath.php";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Aceptar</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveQuestion()">Aceptar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <?php
+    include_once "../../common/register-js.php";
+    ?>
+
+    <script type="text/javascript">
+        let questionAction = "";
+        let idQuestion = 0;
+
+        function setValues(action, id) {
+            questionAction = action;
+            idQuestion = id;
+        }
+
+        function ClearQuestionFields() {
+            document.getElementById('question').value = "";
+            document.getElementById('factores').value = "";
+            document.getElementById('mandatory').checked = false;
+        }
+
+        function SaveSurvey(action) {
+            connection = createConnection();
+
+            let d = document.getElementById('surveyname').value;
+            let a = document.getElementById('survey-active').checked;
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4 && connection.status == 200) {
+                    let obj = JSON.parse(connection.responseText);
+                    alert(obj.msj);
+                }
+            }
+
+            execute(connection, 'POST', './save-survey.php', "action=" + action + "&idSurvey=" + <?php echo $idSurvey; ?> + "&name=" + d + "&active=" + a);
+        }
+
+        function CurrentQuestion() {
+            document.getElementById('question').value = document.getElementById('question-lbl' + idQuestion).value;
+            document.getElementById('factores').value = document.getElementById('factor-lbl' + idQuestion).value;
+            document.getElementById('mandatory').checked = document.getElementById('mandatory-chk' + idQuestion).checked;
+        }
+
+        function SaveQuestion() {
+            let d = document.getElementById('question').value;
+            let idfactor = document.getElementById('factores').value;
+            let mandatory = document.getElementById('mandatory').checked;
+
+            connection = createConnection();
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4 && connection.status == 200) {
+                    let obj = JSON.parse(connection.responseText);
+                    ClearQuestionFields();
+                    LoadQuestions();
+                    alert(obj.msj);
+                    questionAction = "";
+                    idQuestion = 0;
+                }
+            }
+
+            if (idQuestion == 0) {
+                params = "action=" + questionAction + "&idfactor=" + idfactor + "&idSurvey=" + <?php echo $idSurvey; ?> + "&d=" + d + "&mandatory=" + mandatory;
+            } else {
+                params = "action=" + questionAction + "&idfactor=" + idfactor + "&idSurvey=" + <?php echo $idSurvey; ?> + "&idQuestion=" + idQuestion + "&d=" + d + "&mandatory=" + mandatory;
+            }
+
+            execute(connection, 'POST', './question/save-question.php', params);
+        }
+
+        function LoadQuestions() {
+            connection = createConnection();
+
+            let d = document.getElementById('question-list');
+
+            connection.onreadystatechange = function() {
+                if (connection.readyState == 4 && connection.status == 200) {
+                    d.innerHTML = connection.responseText;
+                }
+            }
+
+            execute(connection, 'GET', './question/load.php?idsurvey=<?php echo $idSurvey; ?>');
+        }
+
+        window.onload = LoadQuestions();
+    </script>
 
 </body>
 
