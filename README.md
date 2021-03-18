@@ -1,4 +1,4 @@
-# OpenSurvey
+# OurVoice Survey System
 A little and simple survey system.
 
 Is an excercise of PHP with OOP, the actual state is incomplete core and some modules are finished.
