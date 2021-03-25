@@ -4,11 +4,10 @@ $lng = explode('/', trim($_SERVER["REQUEST_URI"], '/'));
 //  print_r($lng);
 //  print_r("<br>");
 
-if( stristr ($lng[count($lng)-1],".php")  ){
-    $module = strtolower($lng[count($lng)-2]);
-}
-else{
-    $module = strtolower($lng[count($lng)-1]);
+if (stristr($lng[count($lng) - 1], ".php")) {
+    $module = strtolower($lng[count($lng) - 2]);
+} else {
+    $module = strtolower($lng[count($lng) - 1]);
 }
 
 //  print_r("-".$module."<br>");
@@ -41,6 +40,9 @@ switch ($module) {
     case 'poll':
         $moduleName = "Encuestas";
         break;
+    // case 'settings':
+    //     $moduleName = "Configuración";
+    //     break;
     default:
         break;
 }

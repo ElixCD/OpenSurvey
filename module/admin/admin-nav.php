@@ -7,6 +7,7 @@
             <li><a href="../factors/"><i class="material-icons">fact_check</i> Factores</a></li>
             <li><a href="../users/"><i class="material-icons">supervised_user_circle</i> Usuarios</a></li>
             <li><a href="../account/detail.php"><i class="material-icons">account_circle</i> Cuenta</a></li>
+            <!-- <li><a href="../settings/"><i class="material-icons">settings</i> Configuración</a></li> -->
             <li><a href="../../../"><i class="material-icons">logout</i> Salir</a></li>
         </ul>
     </div>

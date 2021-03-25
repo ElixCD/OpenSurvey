@@ -1,6 +1,26 @@
 <?php
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
+
+use Models\UserViewModel;
+
+use Sysurvey\Db;
+use Models\Rol;
+
+$idUser = $_GET['id'];
+
+$dbUser = new UserViewModel(new Db());
+$user = $dbUser->getUserData($idUser);
+$userSurveys = $dbUser->getUserSurveys($idUser);
+
+$dbRol = new Rol(new Db());
+$roles = $dbRol->getRoles($idUser);
+
+// $idSurvey = $_GET['id'];
+
+// $dbSurvey = new Survey(new Db());
+// $survey = $dbSurvey->getSurvey($idSurvey);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,27 +58,27 @@ include_once "../../common/getPath.php";
                                 <div class="col-md-12">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre del usuario</label>
-                                        <input type="text" class="form-control" name="username" id="username">
+                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo $user['name']; ?>">
                                     </div>
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Correo</label>
-                                        <input type="email" class="form-control" name="email" id="email">
+                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $user['email']; ?>">
                                     </div>
-                                    <div class="form-group ">
-                                        <label class="bmd-label-floating">Tipo de Usuario</label>
+                                    <div class="form-group">
+                                        <label class=" bmd-label-floating">Tipo de Usuario</label>
                                         <select class="form-control selectpicker" data-style="btn btn-link" name="tipo-usuario" id="tipo-usuario">
                                             <option value="">-- Seleccione un tipo de usuario --</option>
+                                            <?php foreach ($roles as $key => $rol) : ?>
+                                                <option value="<?php echo $rol['idrol']; ?>" <?php echo (isset($user['roles']) && $user['roles'][0]['idrol'] == $rol['idrol'] ? "selected" : ""); ?>><?php echo $rol['description']; ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="">
+                                            <input class="form-check-input" type="checkbox" value="" <?php echo ($user['active'] == true ? "checked" : ""); ?>>
                                             Activo
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
                                         </label>
                                     </div>
                                 </div>
@@ -78,6 +98,9 @@ include_once "../../common/getPath.php";
                                 </div>
 
                                 <div class="col-md-12">
+                                    <?php include "./surveys/load.php" ?>
+                                </div>
+                                <!-- <div class="col-md-12">
                                     <div class="table-resposive">
                                         <table class="table table-striped">
                                             <thead class="thead-dark">
@@ -110,7 +133,7 @@ include_once "../../common/getPath.php";
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-md-12 text-right">
                                     <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
@@ -163,7 +186,7 @@ include_once "../../common/getPath.php";
                                     <div class="form-check">
                                         <label class="form-check-label">
                                             <input class="form-check-input" type="checkbox" value="2">
-                                            Factor 1                                           
+                                            Factor 1
                                         </label>
                                     </div>
                                     <div class="form-check">

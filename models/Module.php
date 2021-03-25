@@ -18,7 +18,7 @@ class Module
 
     function getModule(int $idModule)
     {
-        $this->Module = $this->connection->querySelect("SELECT * FROM module WHERE idmodule = '" . $idModule . "'");
+        $this->Module = $this->connection->querySelect("SELECT * FROM modules WHERE idmodule = '" . $idModule . "'");
 
         foreach ($this->Module as $key => $value) {
             if ($value['idmodule'] == $idModule) {
@@ -30,23 +30,23 @@ class Module
 
     function getModules(int $numberPage)
     {
-        $this->Module = $this->connection->querySelect("SELECT * FROM module");
+        $this->Module = $this->connection->querySelect("SELECT * FROM modules");
         return $this->Module;
     }
 
     function saveModule($name, $idmodule_type)
     {
         try {
-            return $this->connection->queryTransaction("INSERT INTO module VALUES (NULL, '" . $name . "', '" . $idmodule_type . "' )");
+            return $this->connection->queryTransaction("INSERT INTO modules VALUES (NULL, '" . $name . "' )");
         } catch (\Throwable $th) {
             return $th;
         }
     }
 
-    function updateModule($Module = [])
+    function updateModule($Module)
     {
         try {
-            $query = "UPDATE module SET name = '" . $Module['name'] . "', idmodule_type = '" . $Module['idmodule_type'] . "' WHERE idmodule = " . (int) $Module['idmodule'];
+            $query = "UPDATE modules SET name = '" . $Module['name'] . "' WHERE idmodule = " . (int) $Module['idmodule'];
             return $this->connection->queryTransaction($query);
         } catch (\Throwable $th) {
             return $th;
@@ -56,8 +56,8 @@ class Module
     function deleteModule($Module)
     {
         try {
-            $param = $Module['idModules'];
-            return $this->connection->queryTransaction("DELETE FROM module WHERE idmodule = '" . $param . "' )");
+            $param = $Module['idmodule'];
+            return $this->connection->queryTransaction("DELETE FROM modules WHERE idmodule = '" . $param . "' )");
         } catch (\Throwable $th) {
             return $th;
         }

@@ -45,7 +45,7 @@ class Survey
         }
     }
 
-    function updateSurvey($survey = [])
+    function updateSurvey($survey)
     {
         try {
             $query = "UPDATE surveys SET name = '" . $survey['name'] . "', active = " . $survey['active'] . " WHERE idsurvey = " . (int) $survey['idsurvey'];
@@ -59,7 +59,7 @@ class Survey
     {
         try {
             $param = $survey['idsurvey'];
-            return $this->connection->queryTransaction("DELETE FROM surveys WHERE idsurvey = '" . $param . "' )");
+            return $this->connection->queryTransaction("DELETE FROM surveys WHERE idsurvey = '" . $param . "'");
         } catch (\Throwable $th) {
             return $th;
         }

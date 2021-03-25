@@ -2,11 +2,14 @@
 require '../../../vendor/autoload.php';
 
 use Sysurvey\Db;
-use Models\Survey;
+use Models\UserViewModel;
 
-$Survey = new Survey(new Db());
-$Surveys = $Survey->getSurveys(1);
-$headers = ["Id", "Descripción"];
+$idUser = $_GET['id'];
+
+$dbUser = new UserViewModel(new Db());
+$user = $dbUser->getUserData($idUser);
+$userSurveys = $dbUser->getUserSurveys($idUser);
+
 
 ?>
 
@@ -25,7 +28,7 @@ $headers = ["Id", "Descripción"];
         </thead>
         <tbody>
 
-            <?php foreach ($Surveys as $survey) : ?>
+            <?php foreach ($userSurveys as $survey) : ?>
                 <tr>
                     <td class="text-center">
                         <?php echo $survey['idsurvey']; ?>
