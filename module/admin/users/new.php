@@ -3,10 +3,16 @@ require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
 use Sysurvey\Db;
-use Models\UserType;
+use Models\Rol;
 
-$dbUserType = new UserType(new Db());
-$userTypes = $dbUserType->getUserTypes(1);
+$dbRol = new Rol(new Db());
+$roles = $dbRol->getRoles();
+
+$filtro = function ($array) {
+    return ($array['description'] == "Super" ? false : true);
+};
+
+$roles = array_filter($roles, $filtro);
 
 ?>
 <!DOCTYPE html>
@@ -49,10 +55,10 @@ $userTypes = $dbUserType->getUserTypes(1);
                                     </div>
                                     <div class="form-group ">
                                         <label class="bmd-label-floating">Tipo de Usuario</label>
-                                        <select class="form-control selectpicker" data-style="btn btn-link" name="type-user" id="type-user">
+                                        <select class="form-control selectpicker" data-style="btn btn-link" name="rol" id="rol">
                                             <option value="">-- Seleccione un tipo de usuario --</option>
-                                            <?php foreach ($userTypes as $userType) : ?>
-                                                <option value="<?php echo $userType['iduser_type']; ?>" ><?php echo $userType['description']; ?></option>
+                                            <?php foreach ($roles as $key => $rol) : ?>
+                                                <option value="<?php echo $rol['idrol']; ?>" <?php echo (isset($user['roles']) && $user['roles'][0]['idrol'] == $rol['idrol'] ? "selected" : ""); ?>><?php echo $rol['description']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -65,17 +71,9 @@ $userTypes = $dbUserType->getUserTypes(1);
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="" id="asign">
-                                            Asignar encuestas
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="col-md-12 text-right">
                                     <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
-                                    <button type="button" class="btn btn-primary" onclick="SaveFactor('new');">Guardar</button>
+                                    <button type="button" class="btn btn-primary" onclick="Save('new');">Guardar</button>
                                 </div>
                             </div>
                         </form>
@@ -89,31 +87,13 @@ $userTypes = $dbUserType->getUserTypes(1);
     include_once "../../common/register-js.php";
     ?>
     <script type="text/javascript">
-        function SaveFactor(action) {
-            backUrl = document.referrer;
-
-            connection = createConnection();
-
+        function Save(action) {
             let name = document.getElementById('username').value;
             let email = document.getElementById('email').value;
-            let type = document.getElementById('type-user').value;
+            let idrol = document.getElementById('rol').value;
             let active = document.getElementById('active').checked;
-            let asign = document.getElementById('asign').checked;
 
-            connection.onreadystatechange = function() {
-                if (connection.readyState == 4) {
-                    let obj = JSON.parse(connection.responseText);
-                    alert(obj.msj);
-                    if (obj.error == false) {
-                        if (asign == true) {
-                            location.href = "./edit.php?id=" + obj.opt;
-                        } else {
-                            location.href = backUrl;
-                        }
-                    }
-                }
-            }
-            execute(connection, 'POST', './save-user.php', "action=" + action + "&name=" + name + "&email=" + email + "&active=" + active);
+            SaveUser(action, name, email, active, idrol, './save-user.php');
         }
     </script>
 

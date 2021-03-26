@@ -10,16 +10,19 @@ use Models\Rol;
 $idUser = $_GET['id'];
 
 $dbUser = new UserViewModel(new Db());
+// $dbuserRol = new UserRol(new DB);
+$dbRol = new Rol(new Db());
+
 $user = $dbUser->getUserData($idUser);
-$userSurveys = $dbUser->getUserSurveys($idUser);
 
 $dbRol = new Rol(new Db());
-$roles = $dbRol->getRoles($idUser);
+$roles = $dbRol->getRoles();
 
-// $idSurvey = $_GET['id'];
+$filtro = function ($array) {
+    return ($array['description'] == "Super" ? false : true);
+};
 
-// $dbSurvey = new Survey(new Db());
-// $survey = $dbSurvey->getSurvey($idSurvey);
+$roles = array_filter($roles, $filtro);
 
 ?>
 <!DOCTYPE html>
@@ -58,15 +61,16 @@ $roles = $dbRol->getRoles($idUser);
                                 <div class="col-md-12">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre del usuario</label>
-                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo $user['name']; ?>">
+                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo $user['name']; ?>" readonly>
+                                        <input type="hidden" name="id" id="id" value="<?php echo $idUser; ?>" />
                                     </div>
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Correo</label>
-                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $user['email']; ?>">
+                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $user['email']; ?>" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label class=" bmd-label-floating">Tipo de Usuario</label>
-                                        <select class="form-control selectpicker" data-style="btn btn-link" name="tipo-usuario" id="tipo-usuario">
+                                        <select class="form-control selectpicker" data-style="btn btn-link" name="idrol" id="idrol">
                                             <option value="">-- Seleccione un tipo de usuario --</option>
                                             <?php foreach ($roles as $key => $rol) : ?>
                                                 <option value="<?php echo $rol['idrol']; ?>" <?php echo (isset($user['roles']) && $user['roles'][0]['idrol'] == $rol['idrol'] ? "selected" : ""); ?>><?php echo $rol['description']; ?></option>
@@ -77,7 +81,7 @@ $roles = $dbRol->getRoles($idUser);
                                 <div class="col-md-12">
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="" <?php echo ($user['active'] == true ? "checked" : ""); ?>>
+                                            <input id="active" class="form-check-input" type="checkbox" value="" <?php echo ($user['active'] == true ? "checked" : ""); ?>>
                                             Activo
                                         </label>
                                     </div>
@@ -86,58 +90,24 @@ $roles = $dbRol->getRoles($idUser);
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3>Asignación de Encuestas</h3>
-                                    <hr>
+                                    <h3>Encuestas creadas</h3>
+                                    <hr />
                                 </div>
 
-                                <div class="col-12 text-right mb-2">
+                                <!-- <div class="col-12 text-right mb-2">
                                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
                                         <span class="material-icons">add_circle_outline</span>
                                         <span class="btn-single-icon">Agregar</span>
                                     </button>
-                                </div>
+                                </div> -->
 
                                 <div class="col-md-12">
                                     <?php include "./surveys/load.php" ?>
                                 </div>
-                                <!-- <div class="col-md-12">
-                                    <div class="table-resposive">
-                                        <table class="table table-striped">
-                                            <thead class="thead-dark">
-                                                <th class="text-center">Id</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th class="text-center">Completa</th>
-                                                <th class="text-center">Eliminar</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-center">Encuesta 1</td>
-                                                    <td class="text-center">Si</td>
-                                                    <td class="text-center">
-                                                        <a class="btn btn-danger btn-fab btn-fab-mini" title="Eliminar">
-                                                            <span class="material-icons">delete</span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td class="text-center">Encuesta 2</td>
-                                                    <td class="text-center">No</td>
-                                                    <td class="text-center">
-                                                        <a class="btn btn-danger btn-fab btn-fab-mini" title="Eliminar">
-                                                            <span class="material-icons">delete</span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div> -->
 
                                 <div class="col-md-12 text-right">
                                     <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="button" class="btn btn-primary" onclick="Save('update');">Guardar</button>
                                 </div>
                             </div>
                         </form>
@@ -147,140 +117,21 @@ $roles = $dbRol->getRoles($idUser);
         </div>
     </main>
 
-    <!-- Modal asignar/eliminar encuestas al usuario actual -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-tittle" id="addModal">Encuesta</h5>
-                    <button type="button" class="close" data-dismiss="modal" arial-label="close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p>Seleccione las encuestas que se asignarán al usuario actual</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-5">
-                                Sin asignar
-                            </div>
-                            <div class="col-2">
-                            </div>
-                            <div class="col-5">
-                                Asignados
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-5">
-                                <div class="form-group multiselect-picker">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="1">
-                                            Si/No
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="2">
-                                            Factor 1
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="3">
-                                            Factor 3
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="4">
-                                            Factor 4
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2 p-1">
-                                <div class="form-group pt-4">
-                                    <input type="button" class="btn btn-default" value=">>" title="Asignar">
-                                    <input type="button" class="btn btn-default" value="<<" title="Eliminar">
-                                </div>
-                            </div>
-                            <div class="col-5">
-                                <div class="form-group multiselect-picker">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="1">
-                                            Si/No
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="2">
-                                            Factor 1
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="3">
-                                            Factor 3
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="4">
-                                            Factor 4
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="5">
-                                            Factor 5
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="6">
-                                            Factor 6
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="7">
-                                            Factor 7
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="8">
-                                            Factor 8
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="9">
-                                            Factor 9
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Aceptar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <?php
+    // include_once "./surveys/modal.php";
     include_once "../../common/register-js.php";
     ?>
+
+    <script type="text/javascript">
+        function Save(action) {
+            let name = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+            let idrol = document.getElementById('idrol').value;
+            let active = document.getElementById('active').checked;
+
+            SaveUser(action, name, email, active, idrol, './save-user.php', <?php echo $idUser; ?>);
+        }
+    </script>
 
 </body>
 

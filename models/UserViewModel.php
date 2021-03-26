@@ -23,7 +23,7 @@ class UserViewModel
         $dbRol = new Rol($this->connection);
 
         $user = $dbUser->getUser($idUser);
-        $userRoles = $dbUserRol->getUserRoles($idUser);
+        $userRoles = $dbUserRol->getUserRolesByUser($idUser);
 
         foreach ($userRoles as $key => $userRol) {
             $user["roles"][] = $dbRol->getRol($userRol['roles_idrol']);
@@ -40,16 +40,53 @@ class UserViewModel
         $usersSurvey = $dbUserSurvey->getUserSurveys($idUser);
 
         foreach ($usersSurvey as $key => $userSurvey) {
-            $survey = $dbSurvey->getSurvey($userSurvey['users_iduser']);
+            $survey = $dbSurvey->getSurvey($userSurvey['surveys_idsurvey']);
 
             if($survey != false){
-                // $usersSurvey[$key]["name"] = $survey["name"];
-                // $usersSurvey[$key]["active"] = $survey["active"];
                 $usersSurvey[$key] = array_merge($userSurvey, $survey);
-                // $usersSurvey[$key] = $tmp;
             }
         }
 
         return $usersSurvey;
     }
+
+    function getUserSurveysPropetary($idUser)
+    {
+        $suerveyList = $this->getUserSurveys($idUser);
+
+        $filtro = function($array){
+            return ($array['propietary'] == true ? true : false);
+        };
+
+        $return = array_filter( $suerveyList, $filtro);
+
+        return $return;
+    }
+
+    function getUserSurveysStarted($idUser)
+    {
+        $suerveyList = $this->getUserSurveys($idUser);
+
+        $filtro = function($array){            
+            return ($array['propietary'] == false ? true : false);
+        };
+
+        $return = array_filter( $suerveyList, $filtro);
+
+        return $return;
+    }
+
+    function getUserSurveysNotStarted($idUser)
+    {
+        $suerveyList = $this->getUserSurveys($idUser);
+
+        $filtro = function($array){
+            return ($array['propietary'] == true ? true : false);
+        };
+
+        $return = array_filter( $suerveyList, $filtro);
+
+        return $return;
+    }
+
 }

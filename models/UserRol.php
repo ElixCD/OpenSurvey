@@ -16,16 +16,22 @@ class UserRol
         $this->connection = $connection;
     }
 
-    function getUserRoles(int $idUserRol)
+    function getUserRolesByUser(int $idUser)
     {
-        $this->UserRol = $this->connection->querySelect("SELECT * FROM user_roles WHERE iduser_rol = '" . $idUserRol . "'");
+        $this->UserRol = $this->connection->querySelect("SELECT * FROM user_roles WHERE users_iduser = '" . $idUser . "'");
+        return $this->UserRol;
+    }
+
+    function getUserRolesByRol(int $idRol)
+    {
+        $this->UserRol = $this->connection->querySelect("SELECT * FROM user_roles WHERE roles_idrol = '" . $idRol . "'");
         return $this->UserRol;
     }
 
     function saveUserRol($userRoles)
     {
         try {
-            return $this->connection->queryTransaction("INSERT INTO user_roles(users_iduser, roles_idrol) VALUES (NULL, '" . $userRoles['iduser'] . "', '" . $userRoles['idrol'] . "' , '" . $userRoles['idpermission'] . "'  )");
+            return $this->connection->queryTransaction("INSERT INTO user_roles(users_iduser, roles_idrol) VALUES ('" . $userRoles['iduser'] . "', '" . $userRoles['idrol'] . "' )");
         } catch (\Throwable $th) {
             return $th;
         }
@@ -34,7 +40,7 @@ class UserRol
     function updateUserRol($userRoles)
     {
         try {
-            $query = "UPDATE user_roles SET users_iduser = '" . $userRoles['iduser'] . "', roles_idrol='" . $userRoles['idrol'] . "' WHERE iduser_rol = " . (int) $userRoles['iduser_rol'];
+            $query = "UPDATE user_roles SET users_iduser = '" . $userRoles['iduser'] . "', roles_idrol='" . $userRoles['idrol'] . "' WHERE users_iduser = " . (int) $userRoles['iduser'];
             return $this->connection->queryTransaction($query);
         } catch (\Throwable $th) {
             return $th;

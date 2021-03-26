@@ -8,8 +8,7 @@ $idUser = $_GET['id'];
 
 $dbUser = new UserViewModel(new Db());
 $user = $dbUser->getUserData($idUser);
-$userSurveys = $dbUser->getUserSurveys($idUser);
-
+$userSurveys = $dbUser->getUserSurveysPropetary($idUser);
 
 ?>
 
@@ -20,11 +19,14 @@ $userSurveys = $dbUser->getUserSurveys($idUser);
                 ID
             </th>
             <th class="text-center">
-                Name
+                Nombre
             </th>
             <th class="text-center">
-                Accion
+                Activa
             </th>
+            <!-- <th class="text-center">
+                Accion
+            </th> -->
         </thead>
         <tbody>
 
@@ -37,18 +39,18 @@ $userSurveys = $dbUser->getUserSurveys($idUser);
                         <?php echo $survey['name'];  ?>
                     </td>
                     <td class="text-center">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <!-- <a href="#" class="btn btn-info btn-fab btn-fab-mini btn-link">
-                                                        <span class="material-icons">pageview</span>
-                                                    </a> -->
-                            <a class="btn btn-primary" href="./edit.php?id=<?php echo $survey['idsurvey']; ?>" title="Editar">
+                    <input type="checkbox" <?php echo ($survey["active"] ? "checked" : ""); ?> disabled >
+                    </td>
+                    <!-- <td class="text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">                           
+                            <a class="btn btn-primary" href="./edit.php?id=<?php //echo $survey['idsurvey']; ?>" title="Editar">
                                 <i class="material-icons">edit</i>
                             </a>
-                            <a class="btn btn-danger" title="Eliminar" data-toggle="modal" data-target="#deleteFactorModal" onclick="setValues('delete',<?php echo $survey['idsurvey']; ?>);">
+                            <a class="btn btn-danger" title="Eliminar" data-toggle="modal" data-target="#deleteFactorModal" onclick="setValues('delete',<?php //echo $survey['idsurvey']; ?>);">
                                 <i class="material-icons">delete</i>
                             </a>
                         </div>
-                    </td>
+                    </td> -->
                 </tr>
             <?php endforeach; ?>
         </tbody>

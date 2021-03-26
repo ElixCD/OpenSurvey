@@ -18,10 +18,10 @@ class UserSurvey
 
     // function getUserSurvey(int $idUserSurvey)
     // {
-    //     $this->UserSurvey = $this->connection->querySelect("SELECT * FROM user_surveys WHERE iduser_survey = '" . $idUserSurvey . "'");
+    //     $this->UserSurvey = $this->connection->querySelect("SELECT * FROM user_surveys WHERE users_iduser = '" . $idUserSurvey . "'");
 
     //     foreach ($this->UserSurvey as $key => $value) {
-    //         if ($value['iduser_survey'] == $idUserSurvey) {
+    //         if ($value['users_iduser'] == $idUserSurvey) {
     //             return $value;
     //         }
     //     }
@@ -30,7 +30,7 @@ class UserSurvey
 
     function getUserSurveys(int $idUserSurvey)
     {
-        $this->UserSurvey = $this->connection->querySelect("SELECT * FROM user_surveys WHERE iduser_survey = '" . $idUserSurvey . "'");
+        $this->UserSurvey = $this->connection->querySelect("SELECT * FROM user_surveys WHERE users_iduser = '" . $idUserSurvey . "'");
         return $this->UserSurvey;
     }
 
@@ -46,7 +46,7 @@ class UserSurvey
     function updateUserSurvey($userSurveys)
     {
         try {
-            $query = "UPDATE user_surveys SET users_iduser = '" . $userSurveys['iduser'] . "', surveys_idsurvey='" . $userSurveys['idsurvey'] . "', propietary=" . $userSurveys['propietary'] . ", complete=" . $userSurveys['complete'] . ", star_date='" . $userSurveys['star_date'] . "', finish_date='" . $userSurveys['finish_date'] . "' WHERE iduser_survey = " . (int) $userSurveys['iduser_survey'];
+            $query = "UPDATE user_surveys SET users_iduser = '" . $userSurveys['iduser'] . "', surveys_idsurvey='" . $userSurveys['idsurvey'] . "', propietary=" . $userSurveys['propietary'] . ", complete=" . $userSurveys['complete'] . ", star_date='" . $userSurveys['star_date'] . "', finish_date='" . $userSurveys['finish_date'] . "' WHERE users_iduser = " . (int) $userSurveys['users_iduser'];
             return $this->connection->queryTransaction($query);
         } catch (\Throwable $th) {
             return $th;
@@ -56,8 +56,8 @@ class UserSurvey
     function deleteUserSurvey($userSurveys)
     {
         try {
-            $param = $userSurveys['iduser_survey'];
-            return $this->connection->queryTransaction("DELETE FROM user_surveys WHERE iduser_survey = '" . $param . "' )");
+            $param = $userSurveys['users_iduser'];
+            return $this->connection->queryTransaction("DELETE FROM user_surveys WHERE users_iduser = '" . $param . "' )");
         } catch (\Throwable $th) {
             return $th;
         }
@@ -65,7 +65,7 @@ class UserSurvey
 
     private function validar($userSurveys)
     {
-        if (!array_key_exists('iduser_survey', $userSurveys) || !array_key_exists('description', $userSurveys)) {
+        if (!array_key_exists('users_iduser', $userSurveys) || !array_key_exists('description', $userSurveys)) {
             throw new Exception();
         }
     }

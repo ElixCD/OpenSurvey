@@ -28,7 +28,7 @@ class Rol
         return false;
     }
 
-    function getRoles(int $numberPage)
+    function getRoles(int $numberPage = 1)
     {
         $this->Rol = $this->connection->querySelect("SELECT * FROM roles");
         return $this->Rol;
