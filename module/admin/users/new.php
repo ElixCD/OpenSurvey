@@ -84,6 +84,7 @@ $roles = array_filter($roles, $filtro);
     </main>
 
     <?php
+
     include_once "../../common/register-js.php";
     ?>
     <script type="text/javascript">

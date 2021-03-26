@@ -43,7 +43,7 @@ $Users = $User->getUsers(1);
                     <td class="text-center">
                         <div class="form-check disabled">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input"  <?php echo $user['active'] == 1 ? 'checked' : ''; ?> disabled>
+                                <input type="checkbox" class="form-check-input" <?php echo $user['active'] == 1 ? 'checked' : ''; ?> disabled>
                             </label>
                         </div>
                     </td>
@@ -62,3 +62,12 @@ $Users = $User->getUsers(1);
         </tbody>
     </table>
 </div>
+
+<?php
+
+include_once "../../common/modal.php";
+$modal = new ModalConfirmation("deleteFactorModal", "Usuarios", "<div class='col-md-12'>Se eliminara el usuario.<br />¿Desea continuar?</div>", "SaveUser()");
+$modal->DrawComponent();
+
+
+?>

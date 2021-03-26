@@ -35,7 +35,6 @@ switch ($action) {
     case 'update': {
             // $newUser["last_login"] = date("Y-m-d h:i:s");
             $result = $user->updateUser($newUser);
-
             if ($userRol->getUserRolesByUser($newUser["iduser"]) == false) {
                 $userRol->saveUserRol($newUser);
             } else {
@@ -45,6 +44,7 @@ switch ($action) {
             break;
         }
     case 'delete': {
+            $userRol->deleteUserRoles($newUser);  
             $result = $user->deleteUser($newUser);
             break;
         }

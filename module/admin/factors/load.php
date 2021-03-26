@@ -38,29 +38,10 @@ $headers = ["Id", "Descripción"];
     </table>
 </div>
 
-<!-- Modal Delete-->
-<div class="modal fade" id="deleteFactorModal" tabindex="-1" role="dialog" aria-labelledby="deleteFactorModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteFactorModal">Factores</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        Se eliminara el factor.
-                        <br />
-                        ¿Desea continuar?
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveFactor()">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+include_once "../../common/modal.php";
+$modal = new ModalConfirmation("deleteFactorModal", "Factores", "<div class='col-md-12'>Se eliminara el factor.<br />¿Desea continuar?</div>", "SaveFactor()");
+$modal->DrawComponent();
+
+include_once "../../common/register-js.php";
+?>

@@ -47,11 +47,11 @@ class UserRol
         }
     }
 
-    function deleteUserRol($userRoles)
+    function deleteUserRoles($userRoles)
     {
         try {
-            $param = $userRoles['iduser_rol'];
-            return $this->connection->queryTransaction("DELETE FROM user_roles WHERE iduser_rol = '" . $param . "' )");
+            $param = $userRoles['iduser'];
+            return $this->connection->queryTransaction("DELETE FROM user_roles WHERE users_iduser = '" . $param . "'");
         } catch (\Throwable $th) {
             return $th;
         }

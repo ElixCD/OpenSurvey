@@ -10,12 +10,9 @@ use Models\Rol;
 $idUser = $_GET['id'];
 
 $dbUser = new UserViewModel(new Db());
-// $dbuserRol = new UserRol(new DB);
 $dbRol = new Rol(new Db());
 
 $user = $dbUser->getUserData($idUser);
-
-$dbRol = new Rol(new Db());
 $roles = $dbRol->getRoles();
 
 $filtro = function ($array) {
@@ -118,7 +115,7 @@ $roles = array_filter($roles, $filtro);
     </main>
 
     <?php
-    // include_once "./surveys/modal.php";
+
     include_once "../../common/register-js.php";
     ?>
 

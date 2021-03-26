@@ -47,6 +47,7 @@ include_once '../../common/getPath.php';
 
     <?php
     include_once "../../common/register-js.php";
+
     ?>
 
     <script type="text/javascript">
@@ -71,7 +72,7 @@ include_once '../../common/getPath.php';
                 }
             }
 
-            execute(connection, 'POST', './save-user.php', "action=" + userAction + "&idUser=" + idUser);
+            execute(connection, 'POST', './save-user.php', "action=" + userAction + "&iduser=" + idUser);
         }
 
         function LoadUsers() {
