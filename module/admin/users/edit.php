@@ -58,12 +58,12 @@ $roles = array_filter($roles, $filtro);
                                 <div class="col-md-12">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre del usuario</label>
-                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo $user['name']; ?>" readonly>
+                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo $user['name']; ?>" >
                                         <input type="hidden" name="id" id="id" value="<?php echo $idUser; ?>" />
                                     </div>
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Correo</label>
-                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $user['email']; ?>" readonly>
+                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $user['email']; ?>" >
                                     </div>
                                     <div class="form-group">
                                         <label class=" bmd-label-floating">Tipo de Usuario</label>
@@ -126,7 +126,7 @@ $roles = array_filter($roles, $filtro);
             let idrol = document.getElementById('idrol').value;
             let active = document.getElementById('active').checked;
 
-            SaveUser(action, name, email, active, idrol, './save-user.php', <?php echo $idUser; ?>);
+            SaveUser(action, name, email, active, idrol, '../../common/actionModels/save-user.php',document.referrer, <?php echo $idUser; ?>);
         }
     </script>
 

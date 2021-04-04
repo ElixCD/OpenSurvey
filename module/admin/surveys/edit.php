@@ -212,7 +212,7 @@ $factors = $dbFactor->getFactors(1);
                 }
             }
 
-            execute(connection, 'POST', './save-survey.php', "action=" + action + "&idSurvey=" + <?php echo $idSurvey; ?> + "&name=" + d + "&active=" + a);
+            execute(connection, 'POST', '../../common/actionModels/save-survey.php', "action=" + action + "&idSurvey=" + <?php echo $idSurvey; ?> + "&name=" + d + "&active=" + a);
         }
 
         function CurrentQuestion() {
@@ -245,7 +245,7 @@ $factors = $dbFactor->getFactors(1);
                 params = "action=" + questionAction + "&idfactor=" + idfactor + "&idSurvey=" + <?php echo $idSurvey; ?> + "&idQuestion=" + idQuestion + "&d=" + d + "&mandatory=" + mandatory;
             }
 
-            execute(connection, 'POST', './question/save-question.php', params);
+            execute(connection, 'POST', '../../common/actionModels/save-question.php', params);
         }
 
         function LoadQuestions() {

@@ -77,7 +77,7 @@ include_once '../../common/getPath.php';
                 }
             }
 
-            execute(connection, 'POST', './save-factor.php', "action=" + surveyAction + "&idSurvey=" + idSurvey);
+            execute(connection, 'POST', '../../common/actionModels/save-factor.php', "action=" + surveyAction + "&idSurvey=" + idSurvey);
         }
 
         function LoadSurveys() {

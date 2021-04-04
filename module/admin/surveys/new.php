@@ -84,7 +84,7 @@ include_once "../../common/getPath.php";
                 }
             }
 
-            execute(connection, 'POST', './save-survey.php', "action=" + action + "&name=" + d + "&active=true")
+            execute(connection, 'POST', '../../common/actionModels/save-survey.php', "action=" + action + "&name=" + d + "&active=true")
 
         }
     </script>

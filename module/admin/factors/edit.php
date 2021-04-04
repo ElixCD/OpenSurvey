@@ -167,7 +167,7 @@ $factor = $dbFactor->getFactor($idFactor);
                 }
             }
 
-            execute(connection, 'POST', './save-factor.php', "action=" + action + "&idfactor=" + <?php echo $idFactor; ?> + "&d=" + d);
+            execute(connection, 'POST', '../../common/actionModels/save-factor.php', "action=" + action + "&idfactor=" + <?php echo $idFactor; ?> + "&d=" + d);
         }
 
         function CurrentRubric() {
@@ -199,7 +199,7 @@ $factor = $dbFactor->getFactor($idFactor);
                 params = "action=" + rubricAction + "&idfactor=" + <?php echo $idFactor; ?> + "&idrubric=" + idRubric + "&d=" + d + "&v=" + v;
             }
 
-            execute(connection, 'POST', './rubric/save-rubric.php', params);
+            execute(connection, 'POST', '../../common/actionModels/save-rubric.php', params);
         }
 
         function LoadRubric() {

@@ -1,5 +1,26 @@
 <?php
+require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
+
+use Models\UserViewModel;
+
+use Sysurvey\Db;
+use Models\Rol;
+
+$idUser = 1;
+
+$dbUser = new UserViewModel(new Db());
+$dbRol = new Rol(new Db());
+
+$user = $dbUser->getUserData($idUser);
+$roles = $dbRol->getRoles();
+
+$filtro = function ($array) {
+    return ($array['description'] == "Super" ? false : true);
+};
+
+$roles = array_filter($roles, $filtro);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,100 +44,107 @@ include_once "../../common/getPath.php";
 
     <main class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mb-4">
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Editar usuario</h4>
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
                     <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>Datos</h3>
-                                    <hr>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Nombre del usuario</label>
-                                        <input type="text" class="form-control disabled" name="username" id="username" value="Elix Castillo">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Correo</label>
-                                        <input type="email" class="form-control" name="email" id="email" disabled value="algo@gmail.com">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group bmd-form-group">
-                                        <label class="bmd-label-floating">Tipo de Usuario</label>
-                                        <input type="email" class="form-control" name="tipo-usuario" id="tipo-usuario" value="Administrador">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check disabled">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" value="" checked>
-                                            Activo
-                                            <span class="form-check-sign">
-                                                <span class="check"></span>
-                                            </span>
-                                        </label>
-                                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Datos</h3>
+                                <hr>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="activate-data" onclick="activate('form-data');">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Editar
+                                    </label>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>Encuestas Asignadas</h3>
-                                    <hr>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="table-resposive">
-                                        <table class="table table-striped">
-                                            <thead class="thead-dark">
-                                                <th class="text-center">Id</th>
-                                                <th class="text-center">Nombre</th>
-                                                <th class="text-center">Completa</th>
-                                                <th class="text-center">Contestar</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td class="text-center">Encuesta 1</td>
-                                                    <td class="text-center">Si</td>
-                                                    <td class="text-center">
-                                                        <a class="btn btn-danger btn-fab btn-fab-mini" title="Eliminar">
-                                                            <span class="material-icons">delete</span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center">2</td>
-                                                    <td class="text-center">Encuesta 2</td>
-                                                    <td class="text-center">No</td>
-                                                    <td class="text-center">
-                                                        <a class="btn btn-danger btn-fab btn-fab-mini" title="Eliminar">
-                                                            <span class="material-icons">delete</span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                        <div class="row">
+                            <form id="form-data" class="col-12">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <label class="bmd-label-floating">Nombre del usuario</label>
+                                            <input type="text" class="form-control " disabled name="username" id="username" value="<?php echo $user['name']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <label class="bmd-label-floating">Correo</label>
+                                            <input type="email" class="form-control" disabled name="email" id="email" value="<?php echo $user['email']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <label class="bmd-label-floating">Tipo de Usuario</label>
+                                            <input type="email" class="form-control" disabled name="tipo-usuario" id="tipo-usuario" value="<?php echo $user['roles'][0]['description']  ?>" readonly>
+                                            <input type="hidden" value="<?php $user['roles'][0]['idrol']; ?>" id="idrol" name="idrol">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" id="active" name="active" readonly disabled value="" <?php echo ($user['active'] == true ? "checked" : ""); ?>>
+                                                Activo
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-right d-none" id="btn-data">
+                                        <button type="reset" class="btn btn-secondary" onclick="activate('form-data',1);">Cancelar</button>
+                                        <button type="button" class="btn btn-primary" value="" onclick="SaveData();">Guardar</button>
                                     </div>
 
                                 </div>
+                            </form>
+                        </div>
 
-                                <div class="col-md-12 text-right">
-                                    <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Contraseña</h3>
+                                <hr>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="activate-password" onclick="activate('form-password');">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        Editar
+                                    </label>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="row">
+                            <form id="form-password" class="col-12">
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <label class="bmd-label-floating">Contraseña</label>
+                                            <input type="password" class="form-control" disabled name="password" id="password" value="<?php echo $user['password']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group bmd-form-group">
+                                            <label class="bmd-label-floating">Repetir Contraseña</label>
+                                            <input type="password" class="form-control" disabled name="repeat" id="repeat" value="<?php echo $user['password']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-right d-none" id="btn-password">
+                                        <button type="reset" class="btn btn-secondary" onclick="activate('form-password',1);">Cancelar</button>
+                                        <button type="button" class="btn btn-primary" onclick="SavePassword();">Guardar</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         </div>
@@ -125,6 +153,59 @@ include_once "../../common/getPath.php";
     <?php
     include_once "../../common/register-js.php";
     ?>
+
+    <script type="text/javascript">
+        function activate(idContainer, e = 0) {
+            section = idContainer.split("-")[1];
+            btnBox = document.getElementById("btn-" + section);
+            if (btnBox.classList.contains("d-none")) {
+                btnBox.classList.remove("d-none")
+            } else {
+                btnBox.classList.add("d-none")
+            }
+
+            elem = document.getElementById(idContainer).getElementsByTagName("input");
+
+            for (i = 0; i < elem.length; i++) {
+                if (elem[i].getAttribute("type") != "checkbox") {
+                    if (elem[i].hasAttribute("disabled")) {
+                        elem[i].removeAttribute("disabled")
+                    } else {
+                        elem[i].setAttribute("disabled", "disabled")
+                    }
+                }
+            }
+
+            if (e == 1) {
+                editar = document.getElementById("activate-" + section);
+                editar.checked = !editar.checked;
+            }
+        }
+
+        function SaveData() {
+            let name = document.getElementById('username').value;
+            let email = document.getElementById('email').value;
+            let idrol = document.getElementById('idrol').value;
+            let active = document.getElementById('active').checked;
+
+            SaveUser('update', name, email, active, idrol, '../../common/actionModels/save-user.php', null, <?php echo $idUser; ?>);
+            activate('form-data', 1);
+        }
+
+        function SavePassword() {
+            let password = document.getElementById('password').value;
+            let repeat = document.getElementById('repeat').value;
+
+            if (password == repeat) {
+                // SaveUser(action, name, email, active, idrol, './save-user.php', <?php //echo $idUser; 
+                                                                                    ?>);
+                activate('form-password', 1);
+            } else {
+                alert("Las contraseñas no coinciden");
+            }
+
+        }
+    </script>
 </body>
 
 </html>

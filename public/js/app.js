@@ -35,7 +35,7 @@ function UpdateElement() {
     }
 }
 
-function SaveUser(action, name, email, active, idrol, url, iduser = null) {
+function SaveUser(action, name, email, active, idrol, url, locate, iduser = null) {
     let backUrl = document.referrer;
 
     let connection = createConnection();
@@ -45,7 +45,8 @@ function SaveUser(action, name, email, active, idrol, url, iduser = null) {
             let obj = JSON.parse(connection.responseText);
             alert(obj.msj);
             if (obj.error == false) {
-                location.href = backUrl;
+                if(locate != null)
+                    location.href = locate;
             }
         }
     }
@@ -55,7 +56,8 @@ function SaveUser(action, name, email, active, idrol, url, iduser = null) {
     if (iduser != null) params += "&iduser=" + iduser
 
     execute(connection, 'POST', url, params);
-
 }
+
+
 
 

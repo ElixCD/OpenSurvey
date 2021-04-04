@@ -88,7 +88,7 @@ include_once "../../common/getPath.php";
                     }
                 }
             }
-            execute(connection, 'POST', './save-factor.php', "action=" + action + "&d=" + d);
+            execute(connection, 'POST', '../../common/actionModels/save-factor.php', "action=" + action + "&d=" + d);
         }
     </script>
 

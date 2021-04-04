@@ -2,6 +2,8 @@
 require '../../../vendor/autoload.php';
 include_once '../../common/getPath.php';
 
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,7 +74,7 @@ include_once '../../common/getPath.php';
                 }
             }
 
-            execute(connection, 'POST', './save-user.php', "action=" + userAction + "&iduser=" + idUser);
+            execute(connection, 'POST', '../../common/actionModels/save-user.php', "action=" + userAction + "&iduser=" + idUser);
         }
 
         function LoadUsers() {

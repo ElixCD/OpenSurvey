@@ -1,34 +1,33 @@
 <?php
-require '../../../../vendor/autoload.php';
+require '../../../vendor/autoload.php';
 
 use Sysurvey\Db;
 
 $action = $_POST['action'];
-$newQuestion = [
+$newRubric = [
     "idfactor" => isset($_POST['idfactor']) ? (int) $_POST['idfactor'] : "",
-    "idsurvey" => isset($_POST['idSurvey']) ? (int) $_POST['idSurvey'] : "",
-    "value" => isset($_POST['d']) ? $_POST['d'] : "",
-    "mandatory" => isset($_POST['mandatory']) ? $_POST['mandatory'] : false,
-    "idquestion" => isset($_POST['idQuestion']) ? $_POST['idQuestion'] : ""
+    "idrubric" => isset($_POST['idrubric']) ? (int) $_POST['idrubric'] : "",
+    "description" => isset($_POST['d']) ? $_POST['d'] : "",
+    "value" => isset($_POST['v']) ? $_POST['v'] : ""
 ];
 
 // print_r(json_encode($newSurvey));
 
 $arr = [];
-$question = new Models\Question(new Db());
+$rubric = new Models\Rubric(new Db());
 $result = null;
 
 switch ($action) {
     case 'new': {
-            $result = $question->saveQuestion($newQuestion);
+            $result = $rubric->saveRubric($newRubric);
             break;
         }
     case 'update': {
-            $result = $question->updateQuestion($newQuestion);
+            $result = $rubric->updateRubric($newRubric);
             break;
         }
     case 'delete': {
-            $result = $question->deleteQuestion($newQuestion);
+            $result = $rubric->deleteRubric($newRubric);
             break;
         }
     default:

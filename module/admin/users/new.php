@@ -94,7 +94,7 @@ $roles = array_filter($roles, $filtro);
             let idrol = document.getElementById('rol').value;
             let active = document.getElementById('active').checked;
 
-            SaveUser(action, name, email, active, idrol, './save-user.php');
+            SaveUser(action, name, email, active, idrol, '../../common/actionModels/save-user.php', document.referrer);
         }
     </script>
 

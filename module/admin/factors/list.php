@@ -69,7 +69,7 @@ include_once "../../common/getPath.php";
                 }
             }
 
-            execute(connection, 'POST', './save-factor.php', "action=" + factorAction + "&idfactor=" + idFactor);
+            execute(connection, 'POST', '../../common/actionModels/save-factor.php', "action=" + factorAction + "&idfactor=" + idFactor);
         }
 
         function LoadFactors() {
