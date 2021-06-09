@@ -15,7 +15,7 @@ $newSurvey = [
 
 $arr = [];
 $survey = new Models\Survey(new Db());
-$result = null;
+$result = false;
 
 switch ($action) {
     case 'new': {

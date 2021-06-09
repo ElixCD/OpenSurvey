@@ -22,7 +22,7 @@ $arr = [];
 $user = new Models\User(new Db());
 $userRol = new Models\UserRol(new Db());
 
-$result = null;
+$result = false;
 
 switch ($action) {
     case 'new': {
@@ -52,6 +52,20 @@ switch ($action) {
         $result = false;
         break;
 }
+
+if (!$result) {
+    $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
+}
+else{
+    if($result === true){
+        $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
+    }
+    else{
+        $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
+    }
+}
+
+
 
 if ($result) {
     $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];

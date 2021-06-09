@@ -15,7 +15,7 @@ $newRubric = [
 
 $arr = [];
 $rubric = new Models\Rubric(new Db());
-$result = null;
+$result = false;
 
 switch ($action) {
     case 'new': {

@@ -15,7 +15,7 @@ $newFactor = [
 
 $arr = [];
 $factor = new Models\Factor(new Db());
-$result = null;
+$result = false;
 
 switch ($action) {
     case 'new': {

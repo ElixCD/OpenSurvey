@@ -16,7 +16,7 @@ $newQuestion = [
 
 $arr = [];
 $question = new Models\Question(new Db());
-$result = null;
+$result = false;
 
 switch ($action) {
     case 'new': {
