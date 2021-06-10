@@ -11,8 +11,6 @@ $newSurvey = [
     "users_iduser" => 1
 ];
 
-// print_r(json_encode($newSurvey));
-
 $arr = [];
 $survey = new Models\Survey(new Db());
 $result = false;

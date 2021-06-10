@@ -11,8 +11,6 @@ $newFactor = [
     "users_iduser" => 1
 ];
 
-// print_r(json_encode($newSurvey));
-
 $arr = [];
 $factor = new Models\Factor(new Db());
 $result = false;

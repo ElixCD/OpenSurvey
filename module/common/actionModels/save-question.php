@@ -12,8 +12,6 @@ $newQuestion = [
     "idquestion" => isset($_POST['idQuestion']) ? $_POST['idQuestion'] : ""
 ];
 
-// print_r(json_encode($newSurvey));
-
 $arr = [];
 $question = new Models\Question(new Db());
 $result = false;

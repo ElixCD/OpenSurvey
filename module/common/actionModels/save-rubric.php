@@ -11,8 +11,6 @@ $newRubric = [
     "value" => isset($_POST['v']) ? $_POST['v'] : ""
 ];
 
-// print_r(json_encode($newSurvey));
-
 $arr = [];
 $rubric = new Models\Rubric(new Db());
 $result = false;

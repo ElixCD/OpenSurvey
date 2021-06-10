@@ -69,5 +69,3 @@ if ($module != 'dashboard') {
             break;
     }
 }
-
-// print_r($module);

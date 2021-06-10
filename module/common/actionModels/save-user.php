@@ -15,9 +15,6 @@ $newUser = [
     "idrol" => isset($_POST['idrol']) ? $_POST['idrol'] : 0
 ];
 
-
-// print_r(json_encode($newUser));
-
 $arr = [];
 $user = new Models\User(new Db());
 $userRol = new Models\UserRol(new Db());
@@ -33,7 +30,6 @@ switch ($action) {
             break;
         }
     case 'update': {
-            // $newUser["last_login"] = date("Y-m-d h:i:s");
             $result = $user->updateUser($newUser);
             if ($userRol->getUserRolesByUser($newUser["iduser"]) == false) {
                 $userRol->saveUserRol($newUser);
