@@ -17,14 +17,14 @@ CREATE TABLE IF NOT EXISTS `factors` (
   PRIMARY KEY (`idfactor`),
   KEY `fk_factor_users1_idx` (`users_iduser`),
   CONSTRAINT `fk_factor_users1` FOREIGN KEY (`users_iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `modules`;
 CREATE TABLE IF NOT EXISTS `modules` (
   `idmodule` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `module_access`;
 CREATE TABLE IF NOT EXISTS `module_access` (
@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS `module_access` (
   CONSTRAINT `fk_module_access_modules1` FOREIGN KEY (`modules_idmodule`) REFERENCES `modules` (`idmodule`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_module_access_permissions1` FOREIGN KEY (`permissions_idpermission`) REFERENCES `permissions` (`idpermission`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_module_access_user_types1` FOREIGN KEY (`user_types_iduser_type`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
   `idpermission` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(45) NOT NULL,
   PRIMARY KEY (`idpermission`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `questions`;
 CREATE TABLE IF NOT EXISTS `questions` (
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   KEY `fk_questions_survey1_idx` (`surveys_idsurvey`),
   CONSTRAINT `fk_questions_factor1` FOREIGN KEY (`factors_idfactor`) REFERENCES `factors` (`idfactor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_questions_survey1` FOREIGN KEY (`surveys_idsurvey`) REFERENCES `surveys` (`idsurvey`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `responses`;
 CREATE TABLE IF NOT EXISTS `responses` (
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `idrol` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(45) NOT NULL,
   PRIMARY KEY (`idrol`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `rubrics`;
 CREATE TABLE IF NOT EXISTS `rubrics` (
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `rubrics` (
   PRIMARY KEY (`idrubric`),
   KEY `fk_rubric_factor1_idx` (`factors_idfactor`),
   CONSTRAINT `fk_rubric_factor1` FOREIGN KEY (`factors_idfactor`) REFERENCES `factors` (`idfactor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `surveys`;
 CREATE TABLE IF NOT EXISTS `surveys` (
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `surveys` (
   `name` varchar(45) NOT NULL,
   `active` binary(1) NOT NULL,
   PRIMARY KEY (`idsurvey`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_login` datetime DEFAULT NULL,
   `register_date` datetime NOT NULL,
   PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_relations`;
 CREATE TABLE IF NOT EXISTS `user_relations` (
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `user_relations` (
   KEY `fk_user_relations_users2_idx` (`users_iduser_user`),
   CONSTRAINT `fk_user_relations_users_admin` FOREIGN KEY (`users_iduser_admin`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_relations_users_user` FOREIGN KEY (`users_iduser_user`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE IF NOT EXISTS `user_roles` (
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   KEY `fk_user_rol_roles1_idx` (`roles_idrol`),
   CONSTRAINT `fk_user_rol_roles1` FOREIGN KEY (`roles_idrol`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_rol_users1` FOREIGN KEY (`users_iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_surveys`;
 CREATE TABLE IF NOT EXISTS `user_surveys` (
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `user_surveys` (
   KEY `fk_user_survey_survey1_idx` (`surveys_idsurvey`),
   CONSTRAINT `fk_user_survey_survey1` FOREIGN KEY (`surveys_idsurvey`) REFERENCES `surveys` (`idsurvey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_survey_users1` FOREIGN KEY (`users_iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
