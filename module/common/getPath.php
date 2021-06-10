@@ -1,16 +1,12 @@
 <?php
-//  echo $_SERVER["REQUEST_URI"]."<br>";
+
 $lng = explode('/', trim($_SERVER["REQUEST_URI"], '/'));
-//  print_r($lng);
-//  print_r("<br>");
 
 if (stristr($lng[count($lng) - 1], ".php")) {
-    $module = strtolower($lng[count($lng) - 2]);
+    $module = strtolower($lng[count($lng) - 2]);    
 } else {
     $module = strtolower($lng[count($lng) - 1]);
 }
-
-//  print_r("-".$module."<br>");
 
 $moduleName = "";
 $actionName = "";
@@ -47,12 +43,8 @@ switch ($module) {
         break;
 }
 
-// print_r("+".$moduleName."<br>");
-
 if ($module != 'dashboard') {
-
-    $action = (count($lng) > 4) ? strtolower(str_ireplace(".php", "", $lng[4])) : "";
-
+    $action = explode('.',strtolower($lng[count($lng) - 1]))[0];
     switch ($action) {
         case 'list':
             $actionName = "Listar";
