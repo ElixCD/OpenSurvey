@@ -14,7 +14,7 @@ class Db implements IDb
         try {
             $this->gbd = new PDO('mysql:dbname=' . $_ENV['DB'] . ';host=' . $_ENV['HOST'] . ';', $_ENV['USR'], $_ENV['SECRET_KEY']);
         } catch (PDOException $e) {
-            echo 'Falló la conexión: ' . $e->getMessage();
+            throw new PDOException('Connection error: ' . $e->getMessage(), 1);
         }
     }
 
