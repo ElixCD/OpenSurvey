@@ -1,11 +1,11 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Data\UserViewModel;
+use Domain\UserDomain;
 
 $idUser = $_GET['id'];
 
-$dbUser = new UserViewModel();
+$dbUser = new UserDomain();
 $user = $dbUser->getUserData($idUser);
 $userSurveys = $dbUser->getUserSurveysPropetary($idUser);
 

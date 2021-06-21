@@ -2,8 +2,6 @@
 
 namespace Domain;
 
-use OurVoice;
-
 class UserDomain
 {
     private $User;
@@ -16,6 +14,7 @@ class UserDomain
         $this->User = new $GLOBALS['Config']::$User;
     }
 
+//Region Single Crud
     function IsSuccess()
     {
         if ($this->message == "")
@@ -77,4 +76,83 @@ class UserDomain
             return array();
         }
     }
+//endregion
+    
+/***************************  ***************************/
+
+//Region User Data
+    function GetUserData($idUser)
+    {
+        $dbUserRol = new $GLOBALS['Config']::$UserRol;
+        $dbRol = new $GLOBALS['Config']::$Rol;
+
+        $user = $this->User->GetUser($idUser);
+        $userRoles = $dbUserRol->GetUserRolesByUser($idUser);
+
+        foreach ($userRoles as $key => $userRol) {
+            if(is_array($userRol )){
+                $user["roles"][] = $dbRol->GetRol($userRol['roles_idrol']);
+            }
+        }    
+       
+        return $user;
+    }
+
+    function GetUserSurveys($idUser)
+    {
+        $dbUserSurvey = new $GLOBALS['Config']::$UserSurvey;
+        $dbSurvey = new $GLOBALS['Config']::$Survey;
+
+        $usersSurvey = $dbUserSurvey->GetUserSurveys($idUser);
+
+        foreach ($usersSurvey as $key => $userSurvey) {
+            $survey = $dbSurvey->GetSurvey($userSurvey['surveys_idsurvey']);
+
+            if($survey != false){
+                $usersSurvey[$key] = array_merge($userSurvey, $survey);
+            }
+        }
+
+        return $usersSurvey;
+    }
+    
+    function GetUserSurveysPropetary($idUser)
+    {
+        $suerveyList = $this->GetUserSurveys($idUser);
+
+        $filtro = function($array){
+            return ($array['propietary'] == true ? true : false);
+        };
+
+        $return = array_filter( $suerveyList, $filtro);
+
+        return $return;
+    }
+
+    function GetUserSurveysStarted($idUser)
+    {
+        $suerveyList = $this->GetUserSurveys($idUser);
+
+        $filtro = function($array){            
+            return ($array['propietary'] == false ? true : false);
+        };
+
+        $return = array_filter( $suerveyList, $filtro);
+
+        return $return;
+    }
+
+    function GetUserSurveysNotStarted($idUser)
+    {
+        $suerveyList = $this->GetUserSurveys($idUser);
+
+        $filtro = function($array){
+            return ($array['propietary'] == true ? true : false);
+        };
+
+        $return = array_filter( $suerveyList, $filtro);
+
+        return $return;
+    }
+//endregion
 }
