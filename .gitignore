@@ -2,3 +2,5 @@ vendor
 config/.env
 .vscode
 *.bak
+docs/Sysurvey_01.sql
+docs/Sysurvey_02.sql
