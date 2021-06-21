@@ -1,11 +1,8 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-use Models\User;
-
-$User = new User(new Db());
-$Users = $User->getUsers(1);
+$User = new Domain\UserDomain();
+$Users = $User->GetUsers(1);
 
 ?>
 

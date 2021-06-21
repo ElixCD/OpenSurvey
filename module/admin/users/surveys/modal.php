@@ -1,19 +1,17 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-use Models\UserSurvey;
-use Models\Survey;
+use Data\DbMySQL;
+use Data\UserSurvey;
+use Data\Survey;
 
 $idUser = $_GET['id'];
 
-$dbSurvey = new Survey(new Db());
-$dbUser = new UserSurvey(new Db());
+$dbSurvey = new Survey(new DbMySQL());
+$dbUser = new UserSurvey(new DbMySQL());
 
 // $userSurveys = $dbSurvey->getSurveys($idUser);
 // $userSurveys = $dbUser->getUserSurveys($idUser);
-
-
 
 ?>
 

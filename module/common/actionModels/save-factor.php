@@ -1,8 +1,6 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-
 $action = $_POST['action'];
 $newFactor = [
     "idsurvey" => isset($_POST['idsurvey']) ? (int) $_POST['idsurvey'] : "",
@@ -12,20 +10,20 @@ $newFactor = [
 ];
 
 $arr = [];
-$factor = new Models\Factor(new Db());
+$factor = new Domain\FactorDomain();
 $result = false;
 
 switch ($action) {
     case 'new': {
-            $result = $factor->saveFactor($newFactor);
+            $result = $factor->SaveFactor($newFactor);
             break;
         }
     case 'update': {
-            $result = $factor->updateFactor($newFactor);
+            $result = $factor->UpdateFactor($newFactor);
             break;
         }
     case 'delete': {
-            $result = $factor->deleteFactor($newFactor);
+            $result = $factor->DeleteFactor($newFactor);
             break;
         }
     default:
@@ -33,10 +31,10 @@ switch ($action) {
         break;
 }
 
-if ($result) {
+if ($factor->IsSuccess()) {
     $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
 } else {
-    $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
+    $arr = ["msj" => $factor->GetMessage(), "error" => true];
 }
 
 $json = json_encode($arr);

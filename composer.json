@@ -6,11 +6,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Sysurvey\\": "core/",
-            "Sysurvey\\Modules\\": "module/",
+            "OurVoice\\": "core/",
+            "OurVoice\\Modules\\": "module/",
             "Utils\\" : "utils/",
             "Dotenv\\" : "vendor/vlucas/phpdotenv/src/",
-            "Models\\" : "models/"
+            "Models\\" : "models/",
+            "Data\\" : "data/",
+            "Domain\\" : "domain",
+            "Data\\MySql\\" : "data/mysql"
         },
         "files": ["config/LoadEnviroment.php","lib/Helper.php"]
     }

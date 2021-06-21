@@ -1,6 +1,6 @@
 <?php
 
-namespace Sysurvey;
+namespace OurVoice;
 
 abstract class ComponentBase
 {

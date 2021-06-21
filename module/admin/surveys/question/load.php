@@ -1,16 +1,13 @@
 <?php
 require '../../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-use Models\Question;
-use Models\Factor;
+// use Domain;
 
 $idSurvey = $_GET['idsurvey'];
 
-$dbQuestions = new Question(new Db());
-$dbFactors = new Factor(new Db());
+$dbQuestions = new Domain\QuestionDomain();
+$dbFactors = new Domain\FactorDomain();
 $questions = $dbQuestions->getQuestions($idSurvey, 1);
-$headers = ["Id", "Descripción", "Valor"];
 ?>
 
 <div class="table-responsive">
@@ -33,7 +30,7 @@ $headers = ["Id", "Descripción", "Valor"];
                     <td class="text-center">
                         <input type="hidden" id="factor-lbl<?php echo $question['idquestion']; ?>" value="<?php echo $question['factors_idfactor']; ?>" />
                         <?php
-                        $factor = $dbFactors->getFactor($question['factors_idfactor']);
+                        $factor = $dbFactors->GetFactor($question['factors_idfactor']);
                         echo $factor['description'];
                         ?>
                     </td>

@@ -1,12 +1,10 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-use Models\Survey;
+use Domain\SurveyDomain;
 
-$Survey = new Survey(new Db());
+$Survey = new SurveyDomain();
 $Surveys = $Survey->getSurveys(1);
-$headers = ["Id", "Descripción"];
 
 ?>
 

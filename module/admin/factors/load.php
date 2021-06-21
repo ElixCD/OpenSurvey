@@ -1,12 +1,10 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-use Models\Factor;
+use Domain\FactorDomain;
 
-$dbFactor = new Factor(new Db());
+$dbFactor = new FactorDomain();
 $factorList = $dbFactor->getFactors(1);
-$headers = ["Id", "Descripción"];
 
 ?>
 

@@ -2,18 +2,12 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Sysurvey\Db;
-use Models\Factor;
-// use Models\Rubric;
+use Domain\FactorDomain;
 
 $idFactor = $_GET['id'];
 
-$dbFactor = new Factor(new Db());
-$factor = $dbFactor->getFactor($idFactor);
-
-// $dbRubrica = new Rubric(new Db());
-// $listaRubricas = $dbRubrica->getRubrics($idFactor);
-// $headers = ["Id", "Descripción", "Valor"];
+$dbFactor = new FactorDomain();
+$factor = $dbFactor->GetFactor($idFactor);
 
 ?>
 <!DOCTYPE html>

@@ -2,20 +2,16 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Sysurvey\Db;
-use Models\Survey;
-use Models\Factor;
-// use Models\Rubric;
+use Domain\SurveyDomain;
+use Domain\FactorDomain;
 
 $idSurvey = $_GET['id'];
 
-$dbSurvey = new Survey(new Db());
+$dbSurvey = new SurveyDomain();
 $survey = $dbSurvey->getSurvey($idSurvey);
 
-$dbFactor = new Factor(new Db());
+$dbFactor = new FactorDomain();
 $factors = $dbFactor->getFactors(1);
-
-
 
 ?>
 <!DOCTYPE html>

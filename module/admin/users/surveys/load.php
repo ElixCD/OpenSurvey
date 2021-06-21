@@ -1,12 +1,11 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-use Models\UserViewModel;
+use Data\UserViewModel;
 
 $idUser = $_GET['id'];
 
-$dbUser = new UserViewModel(new Db());
+$dbUser = new UserViewModel();
 $user = $dbUser->getUserData($idUser);
 $userSurveys = $dbUser->getUserSurveysPropetary($idUser);
 

@@ -11,9 +11,9 @@ App Installation
 + Change name to .env_example file to .env and modify enviroment values correspond to your machine and database server.
 
 DB Installation
-+ Enter docs directory and find Sysurvey.sql file
++ Enter docs directory and find OurVoice.sql file
 + Log mysql and execute next command:
-    source Sysurvey.sql
+    source OurVoice.sql
 * Grant permissions to your user
 * Add initial data: 
     source DataDB.sql

@@ -2,21 +2,23 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Models\UserViewModel;
+use Data\UserViewModel;
 
-use Sysurvey\Db;
-use Models\Rol;
+use Domain\RolDomain;
 
 $idUser = 1;
 
-$dbUser = new UserViewModel(new Db());
-$dbRol = new Rol(new Db());
+$dbUser = new UserViewModel();
+$dbRol = new RolDomain();
 
 $user = $dbUser->getUserData($idUser);
 $roles = $dbRol->getRoles();
 
 $filtro = function ($array) {
-    return ($array['description'] == "Super" ? false : true);
+    if(is_array($array))
+        return ($array['description'] == "Super" ? false : true);
+    else
+        return $array;
 };
 
 $roles = array_filter($roles, $filtro);
@@ -85,7 +87,7 @@ $roles = array_filter($roles, $filtro);
                                         <div class="form-group bmd-form-group">
                                             <label class="bmd-label-floating">Tipo de Usuario</label>
                                             <input type="email" class="form-control" disabled name="tipo-usuario" id="tipo-usuario" value="<?php echo $user['roles'][0]['description']  ?>" readonly>
-                                            <input type="hidden" value="<?php $user['roles'][0]['idrol']; ?>" id="idrol" name="idrol">
+                                            <input type="hidden" value="<?php echo $user['roles'][0]['idrol']; ?>" id="idrol" name="idrol">
                                         </div>
                                     </div>
                                     <div class="col-md-6">

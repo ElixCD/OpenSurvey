@@ -1,19 +1,19 @@
 <?php
 
-namespace Models;
+namespace Data\MySql;
 
-use Sysurvey;
+use Data;
 use Exception;
 
-class UserSurvey
+class UserSurvey implements Data\Interfaces\IUserSurvey
 {
     private $UserSurvey = [];
 
     private $connection;
 
-    function __construct(Sysurvey\IDb $connection)
+    function __construct()
     {
-        $this->connection = $connection;
+        $this->connection = new DbMySQL();
     }
 
     // function getUserSurvey(int $idUserSurvey)
@@ -28,42 +28,50 @@ class UserSurvey
     //     return false;
     // }
 
-    function getUserSurveys(int $idUserSurvey)
+    function IsSuccess() : bool{
+        return $this->connection->QuerySuccess();
+    }
+
+    function GetMessage() : string{
+        return $this->connection->GetMessage();
+    }
+
+    function GetUserSurveys(int $idUserSurvey)
     {
-        $this->UserSurvey = $this->connection->querySelect("SELECT * FROM user_surveys WHERE users_iduser = '" . $idUserSurvey . "'");
+        $this->UserSurvey = $this->connection->QuerySelect("SELECT * FROM user_surveys WHERE users_iduser = '" . $idUserSurvey . "'");
         return $this->UserSurvey;
     }
 
-    function saveUserSurvey($userSurveys)
+    function SaveUserSurvey($userSurveys)
     {
         try {
-            return $this->connection->queryTransaction("INSERT INTO user_surveys VALUES (NULL, '" . $userSurveys['iduser'] . "', '" . $userSurveys['idsurvey'] . "' , '" . $userSurveys['propietary'] . "',, " . $userSurveys['complete'] . ", , '" . $userSurveys['start_date'] . "', , '" . $userSurveys['finish_date'] . "'  )");
+            return $this->connection->QueryTransaction("INSERT INTO user_surveys VALUES (NULL, '" . $userSurveys['iduser'] . "', '" . $userSurveys['idsurvey'] . "' , '" . $userSurveys['propietary'] . "',, " . $userSurveys['complete'] . ", , '" . $userSurveys['start_date'] . "', , '" . $userSurveys['finish_date'] . "'  )");
         } catch (\Throwable $th) {
             return $th;
         }
     }
 
-    function updateUserSurvey($userSurveys)
+    function UpdateUserSurvey($userSurveys)
     {
         try {
             $query = "UPDATE user_surveys SET users_iduser = '" . $userSurveys['iduser'] . "', surveys_idsurvey='" . $userSurveys['idsurvey'] . "', propietary=" . $userSurveys['propietary'] . ", complete=" . $userSurveys['complete'] . ", star_date='" . $userSurveys['star_date'] . "', finish_date='" . $userSurveys['finish_date'] . "' WHERE users_iduser = " . (int) $userSurveys['users_iduser'];
-            return $this->connection->queryTransaction($query);
+            return $this->connection->QueryTransaction($query);
         } catch (\Throwable $th) {
             return $th;
         }
     }
 
-    function deleteUserSurvey($userSurveys)
+    function DeleteUserSurvey($userSurveys)
     {
         try {
             $param = $userSurveys['users_iduser'];
-            return $this->connection->queryTransaction("DELETE FROM user_surveys WHERE users_iduser = '" . $param . "' )");
+            return $this->connection->QueryTransaction("DELETE FROM user_surveys WHERE users_iduser = '" . $param . "' )");
         } catch (\Throwable $th) {
             return $th;
         }
     }
 
-    private function validar($userSurveys)
+    private function Validar($userSurveys)
     {
         if (!array_key_exists('users_iduser', $userSurveys) || !array_key_exists('description', $userSurveys)) {
             throw new Exception();

@@ -1,8 +1,6 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-
 $action = $_POST['action'];
 $newUser = [
     "iduser" => isset($_POST['iduser']) ? (int) $_POST['iduser'] : "",
@@ -16,31 +14,20 @@ $newUser = [
 ];
 
 $arr = [];
-$user = new Models\User(new Db());
-$userRol = new Models\UserRol(new Db());
+$user = new Domain\UserDomain();
 
 $result = false;
 
 switch ($action) {
     case 'new': {
-            $newUser["register_date"] = date("Y-m-d h:i:s");
-            $result = $user->saveUser($newUser);
-            $newUser["iduser"] = $result;
-            $userRol->saveUserRol($newUser);
+            $result = $user->SaveUser($newUser);            
             break;
         }
     case 'update': {
-            $result = $user->updateUser($newUser);
-            if ($userRol->getUserRolesByUser($newUser["iduser"]) == false) {
-                $userRol->saveUserRol($newUser);
-            } else {
-                $userRol->updateUserRol($newUser);
-            }
-
+            $result = $user->updateUser($newUser);            
             break;
         }
-    case 'delete': {
-            $userRol->deleteUserRoles($newUser);  
+    case 'delete': {           
             $result = $user->deleteUser($newUser);
             break;
         }
@@ -49,24 +36,24 @@ switch ($action) {
         break;
 }
 
-if (!$result) {
-    $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
-}
-else{
-    if($result === true){
-        $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
-    }
-    else{
-        $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
-    }
-}
+// if (!$result) {
+//     $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
+// }
+// else{
+//     if($result === true){
+//         $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
+//     }
+//     else{
+//         $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
+//     }
+// }
 
 
 
-if ($result) {
+if ($user->IsSuccess()) {
     $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
 } else {
-    $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
+    $arr = ["msj" => $user->GetMessage(), "error" => true];
 }
 
 $json = json_encode($arr);

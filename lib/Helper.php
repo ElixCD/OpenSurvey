@@ -1,5 +1,5 @@
 <?php
-namespace Sysurvey\Helper;
+namespace OurVoice\Helper;
 class Helper{
     public function Saludo(){
         return "Hola helper";

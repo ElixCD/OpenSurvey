@@ -2,7 +2,7 @@
 require '../../../vendor/autoload.php';
 include_once '../../common/getPath.php';
 
-// use Sysurvey\Db;
+// use OurVoice\Db;
 // use Models\Survey;
 
 // $Survey = new Survey(new Db());

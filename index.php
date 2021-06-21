@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-Sysurvey\SesionStatus::startSession();
+OurVoice\SesionStatus::startSession();
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@ Sysurvey\SesionStatus::startSession();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sysurvey</title>
+    <title>OurVoice</title>
     <?php include_once "./module/common/register-css.php"; ?>
 </head>
 

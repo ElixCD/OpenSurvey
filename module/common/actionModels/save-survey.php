@@ -1,8 +1,6 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-
 $action = $_POST['action'];
 $newSurvey = [
     "idsurvey" => isset($_POST['idSurvey']) ? (int) $_POST['idSurvey'] : "",
@@ -12,7 +10,7 @@ $newSurvey = [
 ];
 
 $arr = [];
-$survey = new Models\Survey(new Db());
+$survey = new Domain\SurveyDomain();
 $result = false;
 
 switch ($action) {
@@ -33,10 +31,10 @@ switch ($action) {
         break;
 }
 
-if ($result) {
+if ($survey->IsSuccess()) {
     $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
 } else {
-    $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
+    $arr = ["msj" => $survey->GetMessage(), "error" => true];
 }
 
 $json = json_encode($arr);

@@ -1,41 +1,46 @@
 <?php
 
-namespace Models;
-
-use Sysurvey;
-use Exception;
-
-use Models\User;
-use Models\UserRol;
-use Models\Rol;
+namespace Data;
 
 class UserViewModel
 {
-    function __construct(Sysurvey\IDb $connection)
+    private $useUser;
+    private $useUserRol;
+    private $useRol;
+    private $useUserSurvey;
+    private $useSurvey;
+
+    function __construct()
     {
-        $this->connection = $connection;
+        $this->useUser = "Data\\".$_ENV['DBTYPE'] ."\\User";
+        $this->useUserRol = "Data\\".$_ENV['DBTYPE'] ."\\UserRol";
+        $this->useRol = "Data\\".$_ENV['DBTYPE'] ."\\Rol";
+        $this->useUserSurvey = "Data\\".$_ENV['DBTYPE'] ."\\UserSurvey";
+        $this->useSurvey = "Data\\".$_ENV['DBTYPE'] ."\\Survey";
     }
 
     function getUserData($idUser)
     {
-        $dbUser = new User($this->connection);
-        $dbUserRol = new UserRol($this->connection);
-        $dbRol = new Rol($this->connection);
+        $dbUser = new $this->useUser();
+        $dbUserRol = new $this->useUserRol();
+        $dbRol = new $this->useRol();
 
         $user = $dbUser->getUser($idUser);
         $userRoles = $dbUserRol->getUserRolesByUser($idUser);
 
         foreach ($userRoles as $key => $userRol) {
-            $user["roles"][] = $dbRol->getRol($userRol['roles_idrol']);
-        }
-
+            if(is_array($userRol )){
+                $user["roles"][] = $dbRol->getRol($userRol['roles_idrol']);
+            }
+        }    
+       
         return $user;
     }
 
     function getUserSurveys($idUser)
     {
-        $dbUserSurvey = new UserSurvey($this->connection);
-        $dbSurvey = new Survey($this->connection);
+        $dbUserSurvey = new $this->useUserSurvey();
+        $dbSurvey = new $this->useSurvey();
 
         $usersSurvey = $dbUserSurvey->getUserSurveys($idUser);
 

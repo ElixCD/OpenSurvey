@@ -2,15 +2,14 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Models\UserViewModel;
+use Data\UserViewModel;
 
-use Sysurvey\Db;
-use Models\Rol;
+use Domain\RolDomain;
 
 $idUser = $_GET['id'];
 
-$dbUser = new UserViewModel(new Db());
-$dbRol = new Rol(new Db());
+$dbUser = new UserViewModel();
+$dbRol = new RolDomain();
 
 $user = $dbUser->getUserData($idUser);
 $roles = $dbRol->getRoles();

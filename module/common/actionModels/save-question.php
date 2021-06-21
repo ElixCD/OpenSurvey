@@ -1,8 +1,6 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-
 $action = $_POST['action'];
 $newQuestion = [
     "idfactor" => isset($_POST['idfactor']) ? (int) $_POST['idfactor'] : "",
@@ -13,7 +11,7 @@ $newQuestion = [
 ];
 
 $arr = [];
-$question = new Models\Question(new Db());
+$question = new Domain\QuestionDomain();
 $result = false;
 
 switch ($action) {
@@ -34,10 +32,10 @@ switch ($action) {
         break;
 }
 
-if ($result) {
+if ($question->IsSuccess()) {
     $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
 } else {
-    $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
+    $arr = ["msj" => $question->GetMessage(), "error" => true];
 }
 
 $json = json_encode($arr);

@@ -1,8 +1,6 @@
 <?php
 require '../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-
 $action = $_POST['action'];
 $newRubric = [
     "idfactor" => isset($_POST['idfactor']) ? (int) $_POST['idfactor'] : "",
@@ -12,20 +10,20 @@ $newRubric = [
 ];
 
 $arr = [];
-$rubric = new Models\Rubric(new Db());
+$rubric = new Domain\RubricDomain();
 $result = false;
 
 switch ($action) {
     case 'new': {
-            $result = $rubric->saveRubric($newRubric);
+            $result = $rubric->SaveRubric($newRubric);
             break;
         }
     case 'update': {
-            $result = $rubric->updateRubric($newRubric);
+            $result = $rubric->UpdateRubric($newRubric);
             break;
         }
     case 'delete': {
-            $result = $rubric->deleteRubric($newRubric);
+            $result = $rubric->DeleteRubric($newRubric);
             break;
         }
     default:
@@ -33,10 +31,10 @@ switch ($action) {
         break;
 }
 
-if ($result) {
+if ($rubric->IsSuccess()) {
     $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
 } else {
-    $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
+    $arr = ["msj" => $rubric->GetMessage(), "error" => true];
 }
 
 $json = json_encode($arr);

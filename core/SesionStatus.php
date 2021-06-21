@@ -1,5 +1,5 @@
 <?php
-namespace Sysurvey;
+namespace OurVoice;
 
 class SesionStatus{
     static function startSession(){

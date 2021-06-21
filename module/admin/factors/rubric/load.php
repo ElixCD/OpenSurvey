@@ -1,13 +1,12 @@
 <?php
 require '../../../../vendor/autoload.php';
 
-use Sysurvey\Db;
-use Models\Rubric;
+use Domain\RubricDomain;
 
 $idFactor = $_GET['idfactor'];
 
-$dbRubrica = new Rubric(new Db());
-$listaRubricas = $dbRubrica->getRubrics($idFactor);
+$dbRubrica = new RubricDomain();
+$listaRubricas = $dbRubrica->GetRubrics($idFactor);
 $headers = ["Id", "Descripción", "Valor"];
 ?>
 

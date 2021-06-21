@@ -2,10 +2,8 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Sysurvey\Db;
-use Models\Rol;
 
-$dbRol = new Rol(new Db());
+$dbRol = new Domain\RolDomain();
 $roles = $dbRol->getRoles();
 
 $filtro = function ($array) {
