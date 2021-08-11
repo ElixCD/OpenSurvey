@@ -1,7 +1,6 @@
 <?php
 class ModalConfirmation
 {
-
     private $id;
     private $title;
     private $bodyText;

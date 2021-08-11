@@ -1,11 +1,11 @@
 <?php
 
 namespace Domain;
+use Data\Interfaces\IFactor;
 
 class FactorDomain
 {
-
-    private $Factor;
+    private IFactor $Factor;
 
     function __construct()
     {

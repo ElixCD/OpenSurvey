@@ -3,21 +3,29 @@ namespace OurVoice;
 
 class SesionStatus{
     static function startSession(){
-        if (!isset($_SESSION)) {
+        // session_start();
+        if (isset($_SESSION['user'])) {
             session_start();
         }
     }
 
     static function sessionStarted() : bool{
-        if (isset($_SESSION)) {
+        session_start();
+        if (isset($_SESSION['user'])) {
             return true;
         }
         else{
             return false;
         }
     }
+
+    static function CreateSession($name, $value) : void {
+        session_start();
+        $_SESSION[$name] = $value;
+    }
+
     
-    static function endSession(){
+    static function EndSession(){
         if (self::sessionStarted()) {
             session_unset();
             setcookie(session_name(), 0, 1, ini_get("session.cookie_path"));    // Eliminar la cookie

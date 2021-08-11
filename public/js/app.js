@@ -1,4 +1,50 @@
 
+function login() {
+
+    const url = "./module/common/actionModels/login.php";
+
+    const data = new FormData();
+    data.append('email', document.getElementById("email").value);
+    data.append('password', document.getElementById("password").value);
+
+    fetch(url, {
+            method: 'POST',
+            body: data
+        })
+        .then((resp) => resp.json())
+        .then(function(data) {
+            if(data.isSuccess){
+                window.location.replace(data.url);
+            }
+        })
+        .catch(function(err) {
+            alert(err.message);
+        });
+}
+
+function logout() {
+
+    const url = "../../../module/common/actionModels/logout.php";
+
+    const data = new FormData();
+    // data.append('email', document.getElementById("email").value);
+    // data.append('password', document.getElementById("password").value);
+
+    fetch(url, {
+            method: 'POST',
+            body: data
+        })
+        .then((resp) => resp.json())
+        .then(function(data) {
+            if(data.isSuccess){
+                window.location.replace(data.url);
+            }
+        })
+        .catch(function(err) {
+            alert(err.message);
+        });
+}
+
 function createConnection() {
     if (window.XMLHttpRequest) {
         connection = new XMLHttpRequest();
@@ -35,28 +81,28 @@ function UpdateElement() {
     }
 }
 
-function SaveUser(action, name, email, active, idrol, url, locate, iduser = null) {
-    let backUrl = document.referrer;
+// function SaveUser(action, name, email, active, idrol, url, locate, iduser = null) {
+//     let backUrl = document.referrer;
 
-    let connection = createConnection();
+//     let connection = createConnection();
 
-    connection.onreadystatechange = function () {
-        if (connection.readyState == 4) {
-            let obj = JSON.parse(connection.responseText);
-            alert(obj.msj);
-            if (obj.error == false) {
-                if(locate != null)
-                    location.href = locate;
-            }
-        }
-    }
+//     connection.onreadystatechange = function () {
+//         if (connection.readyState == 4) {
+//             let obj = JSON.parse(connection.responseText);
+//             alert(obj.msj);
+//             if (obj.error == false) {
+//                 if(locate != null)
+//                     location.href = locate;
+//             }
+//         }
+//     }
 
-    let params = "action=" + action + "&name=" + name + "&email=" + email + "&active=" + active + "&idrol=" + idrol;
+//     let params = "action=" + action + "&name=" + name + "&email=" + email + "&active=" + active + "&idrol=" + idrol;
 
-    if (iduser != null) params += "&iduser=" + iduser
+//     if (iduser != null) params += "&iduser=" + iduser
 
-    execute(connection, 'POST', url, params);
-}
+//     execute(connection, 'POST', url, params);
+// }
 
 
 

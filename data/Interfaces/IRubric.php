@@ -4,15 +4,15 @@ namespace Data\Interfaces;
 
 interface IRubric
 {
-    function getRubric(int $idRubric);
+    function GetRubric(int $idRubric);
 
-    function getRubrics(int $idFactor, int $numberPage=1);
+    function GetRubrics(int $idFactor, int $numberPage=1);
 
-    function saveRubric($rubrics);
+    function SaveRubric($rubrics);
 
-    function updateRubric($rubrics = []);
+    function UpdateRubric($rubrics = []);
 
-    function deleteRubric($rubrics);
+    function DeleteRubric($rubrics);
 
     function IsSuccess() : bool;
 

@@ -1,11 +1,12 @@
 <?php
 
 namespace Domain;
+use Data\Interfaces\IQuestion;
 
 class QuestionDomain
 {
 
-    private $Question;
+    private IQuestion $Question;
 
     function __construct()
     {

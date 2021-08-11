@@ -8,14 +8,14 @@ interface ISurvey
 
     function GetMessage() : string;
 
-    function getSurvey(int $idSurvey);
+    function GetSurvey(int $idSurvey);
 
-    function getSurveys(int $numberPage);
+    function GetSurveys(int $numberPage);
 
-    function saveSurvey($survey);
+    function SaveSurvey($survey);
 
-    function updateSurvey($survey);
+    function UpdateSurvey($survey);
 
-    function deleteSurvey($survey);
+    function DeleteSurvey($survey);
 
 }

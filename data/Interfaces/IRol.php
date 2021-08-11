@@ -8,14 +8,14 @@ interface IRol
 
     function GetMessage() : string;
 
-    function getRol(int $idRol);
+    function GetRol(int $idRol);
 
-    function getRoles(int $numberPage = 1);
+    function GetRoles(int $numberPage = 1);
 
-    function saveRol($rol);
+    function SaveRol($rol);
 
-    function updateRol($rol);
+    function UpdateRol($rol);
 
-    function deleteRol($rol);
+    function DeleteRol($rol);
 
 }

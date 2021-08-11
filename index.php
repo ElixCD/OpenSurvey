@@ -1,6 +1,14 @@
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require 'vendor/autoload.php';
+
 OurVoice\SesionStatus::startSession();
+
+// $mongo = new MongoDB\Client("mongodb://localhost:27017");
+// $collection = $mongo->BookstoreDb->Books;
+// $result = $collection->find()->toArray();
+
+// print_r($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +18,14 @@ OurVoice\SesionStatus::startSession();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OurVoice</title>
-    <?php include_once "./module/common/register-css.php"; ?>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <link href="public/css/app.css" rel="stylesheet" />
+
 </head>
 
 <body class="container">
@@ -23,18 +38,18 @@ OurVoice\SesionStatus::startSession();
                 Login
             </div>
             <div class="card-body">
-                <form method="POST" action="" name="sign-in">
+                <form method="POST" name="sign-in">
                     <div class="form-group">
                         <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" class="form-control"  pattern="[a-zA-Z0-9]+" required >
+                        <input type="text" id="email" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="pass">Contraseña</label>
-                        <input type="text" id="pass" name="pass" class="form-control" required>
+                        <input type="password" id="password" name="password" class="form-control" required>
                     </div>
 
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary">Aceptar</button>
+                        <button type="button" class="btn btn-primary" onclick="login()">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -51,6 +66,38 @@ OurVoice\SesionStatus::startSession();
     </div>
 
 </body>
-<?php include_once "./module/common/register-js.php"; ?>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha256-t9UJPrESBeG2ojKTIcFLPGF7nHi2vEc7f5A2KpH/UBU=" crossorigin="anonymous"></script>
+
+<script src="public/js/app.js"></script>
+
+<script type="text/javascript">
+    // function login() {
+
+    //     const url = "./module/common/actionModels/login.php";
+
+    //     const data = new FormData();
+    //     data.append('email', document.getElementById("email").value);
+    //     data.append('password', document.getElementById("password").value);
+
+    //     fetch(url, {
+    //             method: 'POST',
+    //             body: data
+    //         })
+    //         .then((resp) => resp.json())
+    //         .then(function(data) {
+    //             if (data.isSuccess) {
+    //                 window.location.replace(data.url);
+    //             }
+    //         })
+    //         .catch(function(err) {
+    //             alert(err.message);
+    //         });
+    // }
+</script>
 
 </html>

@@ -27,7 +27,10 @@ class UserRol implements Data\Interfaces\IUserRol
     function GetUserRolesByUser(int $idUser)
     {
         $this->UserRol = $this->connection->QuerySelect("SELECT * FROM user_roles WHERE users_iduser = '" . $idUser . "'");
-        return $this->UserRol;
+        foreach ($this->UserRol as $key => $value) {
+            return $value;
+        }
+        return array();
     }
 
     function GetUserRolesByRol(int $idRol)

@@ -1,6 +1,12 @@
 <?php
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
+
+// OurVoice\SesionStatus::startSession();
+
+if(!OurVoice\SesionStatus::sessionStarted())
+    header("Location: ../../../");
+
 ?>
 <!DOCTYPE html>
 <html>

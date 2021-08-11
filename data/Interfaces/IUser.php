@@ -8,14 +8,16 @@ interface IUser
 
     function GetMessage() : string;
 
-    function getUser(int $idUser);
+    function GetUser(int $idUser);
 
-    function getUsers(int $numberPage);
+    function GetUsers(int $numberPage);
 
-    function saveUser($user);
+    function SaveUser($user);
 
-    function updateUser($user);
+    function UpdateUser($user);
 
-    function deleteUser($user);
+    function DeleteUser($user);
+
+    function GetUserLogin(string $email, string $password);
 
 }

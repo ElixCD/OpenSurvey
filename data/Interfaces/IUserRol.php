@@ -8,14 +8,14 @@ interface IUserRol
 
     function GetMessage() : string;
 
-    function getUserRolesByUser(int $idUser);
+    function GetUserRolesByUser(int $idUser);
 
-    function getUserRolesByRol(int $idRol);
+    function GetUserRolesByRol(int $idRol);
 
-    function saveUserRol($userRoles);
+    function SaveUserRol($userRoles);
 
-    function updateUserRol($userRoles);
+    function UpdateUserRol($userRoles);
 
-    function deleteUserRoles($userRoles);
+    function DeleteUserRoles($userRoles);
 
 }

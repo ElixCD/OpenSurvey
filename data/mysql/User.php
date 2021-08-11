@@ -16,12 +16,25 @@ class User implements Data\Interfaces\IUser
         $this->connection = new DbMySQL();
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage(): string
+    {
         return $this->connection->GetMessage();
+    }
+
+    function GetUserLogin(string $email, string $password)
+    {
+        $this->users = $this->connection->QuerySelect("SELECT * FROM users WHERE email= '" . $email . "' and password= '" . $password . "'");
+
+        foreach ($this->users as $key => $value) {
+            return $value;
+        }
+
+        return false;
     }
 
     function GetUser(int $idUser)
@@ -29,13 +42,13 @@ class User implements Data\Interfaces\IUser
         $this->users = $this->connection->QuerySelect("SELECT * FROM users WHERE iduser= '" . $idUser . "'");
 
         foreach ($this->users as $key => $value) {
-            if(is_array($value)){
+            if (is_array($value)) {
                 if ($value['iduser'] == $idUser) {
                     return $value;
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -43,8 +56,7 @@ class User implements Data\Interfaces\IUser
     {
         $this->users = $this->connection->QuerySelect("SELECT * FROM users");
         // if()
-            return $this->users;
-
+        return $this->users;
     }
 
     function SaveUser($user)

@@ -8,12 +8,12 @@ interface IUserSurvey
 
     function GetMessage() : string;
 
-    function getUserSurveys(int $idUserSurvey);
+    function GetUserSurveys(int $idUserSurvey);
 
-    function saveUserSurvey($userSurveys);
+    function SaveUserSurvey($userSurveys);
 
-    function updateUserSurvey($userSurveys);
+    function UpdateUserSurvey($userSurveys);
 
-    function deleteUserSurvey($userSurveys);
+    function DeleteUserSurvey($userSurveys);
 
 }

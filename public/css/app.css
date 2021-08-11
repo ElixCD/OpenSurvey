@@ -73,17 +73,25 @@ main {
     z-index: 2050;
 }
 
-.menu a {
-    color: var(--light);
+.menu a, .menu.a {
+    color: #aaa;
     display: block;
     text-decoration: none;
     text-transform: uppercase;
     width: 100%;
 }
 
-.menu a:hover {
-    margin-left: 1em;
-    transition: .4s ease-in;
+.menu a, .menu.a {
+    background-color: transparent;
+    border: none;
+    flex-flow: column-reverse;
+    margin-top: 0;
+}
+
+.menu a:hover, .menu.a:hover {
+    /* margin-left: 1em; */
+    transition: .2s ease-in;
+    color: #fff;
 }
 
 .menu li {

@@ -8,14 +8,14 @@ interface IPermission
 
     function GetMessage() : string;
 
-    function getPermission(int $idPermission);
+    function GetPermission(int $idPermission);
 
-    function getPermissions(int $numberPage);
+    function GetPermissions(int $numberPage);
 
-    function savePermission($description);
+    function SavePermission($description);
 
-    function updatePermission($permission);
+    function UpdatePermission($permission);
 
-    function deletePermission($permission);
+    function DeletePermission($permission);
 
 }

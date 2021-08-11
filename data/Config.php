@@ -1,11 +1,11 @@
 <?php
 
-namespace OurVoice;
+namespace Data;
 
 class Config
 {
     static $Factor;
-    static $Module;
+    static  $Module;
     static $ModuleAccess;
     static $Permission;
     static $Question;

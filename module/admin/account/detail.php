@@ -2,13 +2,13 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Data\UserViewModel;
+use Domain\UserDomain;
 
 use Domain\RolDomain;
 
 $idUser = 1;
 
-$dbUser = new UserViewModel();
+$dbUser = new UserDomain();
 $dbRol = new RolDomain();
 
 $user = $dbUser->getUserData($idUser);

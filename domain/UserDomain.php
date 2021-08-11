@@ -2,16 +2,18 @@
 
 namespace Domain;
 
+use Data\Interfaces\IUser;
+
 class UserDomain
 {
-    private $User;
+    private IUser $User;
     private bool $isSuccess;
     private string $message;
 
     function __construct()
     {
         $this->message = "";
-        $this->User = new $GLOBALS['Config']::$User;
+        $this->User = new $GLOBALS['Config']::$User;        
     }
 
 //Region Single Crud

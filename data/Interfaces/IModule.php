@@ -8,15 +8,15 @@ interface IModule
 
     function GetMessage() : string;
 
-    function getModule(int $idModule);
+    function GetModule(int $idModule);
 
-    function getModules(int $numberPage);
+    function GetModules(int $numberPage);
 
-    function saveModule($name, $idmodule_type);
+    function SaveModule($name, $idmodule_type);
 
-    function updateModule($Module);
+    function UpdateModule($Module);
 
-    function deleteModule($Module);
+    function DeleteModule($Module);
 
-    function validar($Module);
+    function Validar($Module);
 }

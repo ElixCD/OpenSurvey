@@ -1,11 +1,11 @@
 <?php
 
 namespace Domain;
+use Data\Interfaces\IRol;
 
 class RolDomain
 {
-
-    private $Rol;
+    private IRol $Rol;
 
     function __construct()
     {

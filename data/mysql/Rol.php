@@ -34,6 +34,9 @@ class Rol implements Data\Interfaces\IRol
                     return $value;
                 }
             }
+            else{
+                return $value;
+            }
         }
         return false;
     }

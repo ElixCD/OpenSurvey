@@ -1,10 +1,12 @@
 <?php
 namespace Domain;
 
+use Data\Interfaces\ISurvey;
+
 class SurveyDomain
 {
 
-    private $Survey;
+    private ISurvey $Survey;
 
     function __construct()
     {

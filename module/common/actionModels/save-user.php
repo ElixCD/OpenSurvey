@@ -24,31 +24,17 @@ switch ($action) {
             break;
         }
     case 'update': {
-            $result = $user->updateUser($newUser);            
+            $result = $user->UpdateUser($newUser);            
             break;
         }
     case 'delete': {           
-            $result = $user->deleteUser($newUser);
+            $result = $user->DeleteUser($newUser);
             break;
         }
     default:
         $result = false;
         break;
 }
-
-// if (!$result) {
-//     $arr = ["msj" => "Lo sentimos, ha ocurrido un error.", "error" => true];
-// }
-// else{
-//     if($result === true){
-//         $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
-//     }
-//     else{
-//         $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];
-//     }
-// }
-
-
 
 if ($user->IsSuccess()) {
     $arr = ["msj" => "Operacion realizada con exito", "error" => false, "opt" => $result];

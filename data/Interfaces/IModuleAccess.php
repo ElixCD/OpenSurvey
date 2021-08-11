@@ -8,15 +8,15 @@ interface IModuleAccess
 
     function GetMessage() : string;
 
-    function getModulesAccesse(int $idModuleAccess);
+    function GetModulesAccesse(int $idModuleAccess);
 
-    function getModuleAccess(int $numberPage);
+    function GetModuleAccess(int $numberPage);
 
-    function saveModuleAccess($moduleAccess);
+    function SaveModuleAccess($moduleAccess);
 
-    function updateModuleAccess($moduleAccess);
+    function UpdateModuleAccess($moduleAccess);
 
-    function deleteModuleAccess($moduleAccess);
+    function DeleteModuleAccess($moduleAccess);
 
-    function validar($moduleAccess);
+    function Validar($moduleAccess);
 }

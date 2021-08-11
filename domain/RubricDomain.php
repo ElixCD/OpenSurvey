@@ -1,11 +1,12 @@
 <?php
 
 namespace Domain;
+use Data\Interfaces\IRubric;
 
 class RubricDomain
 {
 
-    private $Rubric;
+    private IRubric $Rubric;
 
     function __construct()
     {
