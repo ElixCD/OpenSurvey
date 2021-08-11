@@ -17,3 +17,13 @@ DB Installation
 * Grant permissions to your user
 * Add initial data: 
     source DataDB.sql
+    
+To access use the following usernames, no roles have been implemented yet.
+
+-- Primary admin user 
+name: super@local.com 
+password: 12345
+
+-- Secondary admin user
+name: admin@local.com
+password: 12345
