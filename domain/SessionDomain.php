@@ -47,8 +47,8 @@ class SessionDomain
                 $rol = $userRol->GetUserRolesByUser($user['iduser']);
                 if ($userRol->IsSuccess()) {           
                              
-                    $roles = new $GLOBALS['Config']::$Rol;                    
-                    $userData['roles'] =  $roles->GetRol($rol['roles_idrol']);
+                    // $roles = new $GLOBALS['Config']::$Rol;                    
+                    $userData['roles'] =  $rol;
     
                     // $this->sesion = new SesionStatus();                    
                     // $this->sesion->CreateSession("user", $user);

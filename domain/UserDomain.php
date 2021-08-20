@@ -13,10 +13,10 @@ class UserDomain
     function __construct()
     {
         $this->message = "";
-        $this->User = new $GLOBALS['Config']::$User;        
+        $this->User = new $GLOBALS['Config']::$User;
     }
 
-//Region Single Crud
+    //Region Single Crud
     function IsSuccess()
     {
         if ($this->message == "")
@@ -78,25 +78,19 @@ class UserDomain
             return array();
         }
     }
-//endregion
-    
-/***************************  ***************************/
+    //endregion
 
-//Region User Data
+    /***************************  ***************************/
+
+    //Region User Data
     function GetUserData($idUser)
     {
         $dbUserRol = new $GLOBALS['Config']::$UserRol;
-        $dbRol = new $GLOBALS['Config']::$Rol;
 
         $user = $this->User->GetUser($idUser);
         $userRoles = $dbUserRol->GetUserRolesByUser($idUser);
+        $user["roles"] = $userRoles;
 
-        foreach ($userRoles as $key => $userRol) {
-            if(is_array($userRol )){
-                $user["roles"][] = $dbRol->GetRol($userRol['roles_idrol']);
-            }
-        }    
-       
         return $user;
     }
 
@@ -110,23 +104,23 @@ class UserDomain
         foreach ($usersSurvey as $key => $userSurvey) {
             $survey = $dbSurvey->GetSurvey($userSurvey['surveys_idsurvey']);
 
-            if($survey != false){
+            if ($survey != false) {
                 $usersSurvey[$key] = array_merge($userSurvey, $survey);
             }
         }
 
         return $usersSurvey;
     }
-    
+
     function GetUserSurveysPropetary($idUser)
     {
         $suerveyList = $this->GetUserSurveys($idUser);
 
-        $filtro = function($array){
+        $filtro = function ($array) {
             return ($array['propietary'] == true ? true : false);
         };
 
-        $return = array_filter( $suerveyList, $filtro);
+        $return = array_filter($suerveyList, $filtro);
 
         return $return;
     }
@@ -135,11 +129,11 @@ class UserDomain
     {
         $suerveyList = $this->GetUserSurveys($idUser);
 
-        $filtro = function($array){            
+        $filtro = function ($array) {
             return ($array['propietary'] == false ? true : false);
         };
 
-        $return = array_filter( $suerveyList, $filtro);
+        $return = array_filter($suerveyList, $filtro);
 
         return $return;
     }
@@ -148,13 +142,13 @@ class UserDomain
     {
         $suerveyList = $this->GetUserSurveys($idUser);
 
-        $filtro = function($array){
+        $filtro = function ($array) {
             return ($array['propietary'] == true ? true : false);
         };
 
-        $return = array_filter( $suerveyList, $filtro);
+        $return = array_filter($suerveyList, $filtro);
 
         return $return;
     }
-//endregion
+    //endregion
 }

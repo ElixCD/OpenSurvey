@@ -49,8 +49,8 @@ include_once "../../common/getPath.php";
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12 text-right">
+                            <div class="row mt-3 justify-content-end">
+                                <div class="col-md-3 text-end">
                                     <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
                                     <button type="button" class="btn btn-primary" onclick="SaveFactor('new');">Guardar</button>
                                 </div>

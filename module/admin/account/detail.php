@@ -4,25 +4,11 @@ include_once "../../common/getPath.php";
 
 use Domain\UserDomain;
 
-use Domain\RolDomain;
-
-$idUser = 1;
-
+$idUser = 2;
 $dbUser = new UserDomain();
-$dbRol = new RolDomain();
-
 $user = $dbUser->getUserData($idUser);
-$roles = $dbRol->getRoles();
 
-$filtro = function ($array) {
-    if(is_array($array))
-        return ($array['description'] == "Super" ? false : true);
-    else
-        return $array;
-};
-
-$roles = array_filter($roles, $filtro);
-
+print_r($user);
 ?>
 <!DOCTYPE html>
 <html>

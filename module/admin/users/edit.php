@@ -100,7 +100,7 @@ $roles = array_filter($roles, $filtro);
                                     <?php include "./surveys/load.php" ?>
                                 </div>
 
-                                <div class="col-md-12 text-right">
+                                <div class="col-md-12 text-end">
                                     <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
                                     <button type="button" class="btn btn-primary" onclick="Save('update');">Guardar</button>
                                 </div>

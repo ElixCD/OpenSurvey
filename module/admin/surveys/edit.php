@@ -43,7 +43,7 @@ $factors = $dbFactor->getFactors(1);
                     </div>
                     <div class="card-body">
                         <form class="pb-2 mb-3 border-bottom">
-                            <div class="row">
+                            <div class="row  justify-content-between">
                                 <div class="col-md-12">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre de encuesta</label>
@@ -56,7 +56,7 @@ $factors = $dbFactor->getFactors(1);
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 text-right">
+                                <div class="col-12 text-end">
                                     <button type="button" class="btn btn-primary" onclick="SaveSurvey('update');">Guardar</button>
                                 </div>
                             </div>
@@ -65,15 +65,17 @@ $factors = $dbFactor->getFactors(1);
                             <div class="col-md-12">
                                 <div class="card card-nav-tabs card-plain">
                                     <div class="card-header card-header-primary">
-                                        <label class="card-title">Preguntas</label>
+                                    <div class="row">
+                                            <div class="col-9"><label class="card-title">Preguntas</label></div>
+                                            <div class="col-3  text-end">
+                                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal" onclick="questionAction='new'; ClearQuestionFields();">
+                                                    <span class="material-icons">add_circle_outline</span>
+                                                    <span class="btn-single-icon">Nueva encuesta</span>
+                                                </button>
+                                            </div>
+                                        </div>                                        
                                     </div>
                                     <div class="card-body ">
-                                        <div class="col-12 text-right mb-2">
-                                            <button class="btn btn-success" data-toggle="modal" data-target="#addModal" onclick="questionAction='new'; ClearQuestionFields();">
-                                                <span class="material-icons">add_circle_outline</span>
-                                                <span class="btn-single-icon">Agregar</span>
-                                            </button>
-                                        </div>
                                         <div id="question-list">
 
                                         </div>
@@ -93,9 +95,9 @@ $factors = $dbFactor->getFactors(1);
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 mt-3 text-right">
+                            <div class="col-md-12 mt-3 text-end">
                                 <!-- <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button> -->
-                                <button type="button" class="btn btn-primary" onclick="location.href = document.referrer;">Volver</button>
+                                <button type="button" class="btn btn-secondary" onclick="location.href = document.referrer;">Volver</button>
                             </div>
                         </div>
                     </div>
@@ -110,8 +112,7 @@ $factors = $dbFactor->getFactors(1);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-tittle" id="addModal">Encuesta</h5>
-                    <button type="button" class="close" data-dismiss="modal" arial-label="close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" arial-label="close">
                     </button>
                 </div>
                 <form>
@@ -144,8 +145,8 @@ $factors = $dbFactor->getFactors(1);
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveQuestion()">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="SaveQuestion()">Aceptar</button>
                     </div>
                 </form>
             </div>
@@ -158,8 +159,7 @@ $factors = $dbFactor->getFactors(1);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-tittle" id="deleteModalLabel">Eliminar reactivo</h5>
-                    <button type="button" class="close" data-dismiss="modal" arial-label="close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" arial-label="close">
                     </button>
                 </div>
                 <form>
@@ -168,8 +168,8 @@ $factors = $dbFactor->getFactors(1);
                         <p>Esta a punto de eliminar un reactivo ¿Esta seguro de continuar?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveQuestion()">Aceptar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="SaveQuestion()">Aceptar</button>
                     </div>
                 </form>
             </div>

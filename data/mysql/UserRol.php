@@ -16,21 +16,28 @@ class UserRol implements Data\Interfaces\IUserRol
         $this->connection = new DbMySQL();
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage(): string
+    {
         return $this->connection->GetMessage();
     }
 
     function GetUserRolesByUser(int $idUser)
     {
-        $this->UserRol = $this->connection->QuerySelect("SELECT * FROM user_roles WHERE users_iduser = '" . $idUser . "'");
-        foreach ($this->UserRol as $key => $value) {
-            return $value;
+        $salida = array();
+        // $this->UserRol = $this->connection->QuerySelect("SELECT * FROM user_roles WHERE users_iduser = '" . $idUser . "'");
+        $this->UserRol = $this->connection->QuerySelect("SELECT ur.users_iduser, ur.iduser_rol, r.*  FROM user_roles  AS ur INNER JOIN roles AS r ON r.idrol = ur.roles_idrol WHERE users_iduser = '" . $idUser . "'");
+
+        if (!is_array($this->UserRol)) {
+            array_push($salida, $this->UserRol);
+        } else {
+            $salida = $this->UserRol;
         }
-        return array();
+        return $salida;
     }
 
     function GetUserRolesByRol(int $idRol)

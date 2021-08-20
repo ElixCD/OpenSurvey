@@ -2,8 +2,6 @@
 require '../../../vendor/autoload.php';
 include_once '../../common/getPath.php';
 
-
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,13 +24,17 @@ include_once '../../common/getPath.php';
 
     <main class="container">
         <div class="row">
-            <div class="col-md-12 m-2">
-                <a class="btn btn-primary" href="./new.php">Nuevo usuario</a>
-            </div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">Usuarios registrados</h4>
+                    <div class="row ">
+                            <div class="col-10">
+                            <h4 class="card-title ">Usuarios registrados</h4>
+                            </div>
+                            <div class="col-2 text-end">
+                            <a class="btn btn-primary" href="./new.php">Nuevo usuario</a>
+                            </div>
+                        </div>                        
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
 

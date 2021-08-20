@@ -45,7 +45,10 @@ include_once "../../common/getPath.php";
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 text-right">
+                                </div>
+                                
+                                <div class="row  mt-3 justify-content-end">
+                                    <div class="col-md-3 text-end">
                                         <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
                                         <button type="button" class="btn btn-primary" onclick="SaveSurvey('new');">Guardar</button>
                                     </div>

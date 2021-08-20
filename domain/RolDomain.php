@@ -36,5 +36,11 @@ class RolDomain
     function DeleteRol(array $datos){
         return $this->Rol->DeleteRol($datos);
     }
+
+    /****** ********/
+    function GetRol(int $idRol)
+    {
+        return $this->Rol->GetRol($idRol);
+    }
     
 }

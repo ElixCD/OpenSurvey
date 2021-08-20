@@ -10,7 +10,7 @@ $Surveys = $Survey->getSurveys(1);
 
 <div class="table-responsive">
     <table class="table table-striped">
-        <thead class="thead-dark text-primary">
+        <thead class="table-dark">
             <th class="text-center">
                 ID
             </th>

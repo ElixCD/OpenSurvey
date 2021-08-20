@@ -42,14 +42,13 @@ main {
     color: #343a40
 }
 
-.fixed-top {
-    z-index: 1030 !important;
-    top: 0;
-}
-
 .breadcrumb {
     width: 100%;
+    background-color: rgb(226, 226, 235);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 2.5em;
+    padding-left: 1em;
+    padding-top: 0.5em;;
 }
 
 .breadcrumb-item a {
@@ -61,7 +60,6 @@ main {
     color: #6c757d;
     text-decoration: none;
 }
-
 
 /*** Menú ***/
 .menu {

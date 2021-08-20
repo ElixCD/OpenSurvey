@@ -69,7 +69,7 @@ $roles = array_filter($roles, $filtro);
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 text-right">
+                                <div class="col-md-12 text-end">
                                     <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Cancelar</button>
                                     <button type="button" class="btn btn-primary" onclick="Save('new');">Guardar</button>
                                 </div>

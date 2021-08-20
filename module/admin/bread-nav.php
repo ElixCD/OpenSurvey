@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav id="nav-bread" class="" aria-label="breadcrumb">
+<nav id="nav-bread" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item" id="breadcumText">
       <a href="./" id="breadcumSectionText"><?php echo $moduleName; ?></a>

@@ -10,17 +10,17 @@ $factorList = $dbFactor->getFactors(1);
 
 <div class="table-responsive">
     <table class="table table-striped">
-        <thead class="thead-dark text-primary">
-            <th>ID</th>
-            <th>Name</th>
-            <th>Acción</th>
+        <thead class="table-dark">
+            <th class="text-center">ID</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Acción</th>
         </thead>
         <tbody>
             <?php foreach ($factorList as $factor) : ?>
                 <tr>
-                    <td><?php echo $factor['idfactor']; ?></td>
-                    <td><?php echo $factor['description']; ?></td>
-                    <td>
+                    <td class="text-center"><?php echo $factor['idfactor']; ?></td>
+                    <td class="text-center"><?php echo $factor['description']; ?></td>
+                    <td class="text-center">
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a class="btn btn-primary" href="./edit.php?id=<?php echo $factor['idfactor']; ?>" title="Editar">
                                 <i class="material-icons">create</i>

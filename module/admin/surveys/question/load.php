@@ -12,7 +12,7 @@ $questions = $dbQuestions->getQuestions($idSurvey, 1);
 
 <div class="table-responsive">
     <table class="table table-striped">
-        <thead class="thead-dark text-primary">
+        <thead class="table-dark">
             <th class="text-center">ID</th>
             <th class="text-center">Pregunta</th>
             <th class="text-center">Factor</th>
@@ -40,19 +40,12 @@ $questions = $dbQuestions->getQuestions($idSurvey, 1);
                     </td>
                     <td class="text-center">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" title="Editar" onclick="setValues('update',<?php echo $question['idquestion']; ?>);CurrentQuestion();">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" title="Editar" onclick="setValues('update',<?php echo $question['idquestion']; ?>);CurrentQuestion();">
                                 <i class="material-icons">edit</i>
                             </button>
-                            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#deleteModal" title="Eliminar" onclick="setValues('delete',<?php echo $question['idquestion']; ?>);">
+                            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" title="Eliminar" onclick="setValues('delete',<?php echo $question['idquestion']; ?>);">
                                 <i class="material-icons">delete</i>
                             </button>
-
-                            <!-- <a class="btn btn-primary" href="./edit.php">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        <a class="btn btn-danger">
-                            <i class="material-icons">delete</i>
-                         </a> -->
                         </div>
 
                     </td>

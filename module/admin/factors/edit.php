@@ -38,33 +38,49 @@ $factor = $dbFactor->GetFactor($idFactor);
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
                     <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-10 ">
+                        <form class="pb-2 mb-3 border-bottom">
+                            <div class="row justify-content-between">
+                                <div class="col-11 ">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre del factor</label>
                                         <input type="text" class="form-control" name="factorname" id="factorname" value="<?php echo $factor['description']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-2  text-right mt-4 pt-2">
+                                <div class="col-1 mt-3 pt-2 ps-0">
                                     <button type="button" class="btn btn-primary" onclick="SaveFactor('update');">Guardar</button>
-                                </div>
-
-                                <div class="col-md-12 text-right py-2 my-3 border-bottom">
-                                    <a href="" class="btn btn-success" data-toggle="modal" data-target="#rubricModal" onclick="rubricAction='new'; ClearRubricFields();">Nueva rúbrica</a>
-                                </div>
-
-                                <div class="col-md-12" id="rubrics">
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 text-right">
-                                    <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Volver</button>
                                 </div>
                             </div>
                         </form>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-nav-tabs card-plain">
+                                    <div class="card-header card-header-primary">
+                                        <div class="row">
+                                            <div class="col-10"><label class="card-title">Lista de rúbricas</label></div>
+                                            <div class="col-2">
+                                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#rubricModal" onclick="rubricAction='new'; ClearQuestionFields();">
+                                                    <span class="material-icons">add_circle_outline</span>
+                                                    <span class="btn-single-icon">Nueva rúbrica</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body ">                                        
+                                        <div class="col-md-12" id="rubrics">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row justify-content-end">
+                            <div class="col-md-1 mt-3">
+                                <button type="reset" class="btn btn-secondary" onclick="location.href = document.referrer;">Volver</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -77,8 +93,7 @@ $factor = $dbFactor->GetFactor($idFactor);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="newRubricModalTitle">Rúbrica</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
@@ -98,8 +113,8 @@ $factor = $dbFactor->GetFactor($idFactor);
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveRubric()">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="SaveRubric()">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -111,8 +126,7 @@ $factor = $dbFactor->GetFactor($idFactor);
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteRubricModalTitle">Rúbrica</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div class="modal-body">
@@ -125,8 +139,8 @@ $factor = $dbFactor->GetFactor($idFactor);
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="SaveRubric()">Aceptar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="SaveRubric()">Aceptar</button>
                 </div>
             </div>
         </div>

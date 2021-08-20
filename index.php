@@ -75,29 +75,4 @@ OurVoice\SesionStatus::startSession();
 
 <script src="public/js/app.js"></script>
 
-<script type="text/javascript">
-    // function login() {
-
-    //     const url = "./module/common/actionModels/login.php";
-
-    //     const data = new FormData();
-    //     data.append('email', document.getElementById("email").value);
-    //     data.append('password', document.getElementById("password").value);
-
-    //     fetch(url, {
-    //             method: 'POST',
-    //             body: data
-    //         })
-    //         .then((resp) => resp.json())
-    //         .then(function(data) {
-    //             if (data.isSuccess) {
-    //                 window.location.replace(data.url);
-    //             }
-    //         })
-    //         .catch(function(err) {
-    //             alert(err.message);
-    //         });
-    // }
-</script>
-
 </html>

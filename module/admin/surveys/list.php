@@ -31,16 +31,18 @@ include_once '../../common/getPath.php';
 
     <main class="container">
         <div class="row">
-            <div class="col-12 m-2">
-                <a class="btn btn-primary" href="./new.php">Nueva encuesta</a>
-            </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title ">Encuestas registradas</h4>
+                        <div class="row ">
+                            <div class="col-10">
+                                <h4 class="card-title ">Encuestas registradas</h4>
+                            </div>
+                            <div class="col-2 text-end">
+                                <a class="btn btn-primary" href="./new.php">Nueva encuesta</a>
+                            </div>
+                        </div>
+
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                     </div>
                     <div id="surveys" class="card-body">
@@ -54,7 +56,7 @@ include_once '../../common/getPath.php';
     <?php
     include_once "../../common/register-js.php";
     ?>
-    
+
     <script type="text/javascript">
         let surveyAction = "";
         let idSurvey = 0;
