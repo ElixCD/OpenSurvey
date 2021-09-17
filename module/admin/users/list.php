@@ -5,7 +5,6 @@ include_once '../../common/getPath.php';
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +14,6 @@ include_once '../../common/getPath.php';
     include_once "../../common/register-css.php";
     ?>
 </head>
-
 <body>
     <?php
     include_once "../admin-nav.php";
@@ -27,20 +25,17 @@ include_once '../../common/getPath.php';
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                    <div class="row ">
-                            <div class="col-10">
-                            <h4 class="card-title ">Usuarios registrados</h4>
+                        <div class="row ">
+                            <div class="col-md-10">
+                                <h4 class="card-title ">Usuarios registrados</h4>
                             </div>
-                            <div class="col-2 text-end">
-                            <a class="btn btn-primary" href="./new.php">Nuevo usuario</a>
+                            <div class="col-md-2 text-end">
+                                <a class="btn btn-primary" href="./new.php">Nuevo usuario</a>
                             </div>
-                        </div>                        
-                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                        </div>
                     </div>
-
                     <div class="card-body">
                         <div id="user-list">
-
                         </div>
                     </div>
                 </div>
@@ -48,10 +43,8 @@ include_once '../../common/getPath.php';
         </div>
     </main>
 
-
     <?php
     include_once "../../common/register-js.php";
-
     ?>
 
     <script type="text/javascript">

@@ -4,7 +4,7 @@ include_once "../../common/getPath.php";
 
 // OurVoice\SesionStatus::startSession();
 
-if(!OurVoice\SesionStatus::sessionStarted())
+if(!OurVoice\SesionStatus::sessionStarted("user"))
     header("Location: ../../../");
 
 ?>

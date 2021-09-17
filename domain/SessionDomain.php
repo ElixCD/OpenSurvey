@@ -11,7 +11,6 @@ class SessionDomain
     private IUser $User;
     private bool $isSuccess;
     private string $message;
-    // private SesionStatus $sesion;
 
     function __construct()
     {
@@ -37,21 +36,13 @@ class SessionDomain
 
     function GetUserLogin(string $email, string $password)
     {
-        $userData = array();
         $user = $this->User->GetUserLogin($email, $password);
         
         if ($this->User->IsSuccess()) {
             if(count($this->User->users) > 0){
-                $userData['name'] = $user['name'];
-                $userRol = new $GLOBALS['Config']::$UserRol;
-                $rol = $userRol->GetUserRolesByUser($user['iduser']);
-                if ($userRol->IsSuccess()) {           
-                             
-                    // $roles = new $GLOBALS['Config']::$Rol;                    
-                    $userData['roles'] =  $rol;
-    
-                    // $this->sesion = new SesionStatus();                    
-                    // $this->sesion->CreateSession("user", $user);
+                $dbUser = new UserDomain;
+                $user = $dbUser->GetUserData($user['iduser']);
+                if ($dbUser->IsSuccess()) {
                     SesionStatus::CreateSession("user", $user);
                 }
                 else{
@@ -63,7 +54,6 @@ class SessionDomain
                 $this->isSuccess = false;
                 $this->message = "El usuario no existe.";
             }
-           
         }
         else{
             $this->isSuccess = false;
@@ -72,6 +62,6 @@ class SessionDomain
     }
 
     function UserLogout(){
-        SesionStatus::EndSession();
+        SesionStatus::EndSession("user");
     }
 }

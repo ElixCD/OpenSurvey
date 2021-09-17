@@ -2,13 +2,8 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-use Domain\UserDomain;
+$user = OurVoice\SesionStatus::GetSessionData("user");
 
-$idUser = 2;
-$dbUser = new UserDomain();
-$user = $dbUser->getUserData($idUser);
-
-print_r($user);
 ?>
 <!DOCTYPE html>
 <html>
@@ -176,7 +171,7 @@ print_r($user);
             let idrol = document.getElementById('idrol').value;
             let active = document.getElementById('active').checked;
 
-            SaveUser('update', name, email, active, idrol, '../../common/actionModels/save-user.php', null, <?php echo $idUser; ?>);
+            SaveUser('update', name, email, active, idrol, '../../common/actionModels/save-user.php', null, <?php echo $user['iduser']; ?>);
             activate('form-data', 1);
         }
 

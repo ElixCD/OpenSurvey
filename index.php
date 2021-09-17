@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
-OurVoice\SesionStatus::startSession();
+OurVoice\SesionStatus::startSession("user");
 
 // $mongo = new MongoDB\Client("mongodb://localhost:27017");
 // $collection = $mongo->BookstoreDb->Books;

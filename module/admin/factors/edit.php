@@ -40,13 +40,13 @@ $factor = $dbFactor->GetFactor($idFactor);
                     <div class="card-body">
                         <form class="pb-2 mb-3 border-bottom">
                             <div class="row justify-content-between">
-                                <div class="col-11 ">
+                                <div class="col-md-10">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre del factor</label>
                                         <input type="text" class="form-control" name="factorname" id="factorname" value="<?php echo $factor['description']; ?>">
                                     </div>
                                 </div>
-                                <div class="col-1 mt-3 pt-2 ps-0">
+                                <div class="col-md-2 mt-3 pt-2 text-end">
                                     <button type="button" class="btn btn-primary" onclick="SaveFactor('update');">Guardar</button>
                                 </div>
                             </div>
@@ -57,8 +57,8 @@ $factor = $dbFactor->GetFactor($idFactor);
                                 <div class="card card-nav-tabs card-plain">
                                     <div class="card-header card-header-primary">
                                         <div class="row">
-                                            <div class="col-10"><label class="card-title">Lista de rúbricas</label></div>
-                                            <div class="col-2">
+                                            <div class="col-md-10"><label class="card-title">Lista de rúbricas</label></div>
+                                            <div class="col-md-2  text-end">
                                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#rubricModal" onclick="rubricAction='new'; ClearQuestionFields();">
                                                     <span class="material-icons">add_circle_outline</span>
                                                     <span class="btn-single-icon">Nueva rúbrica</span>

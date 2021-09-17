@@ -29,10 +29,10 @@ include_once "../../common/getPath.php";
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <div class="row ">
-                            <div class="col-10">
+                            <div class="col-md-10">
                                 <h4 class="card-title ">Factores registrados</h4>
                             </div>
-                            <div class="col-2 text-end">
+                            <div class="col-md-2 text-end">
                                 <a class="btn btn-primary" href="./new.php">Nuevo Factor</a>
                             </div>
                         </div>

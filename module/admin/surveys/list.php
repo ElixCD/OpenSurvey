@@ -2,13 +2,6 @@
 require '../../../vendor/autoload.php';
 include_once '../../common/getPath.php';
 
-// use OurVoice\Db;
-// use Models\Survey;
-
-// $Survey = new Survey(new Db());
-// $Surveys = $Survey->getSurveys(1);
-// $headers = ["Id", "Descripción"];
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,10 +28,10 @@ include_once '../../common/getPath.php';
                 <div class="card">
                     <div class="card-header card-header-primary">
                         <div class="row ">
-                            <div class="col-10">
+                            <div class="col-md-10">
                                 <h4 class="card-title ">Encuestas registradas</h4>
                             </div>
-                            <div class="col-2 text-end">
+                            <div class="col-md-2 text-end">
                                 <a class="btn btn-primary" href="./new.php">Nueva encuesta</a>
                             </div>
                         </div>

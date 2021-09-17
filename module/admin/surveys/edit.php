@@ -66,11 +66,11 @@ $factors = $dbFactor->getFactors(1);
                                 <div class="card card-nav-tabs card-plain">
                                     <div class="card-header card-header-primary">
                                     <div class="row">
-                                            <div class="col-9"><label class="card-title">Preguntas</label></div>
-                                            <div class="col-3  text-end">
+                                            <div class="col-md-9"><label class="card-title">Preguntas</label></div>
+                                            <div class="col-md-3 text-end">
                                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal" onclick="questionAction='new'; ClearQuestionFields();">
                                                     <span class="material-icons">add_circle_outline</span>
-                                                    <span class="btn-single-icon">Nueva encuesta</span>
+                                                    <span class="btn-single-icon">Nueva</span>
                                                 </button>
                                             </div>
                                         </div>                                        
