@@ -10,7 +10,7 @@ class SessionDomain
 
     private IUser $User;
     private bool $isSuccess;
-    private string $message;
+    private $message;
 
     function __construct()
     {

@@ -14,11 +14,13 @@ class Factor implements Data\Interfaces\IFactor
         $this->connection = new DbMySQL();
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage()
+    {
         return $this->connection->GetMessage();
     }
 
@@ -29,7 +31,7 @@ class Factor implements Data\Interfaces\IFactor
         foreach ($this->factors as $key => $value) {
             if ($value['idfactor'] == $idFactor) {
                 return $value;
-            } 
+            }
         }
 
         return false;

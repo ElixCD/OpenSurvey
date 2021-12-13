@@ -6,7 +6,7 @@ interface IRubric
 {
     function GetRubric(int $idRubric);
 
-    function GetRubrics(int $idFactor, int $numberPage=1);
+    function GetRubrics(int $idFactor, int $numberPage = 1);
 
     function SaveRubric($rubrics);
 
@@ -14,8 +14,7 @@ interface IRubric
 
     function DeleteRubric($rubrics);
 
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
-
+    function GetMessage();
 }

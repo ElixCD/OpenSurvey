@@ -16,11 +16,13 @@ class Question implements Data\Interfaces\IQuestion
         $this->connection = new DbMySQL();
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage()
+    {
         return $this->connection->GetMessage();
     }
 

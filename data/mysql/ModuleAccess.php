@@ -16,14 +16,16 @@ class ModuleAccess implements Data\Interfaces\IModuleAccess
         $this->connection = new DbMySQL();
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage()
+    {
         return $this->connection->GetMessage();
     }
-    
+
     function GetModulesAccesse(int $idModuleAccess)
     {
         $this->ModuleAccess = $this->connection->QuerySelect("SELECT * FROM module_access WHERE idmodule_access = '" . $idModuleAccess . "'");

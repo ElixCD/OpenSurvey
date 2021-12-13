@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface IModule
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetModule(int $idModule);
 

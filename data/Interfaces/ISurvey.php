@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface ISurvey
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetSurvey(int $idSurvey);
 
@@ -17,5 +17,4 @@ interface ISurvey
     function UpdateSurvey($survey);
 
     function DeleteSurvey($survey);
-
 }

@@ -15,12 +15,14 @@ class Survey implements Data\Interfaces\ISurvey
     {
         $this->connection = new DbMySQL();
     }
-    
-    function IsSuccess() : bool{
+
+    function IsSuccess(): bool
+    {
         return $this->connection->querySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage()
+    {
         return $this->connection->GetMessage();
     }
 
@@ -45,7 +47,10 @@ class Survey implements Data\Interfaces\ISurvey
     function SaveSurvey($survey)
     {
         try {
-            return $this->connection->QueryTransaction("INSERT INTO surveys VALUES (NULL, '" . $survey['name'] . "', " . $survey['active'] . "  )");
+            $query = "INSERT INTO surveys VALUES (NULL, :name, :active)";
+            $parameters = [':name' => $survey['name'], ':active' => (bool) $survey['active']];
+
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -54,8 +59,10 @@ class Survey implements Data\Interfaces\ISurvey
     function UpdateSurvey($survey)
     {
         try {
-            $query = "UPDATE surveys SET name = '" . $survey['name'] . "', active = " . $survey['active'] . " WHERE idsurvey = " . (int) $survey['idsurvey'];
-            return $this->connection->QueryTransaction($query);
+            // $query = "UPDATE surveys SET name = '" . $survey['name'] . "', active = " . $survey['active'] . " WHERE idsurvey = " . (int) $survey['idsurvey'];
+            $query = "UPDATE surveys SET name = :name, active = :active WHERE idsurvey = :idsurvey";
+            $parameters = [':name' => $survey['name'], ':active' => (bool) $survey['active'], ':idsurvey' => $survey['idsurvey']];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }

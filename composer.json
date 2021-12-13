@@ -2,8 +2,7 @@
     "name": "sysurvey/sysurvey",
     "description": "Simple survey system",
     "require": {
-        "vlucas/phpdotenv": "^5.1",
-        "mongodb/mongodb": "^1.8"
+        "vlucas/phpdotenv": "^5.1"
     },
     "autoload": {
         "psr-4": {
@@ -14,7 +13,8 @@
             "OurVoice\\Models\\" : "models/",
             "Data\\" : "data/",
             "Domain\\" : "domain",
-            "Data\\MySql\\" : "data/mysql"
+            "Data\\MySql\\" : "data/mysql",
+            "OurVoice\\Components\\" : "components/"
         },
         "files": ["config/LoadEnviroment.php","lib/Helper.php"]
     }

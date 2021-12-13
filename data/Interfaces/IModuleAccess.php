@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface IModuleAccess
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetModulesAccesse(int $idModuleAccess);
 

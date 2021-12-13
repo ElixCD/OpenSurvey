@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface IFactor
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetFactor(int $idFactor);
 

@@ -16,11 +16,13 @@ class Rol implements Data\Interfaces\IRol
         $this->connection =  new DbMySQL();
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage()
+    {
         return $this->connection->GetMessage();
     }
 
@@ -29,12 +31,11 @@ class Rol implements Data\Interfaces\IRol
         $this->Rol = $this->connection->QuerySelect("SELECT * FROM roles WHERE idrol = '" . $idRol . "'");
 
         foreach ($this->Rol as $key => $value) {
-            if(is_array($value)){
+            if (is_array($value)) {
                 if ($value['idrol'] == $idRol) {
                     return $value;
                 }
-            }
-            else{
+            } else {
                 return $value;
             }
         }

@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface IUserRol
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetUserRolesByUser(int $idUser);
 
@@ -17,5 +17,4 @@ interface IUserRol
     function UpdateUserRol($userRoles);
 
     function DeleteUserRoles($userRoles);
-
 }

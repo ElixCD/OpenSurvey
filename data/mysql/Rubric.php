@@ -28,7 +28,7 @@ class Rubric implements Data\Interfaces\IRubric
         return false;
     }
 
-    function GetRubrics(int $idFactor, int $numberPage=1)
+    function GetRubrics(int $idFactor, int $numberPage = 1)
     {
         $this->rubrics = $this->connection->QuerySelect("SELECT * FROM rubrics WHERE factors_idfactor = " . $idFactor);
         return $this->rubrics;
@@ -64,11 +64,13 @@ class Rubric implements Data\Interfaces\IRubric
         }
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage()
+    {
         return $this->connection->GetMessage();
     }
 

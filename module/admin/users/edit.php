@@ -56,20 +56,26 @@ $roles = array_filter($roles, $filtro);
                                 <div class="col-md-12">
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Nombre del usuario</label>
-                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo $user['name']; ?>" >
+                                        <input type="text" class="form-control" name="username" id="username" value="<?php echo $user['name']; ?>">
                                         <input type="hidden" name="id" id="id" value="<?php echo $idUser; ?>" />
                                     </div>
                                     <div class="form-group bmd-form-group">
                                         <label class="bmd-label-floating">Correo</label>
-                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $user['email']; ?>" >
+                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $user['email']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label class=" bmd-label-floating">Tipo de Usuario</label>
                                         <select class="form-control selectpicker" data-style="btn btn-link" name="idrol" id="idrol">
                                             <option value="">-- Seleccione un tipo de usuario --</option>
-                                            <?php foreach ($roles as $key => $rol) : ?>
-                                                <option value="<?php echo $rol['idrol']; ?>" <?php echo (isset($user['roles']) && $user['roles'][0]['idrol'] == $rol['idrol'] ? "selected" : ""); ?>><?php echo $rol['description']; ?></option>
-                                            <?php endforeach; ?>
+                                            <?php
+                                            foreach ($roles as $key => $rol) :
+                                            ?>
+                                                <option value="<?php echo $rol['idrol']; ?>" <?php echo (isset($user['roles']) && (count($user['roles']) > 0) && ($user['roles'][0]['idrol'] == $rol['idrol']) ? "selected" : ""); ?>>
+                                                    <?php echo $rol['description']; ?>
+                                                </option>
+                                            <?php
+                                            endforeach;
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -124,7 +130,7 @@ $roles = array_filter($roles, $filtro);
             let idrol = document.getElementById('idrol').value;
             let active = document.getElementById('active').checked;
 
-            SaveUser(action, name, email, active, idrol, '../../common/actionModels/save-user.php',document.referrer, <?php echo $idUser; ?>);
+            SaveUser(action, name, email, active, idrol, '../../common/actionModels/save-user.php', document.referrer, <?php echo $idUser; ?>);
         }
     </script>
 

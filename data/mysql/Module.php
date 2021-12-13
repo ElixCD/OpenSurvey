@@ -16,11 +16,13 @@ class Module implements Data\Interfaces\IModule
         $this->connection = new DbMySQL();
     }
 
-    function IsSuccess() : bool{
+    function IsSuccess(): bool
+    {
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage() : string{
+    function GetMessage()
+    {
         return $this->connection->GetMessage();
     }
 

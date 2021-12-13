@@ -6,7 +6,7 @@ interface IUser
 {
     function IsSuccess() : bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetUser(int $idUser);
 

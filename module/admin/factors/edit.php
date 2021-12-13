@@ -107,7 +107,7 @@ $factor = $dbFactor->GetFactor($idFactor);
                         <div class="col-md-12">
                             <div class="form-group bmd-form-group">
                                 <label class="bmd-label-floating">Valor de rúbrica</label>
-                                <input type="text" class="form-control" name="rubricvalue" id="rubricvalue">
+                                <input type="number" class="form-control" name="rubricvalue" id="rubricvalue">
                             </div>
                         </div>
                     </div>

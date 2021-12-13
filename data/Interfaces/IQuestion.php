@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface IQuestion
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetQuestion(int $idQuestion);
 
@@ -17,5 +17,4 @@ interface IQuestion
     function UpdateQuestion($question);
 
     function DeleteQuestion($questions);
-
 }

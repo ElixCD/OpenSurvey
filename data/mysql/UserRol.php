@@ -21,7 +21,7 @@ class UserRol implements Data\Interfaces\IUserRol
         return $this->connection->QuerySuccess();
     }
 
-    function GetMessage(): string
+    function GetMessage()
     {
         return $this->connection->GetMessage();
     }
@@ -49,7 +49,8 @@ class UserRol implements Data\Interfaces\IUserRol
     function SaveUserRol($userRoles)
     {
         try {
-            return $this->connection->QueryTransaction("INSERT INTO user_roles(users_iduser, roles_idrol) VALUES ('" . $userRoles['iduser'] . "', '" . $userRoles['idrol'] . "' )");
+            $query = "INSERT INTO user_roles(users_iduser, roles_idrol) VALUES ('" . $userRoles['iduser'] . "', '" . $userRoles['idrol'] . "' )";
+            return $this->connection->QueryTransaction($query);
         } catch (\Throwable $th) {
             return $th;
         }

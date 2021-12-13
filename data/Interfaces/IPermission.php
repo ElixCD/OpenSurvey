@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface IPermission
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetPermission(int $idPermission);
 
@@ -17,5 +17,4 @@ interface IPermission
     function UpdatePermission($permission);
 
     function DeletePermission($permission);
-
 }

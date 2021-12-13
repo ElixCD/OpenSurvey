@@ -4,9 +4,9 @@ namespace Data\Interfaces;
 
 interface IRol
 {
-    function IsSuccess() : bool;
+    function IsSuccess(): bool;
 
-    function GetMessage() : string;
+    function GetMessage();
 
     function GetRol(int $idRol);
 
@@ -17,5 +17,4 @@ interface IRol
     function UpdateRol($rol);
 
     function DeleteRol($rol);
-
 }
