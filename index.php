@@ -59,39 +59,6 @@ OurVoice\SesionStatus::startSession("user");
 
     </div>
 
-    <?php
-    $grid = new OurVoice\Components\GridList\GridList;
-
-    // $grid->readView();
-
-    $grid->TableClass = "table";
-    $grid->ListColumns = ["head 0", "head 1", "none", "actions"];
-    // $grid->SelectColumn = true;
-    $grid->SelectHeaderText = "Opcion";
-    $grid->HeadClass = "text-primary";
-    $grid->DataActionColumn = '<a href="" class="btn btn-primary btn-fab btn-fab-mini btn-link" title="Editar" onclick="Salir({{id}});">
-    <span class="material-icons">create</span>
-</a>
-<a href="" class="btn btn-danger btn-fab btn-fab-mini btn-link" title="Eliminar">
-    <span class="material-icons">delete</span>
-</a>';
-
-
-    $grid->DataCollection = [
-        ["id" => 1, "head 0" => "hola 0", "head 1" => "bye 0", "none" => "not null"],
-        ["id" => 2, "head 0" => "hola 1", "head 1" => "bye 1"]
-    ];
-    $grid->KeyColumn = "id";
-
-    $grid->drawComponent();
-
-    $paginator = new OurVoice\Components\Paginator\Paginator;
-    $paginator->CurrentPage = !isset($_GET['page']) ? 1 : $_GET['page'];
-    $paginator->VisiblePages = 4;
-    $paginator->TotalPages = 10;
-    $paginator->drawComponent();
-
-    ?>
 
 </body>
 

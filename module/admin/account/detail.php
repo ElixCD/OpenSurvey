@@ -135,12 +135,6 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
         </div>
     </main>
 
-    <pre>
-        <?php
-        print_r($user);
-        ?>
-    </pre>
-
     <?php
     include_once "../../common/register-js.php";
     ?>
