@@ -5,7 +5,7 @@ $action = $_POST['action'];
 $newSurvey = [
     "idsurvey" => isset($_POST['idSurvey']) ? (int) $_POST['idSurvey'] : "",
     "name" => isset($_POST['name']) ? $_POST['name'] : "",
-    "active" => isset($_POST['active']) ? $_POST['active'] : false,
+    "active" => isset($_POST['active']) ? (bool) $_POST['active'] : false,
     "users_iduser" => 1
 ];
 

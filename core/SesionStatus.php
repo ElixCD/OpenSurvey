@@ -24,6 +24,11 @@ class SesionStatus{
         $_SESSION[$name] = $value;
     }
 
+    static function UpdateSession($name, $value) : void {
+        session_start();
+        $_SESSION[$name] = $value;
+    }
+
     static function GetSessionData($name) {
         session_start();
         return $_SESSION[$name];

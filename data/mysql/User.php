@@ -70,7 +70,7 @@ class User implements Data\Interfaces\IUser
             $query = "INSERT INTO users VALUES (NULL , :email, :name, :password, :active, :last_login, :register_date)";
             $lastLogin = ($user['last_login'] != null ? "'" . $user["last_login"] . "'" : 'NULL');
             $register_date = gmdate("Y/m/d H:i:s", time());
-            $params = [':email' => $user['email'], ':name' => $user['name'], ':password' => $user['password'], ':active' => (bool) $user['active'], ':last_login' => $lastLogin, ':register_date' => $register_date];
+            $params = [':email' => $user['email'], ':name' => $user['name'], ':password' => $user['password'], ':active' => (int) $user['active'], ':last_login' => $lastLogin, ':register_date' => $register_date];
             return $this->connection->QueryTransaction($query, $params);
         } catch (\Throwable $th) {
             return $th;
@@ -83,7 +83,13 @@ class User implements Data\Interfaces\IUser
             date_default_timezone_set('UTC');
 
             $query = "UPDATE users SET name = :name, active = :active WHERE iduser= :iduser";
-            $params = [':name' => $user['name'], ':active' => (bool) $user['active'], ':iduser' => (int) $user['iduser']];
+
+            $name =  $user["name"];
+            $active = (int) $user['active'];
+
+            $query2 = "UPDATE users SET name = '$name', active = '$active' WHERE iduser= :iduser";
+
+            $params = [':name' => $user['name'], ':active' => (int) $user['active'], ':iduser' => (int) $user['iduser']];
 
             // $query = "UPDATE users SET name = '" . $user['name'] . "', active = " . (bool) $user['active'] . " WHERE iduser= " . (int) $user['iduser'];
             return $this->connection->QueryTransaction($query, $params);

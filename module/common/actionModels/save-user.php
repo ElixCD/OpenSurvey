@@ -2,12 +2,13 @@
 require '../../../vendor/autoload.php';
 
 $action = $_POST['action'];
+
 $newUser = [
-    "iduser" => isset($_POST['iduser']) ? (int) $_POST['iduser'] : "",
+    "iduser" =>  isset($_POST['iduser']) ? (int) $_POST['iduser'] : "",
     "email" => isset($_POST['email']) ? $_POST['email'] : "",
     "name" => isset($_POST['name']) ? $_POST['name'] : "",
     "password" => isset($_POST['password']) ? $_POST['password'] : "",
-    "active" => isset($_POST['active']) ? $_POST['active'] : false,
+    "active" => isset($_POST['active']) ? (bool) $_POST['active'] : false,
     "last_login" =>  NULL,
     "register_date" => NULL,
     "idrol" => isset($_POST['idrol']) ? $_POST['idrol'] : 0

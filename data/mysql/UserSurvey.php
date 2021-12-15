@@ -16,6 +16,16 @@ class UserSurvey implements Data\Interfaces\IUserSurvey
         $this->connection = new DbMySQL();
     }
 
+    function IsSuccess(): bool
+    {
+        return $this->connection->QuerySuccess();
+    }
+
+    function GetMessage()
+    {
+        return $this->connection->GetMessage();
+    }
+
     // function getUserSurvey(int $idUserSurvey)
     // {
     //     $this->UserSurvey = $this->connection->querySelect("SELECT * FROM user_surveys WHERE users_iduser = '" . $idUserSurvey . "'");
@@ -28,26 +38,20 @@ class UserSurvey implements Data\Interfaces\IUserSurvey
     //     return false;
     // }
 
-    function IsSuccess(): bool
-    {
-        return $this->connection->QuerySuccess();
-    }
-
-    function GetMessage()
-    {
-        return $this->connection->GetMessage();
-    }
-
     function GetUserSurveys(int $idUserSurvey)
     {
-        $this->UserSurvey = $this->connection->QuerySelect("SELECT * FROM user_surveys WHERE users_iduser = '" . $idUserSurvey . "'");
+        $query = "SELECT * FROM user_surveys WHERE users_iduser = :idUserSurvey";
+        $param = [':idUserSurvey' => $idUserSurvey];
+        $this->UserSurvey = $this->connection->QuerySelect($query, $param);
         return $this->UserSurvey;
     }
 
     function SaveUserSurvey($userSurveys)
     {
         try {
-            return $this->connection->QueryTransaction("INSERT INTO user_surveys VALUES (NULL, '" . $userSurveys['iduser'] . "', '" . $userSurveys['idsurvey'] . "' , '" . $userSurveys['propietary'] . "',, " . $userSurveys['complete'] . ", , '" . $userSurveys['start_date'] . "', , '" . $userSurveys['finish_date'] . "'  )");
+            $query = "INSERT INTO user_surveys VALUES (NULL, :iduser, :idsurvey, :propietary, :complete, :start_date, :finish_date  )";
+            $param = [':iduser' => $userSurveys['iduser'], ':idsurvey' => $userSurveys['idsurvey'], ':propietary' => $userSurveys['propietary'], ':complete' => $userSurveys['complete'], ':start_date' => $userSurveys['start_date'], ':finish_date' => $userSurveys['finish_date']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -56,8 +60,9 @@ class UserSurvey implements Data\Interfaces\IUserSurvey
     function UpdateUserSurvey($userSurveys)
     {
         try {
-            $query = "UPDATE user_surveys SET users_iduser = '" . $userSurveys['iduser'] . "', surveys_idsurvey='" . $userSurveys['idsurvey'] . "', propietary=" . $userSurveys['propietary'] . ", complete=" . $userSurveys['complete'] . ", star_date='" . $userSurveys['star_date'] . "', finish_date='" . $userSurveys['finish_date'] . "' WHERE users_iduser = " . (int) $userSurveys['users_iduser'];
-            return $this->connection->QueryTransaction($query);
+            $query = "UPDATE user_surveys SET users_iduser = :iduser, surveys_idsurvey = :idsurvey, propietary = :propietary, complete = :complete, star_date = :star_date, finish_date = :finish_date WHERE users_iduser = :users_iduser";
+            $param = [':iduser' => $userSurveys['iduser'], ':idsurvey' => $userSurveys['idsurvey'], ':propietary' => $userSurveys['propietary'], ':complete' => $userSurveys['complete'], ':star_date' => $userSurveys['star_date'], ':finish_date' => $userSurveys['finish_date'], ':users_iduser' => (int) $userSurveys['users_iduser']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -66,8 +71,10 @@ class UserSurvey implements Data\Interfaces\IUserSurvey
     function DeleteUserSurvey($userSurveys)
     {
         try {
-            $param = $userSurveys['users_iduser'];
-            return $this->connection->QueryTransaction("DELETE FROM user_surveys WHERE users_iduser = '" . $param . "' )");
+            $query = "DELETE FROM user_surveys WHERE users_iduser = :users_iduser )";
+            $param = [':users_iduser' => $userSurveys['users_iduser']];
+
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }

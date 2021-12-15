@@ -4,6 +4,7 @@ include_once "../../common/getPath.php";
 
 $user = OurVoice\SesionStatus::GetSessionData("user");
 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,6 +24,7 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
     <?php
     include_once "../admin-nav.php";
     include_once "../../common/header.php";
+
     ?>
 
     <main class="container">
@@ -133,6 +135,12 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
         </div>
     </main>
 
+    <pre>
+        <?php
+        print_r($user);
+        ?>
+    </pre>
+
     <?php
     include_once "../../common/register-js.php";
     ?>
@@ -169,10 +177,13 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
             let name = document.getElementById('username').value;
             let email = document.getElementById('email').value;
             let idrol = document.getElementById('idrol').value;
-            let active = document.getElementById('active').checked;
+            let active = document.getElementById('active').checked ? 1 : 0;
 
             SaveUser('update', name, email, active, idrol, '../../common/actionModels/save-user.php', null, <?php echo $user['iduser']; ?>);
             activate('form-data', 1);
+
+            let url = '../../common/actionModels/session-reload.php';
+            SessionReload("user",url);
         }
 
         function SavePassword() {

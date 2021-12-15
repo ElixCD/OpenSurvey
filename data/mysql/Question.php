@@ -29,7 +29,9 @@ class Question implements Data\Interfaces\IQuestion
 
     function GetQuestion(int $idQuestion)
     {
-        $this->questions = $this->connection->QuerySelect("SELECT * FROM questions WHERE idquestions = '" . $idQuestion . "'");
+        $query = "SELECT * FROM questions WHERE idquestions = :idQuestion";
+        $param = [':idQuestion' => $idQuestion];
+        $this->questions = $this->connection->QuerySelect($query, $param);
 
         foreach ($this->questions as $key => $value) {
             if ($value['idquestions'] == $idQuestion) {
@@ -41,15 +43,18 @@ class Question implements Data\Interfaces\IQuestion
 
     function GetQuestions(int $idSurvey, int $numberPage)
     {
-        $this->questions = $this->connection->QuerySelect("SELECT * FROM questions WHERE surveys_idsurvey = " . $idSurvey);
+        $query = "SELECT * FROM questions WHERE surveys_idsurvey = :idSurvey";
+        $param = [':idSurvey' => $idSurvey];
+        $this->questions = $this->connection->QuerySelect($query, $param);
         return $this->questions;
     }
 
     function SaveQuestion($question)
     {
         try {
-            // $param = $question['description'];
-            return $this->connection->QueryTransaction("INSERT INTO questions VALUES (NULL, '" . $question['value'] . "', " . $question['mandatory'] . ", " . $question['idfactor'] . ", " . $question['idsurvey'] . " )");
+            $query = "INSERT INTO questions VALUES (NULL, :value, :mandatory, :idfactor, :idsurvey )";
+            $param = [':value' => $question['value'], ':mandatory' => (int) $question['mandatory'], ':idfactor' => $question['idfactor'], ':idsurvey' => $question['idsurvey']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -58,8 +63,9 @@ class Question implements Data\Interfaces\IQuestion
     function UpdateQuestion($question)
     {
         try {
-            $query = "UPDATE questions SET value = '" . $question['value'] . "', mandatory = " . $question['mandatory'] . ", surveys_idsurvey = " . $question['idsurvey'] . ", factors_idfactor = " . $question['idfactor'] . " WHERE idquestion = " . (int) $question['idquestion'];
-            return $this->connection->QueryTransaction($query);
+            $query = "UPDATE questions SET value = :value, mandatory = :mandatory, surveys_idsurvey = :idsurvey, factors_idfactor = :idfactor WHERE idquestion = :idquestion";
+            $param = [':value' => $question['value'], ':mandatory' => (int) $question['mandatory'], ':idsurvey' => $question['idsurvey'], ':idfactor' => $question['idfactor'], ':idquestion' => (int) $question['idquestion']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -68,8 +74,9 @@ class Question implements Data\Interfaces\IQuestion
     function DeleteQuestion($questions)
     {
         try {
-            $param = $questions['idquestion'];
-            return $this->connection->QueryTransaction("DELETE FROM questions WHERE idquestion = " . $param . "");
+            $query = "DELETE FROM questions WHERE idquestion = :idquestion";
+            $param = [':idquestion' => $questions['idquestion']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }

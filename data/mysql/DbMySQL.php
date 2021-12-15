@@ -73,7 +73,7 @@ class DbMySQL implements Data\Interfaces\IDb
             $executeParameters = true;
             $this->gbd->beginTransaction();
 
-            $gsent = $this->gbd->prepare($query, [PDO::PARAM_NULL]);
+            $gsent = $this->gbd->prepare($query);
 
             foreach ($parameters as $key => $value) {
                 if (strpos($query, $key) == false) {
@@ -83,8 +83,7 @@ class DbMySQL implements Data\Interfaces\IDb
             }
 
             if ($executeParameters) {
-                $gsent = $this->gbd->prepare($query);
-
+                // $gsent = $this->gbd->prepare($query);
                 foreach ($parameters as $key => $value) {
                     if ($value === "NULL")
                         $gsent->bindValue($key, $value, PDO::PARAM_NULL);

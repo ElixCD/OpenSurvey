@@ -28,7 +28,9 @@ class Survey implements Data\Interfaces\ISurvey
 
     function GetSurvey(int $idSurvey)
     {
-        $this->surveys = $this->connection->QuerySelect("SELECT * FROM surveys WHERE idsurvey = '" . $idSurvey . "'");
+        $query = "SELECT * FROM surveys WHERE idsurvey = :idSurvey";
+        $param = [':idSurvey' => $idSurvey];
+        $this->surveys = $this->connection->QuerySelect($query, $param);
 
         foreach ($this->surveys as $key => $value) {
             if ($value['idsurvey'] == $idSurvey) {
@@ -48,7 +50,7 @@ class Survey implements Data\Interfaces\ISurvey
     {
         try {
             $query = "INSERT INTO surveys VALUES (NULL, :name, :active)";
-            $parameters = [':name' => $survey['name'], ':active' => (bool) $survey['active']];
+            $parameters = [':name' => $survey['name'], ':active' => (int) $survey['active']];
 
             return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
@@ -59,9 +61,8 @@ class Survey implements Data\Interfaces\ISurvey
     function UpdateSurvey($survey)
     {
         try {
-            // $query = "UPDATE surveys SET name = '" . $survey['name'] . "', active = " . $survey['active'] . " WHERE idsurvey = " . (int) $survey['idsurvey'];
             $query = "UPDATE surveys SET name = :name, active = :active WHERE idsurvey = :idsurvey";
-            $parameters = [':name' => $survey['name'], ':active' => (bool) $survey['active'], ':idsurvey' => $survey['idsurvey']];
+            $parameters = [':name' => $survey['name'], ':active' => (int) $survey['active'], ':idsurvey' => $survey['idsurvey']];
             return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
@@ -71,8 +72,9 @@ class Survey implements Data\Interfaces\ISurvey
     function DeleteSurvey($survey)
     {
         try {
-            $param = $survey['idsurvey'];
-            return $this->connection->QueryTransaction("DELETE FROM surveys WHERE idsurvey = '" . $param . "'");
+            $query = "DELETE FROM surveys WHERE idsurvey = :idsurvey ";
+            $param = [':idsurvey' => $survey['idsurvey']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }

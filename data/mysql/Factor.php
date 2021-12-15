@@ -26,7 +26,9 @@ class Factor implements Data\Interfaces\IFactor
 
     function GetFactor(int $idFactor)
     {
-        $this->factors = $this->connection->QuerySelect("SELECT * FROM factors WHERE idfactor = '" . $idFactor . "'");
+        $query = "SELECT * FROM factors WHERE idfactor = :idFactor";
+        $parameters = [':idFactor' => (int) $idFactor];
+        $this->factors = $this->connection->QuerySelect($query, $parameters);
 
         foreach ($this->factors as $key => $value) {
             if ($value['idfactor'] == $idFactor) {
@@ -39,14 +41,17 @@ class Factor implements Data\Interfaces\IFactor
 
     function GetFactors(int $idUser, int $numberPage = 1)
     {
-        $this->factors = $this->connection->QuerySelect("SELECT * FROM factors");
+        $query = "SELECT * FROM factors";
+        $this->factors = $this->connection->QuerySelect($query);
         return $this->factors;
     }
 
     function SaveFactor($factor)
     {
         try {
-            return $this->connection->QueryTransaction("INSERT INTO factors VALUES (NULL, '" . $factor['description'] . "', '" . $factor['users_iduser'] . "' )");
+            $query = "INSERT INTO factors VALUES (NULL, :description, :users_iduser )";
+            $parameters = [':description' => $factor['description'], ':users_iduser' => (int) $factor['users_iduser']];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -55,8 +60,9 @@ class Factor implements Data\Interfaces\IFactor
     function UpdateFactor($factor)
     {
         try {
-            $query = "UPDATE factors SET description = '" . $factor['description'] . "' WHERE idfactor = " . (int) $factor['idfactor'];
-            return $this->connection->QueryTransaction($query);
+            $query = "UPDATE factors SET description = :description WHERE idfactor = :idfactor";
+            $parameters = [':description' => $factor['description'], ':idfactor' => (int) $factor['idfactor']];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -65,8 +71,9 @@ class Factor implements Data\Interfaces\IFactor
     function DeleteFactor($factor)
     {
         try {
-            $param = $factor['idfactor'];
-            return $this->connection->QueryTransaction("DELETE FROM factors WHERE idfactor = '" . $param . "'");
+            $query = "DELETE FROM factors WHERE idfactor = :idfactor ";
+            $parameters = [':idfactor' => $factor['idfactor']];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }

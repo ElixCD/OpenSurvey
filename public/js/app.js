@@ -104,6 +104,11 @@ function SaveUser(action, name, email, active, idrol, url, locate, iduser = null
     execute(connection, 'POST', url, params);
 }
 
+function SessionReload(session,url){
+    let connection = createConnection();
+    execute(connection, 'POST', url, "name="+session);
+}
+
 
 
 

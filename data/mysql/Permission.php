@@ -16,7 +16,6 @@ class Permission implements IPermission
         $this->connection = new DbMySQL();
     }
 
-
     function IsSuccess(): bool
     {
         return $this->connection->QuerySuccess();
@@ -29,7 +28,9 @@ class Permission implements IPermission
 
     function GetPermission(int $idPermission)
     {
-        $this->Permission = $this->connection->QuerySelect("SELECT * FROM permissions WHERE idpermission = '" . $idPermission . "'");
+        $query = "SELECT * FROM permissions WHERE idpermission = :idPermission";
+        $parameters = [':idPermission' => $idPermission];
+        $this->Permission = $this->connection->QuerySelect($query, $parameters);
 
         foreach ($this->Permission as $key => $value) {
             if ($value['idpermission'] == $idPermission) {
@@ -48,7 +49,9 @@ class Permission implements IPermission
     function SavePermission($description)
     {
         try {
-            return $this->connection->QueryTransaction("INSERT INTO permissions VALUES (NULL, '" . $description . "' )");
+            $query = "INSERT INTO permissions VALUES (NULL, :description )";
+            $parameters = [':description' => $description];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -57,8 +60,9 @@ class Permission implements IPermission
     function UpdatePermission($permission)
     {
         try {
-            $query = "UPDATE permissions SET description = '" . $permission['description'] . "' WHERE idpermission = " . (int) $permission['idpermission'];
-            return $this->connection->QueryTransaction($query);
+            $query = "UPDATE permissions SET description = :description WHERE idpermission = :idpermission";
+            $parameters = [':description' =>  $permission['description'], ':idpermission' => (int) $permission['idpermission']];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -67,8 +71,9 @@ class Permission implements IPermission
     function DeletePermission($permission)
     {
         try {
-            $param = $permission['idPermissions'];
-            return $this->connection->QueryTransaction("DELETE FROM permissions WHERE idpermission = '" . $param . "' )");
+            $query = "DELETE FROM permissions WHERE idpermission = :idPermissions )";
+            $param = [':idPermissions' => $permission['idPermissions']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }

@@ -30,7 +30,9 @@ class UserRol implements Data\Interfaces\IUserRol
     {
         $salida = array();
         // $this->UserRol = $this->connection->QuerySelect("SELECT * FROM user_roles WHERE users_iduser = '" . $idUser . "'");
-        $this->UserRol = $this->connection->QuerySelect("SELECT ur.users_iduser, ur.iduser_rol, r.*  FROM user_roles  AS ur INNER JOIN roles AS r ON r.idrol = ur.roles_idrol WHERE users_iduser = '" . $idUser . "'");
+        $query = "SELECT ur.users_iduser, ur.iduser_rol, r.*  FROM user_roles  AS ur INNER JOIN roles AS r ON r.idrol = ur.roles_idrol WHERE users_iduser = :idUser";
+        $param = [':idUser' => $idUser];
+        $this->UserRol = $this->connection->QuerySelect($query, $param);
 
         if (!is_array($this->UserRol)) {
             array_push($salida, $this->UserRol);
@@ -42,15 +44,18 @@ class UserRol implements Data\Interfaces\IUserRol
 
     function GetUserRolesByRol(int $idRol)
     {
-        $this->UserRol = $this->connection->QuerySelect("SELECT * FROM user_roles WHERE roles_idrol = '" . $idRol . "'");
+        $query = "SELECT * FROM user_roles WHERE roles_idrol = :idRol";
+        $param = [':idRol' => $idRol];
+        $this->UserRol = $this->connection->QuerySelect($query, $param);
         return $this->UserRol;
     }
 
     function SaveUserRol($userRoles)
     {
         try {
-            $query = "INSERT INTO user_roles(users_iduser, roles_idrol) VALUES ('" . $userRoles['iduser'] . "', '" . $userRoles['idrol'] . "' )";
-            return $this->connection->QueryTransaction($query);
+            $query = "INSERT INTO user_roles(users_iduser, roles_idrol) VALUES (:iduser, :idrol )";
+            $param = [':iduser' => $userRoles['iduser'], ':idrol' => $userRoles['idrol']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -59,8 +64,9 @@ class UserRol implements Data\Interfaces\IUserRol
     function UpdateUserRol($userRoles)
     {
         try {
-            $query = "UPDATE user_roles SET users_iduser = '" . $userRoles['iduser'] . "', roles_idrol='" . $userRoles['idrol'] . "' WHERE users_iduser = " . (int) $userRoles['iduser'];
-            return $this->connection->QueryTransaction($query);
+            $query = "UPDATE user_roles SET users_iduser = :iduser, roles_idrol = :idrol WHERE users_iduser = :iduser";
+            $param = [':iduser' => $userRoles['iduser'], ':idrol' => $userRoles['idrol'], ':iduser' => (int) $userRoles['iduser']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -69,8 +75,9 @@ class UserRol implements Data\Interfaces\IUserRol
     function DeleteUserRoles($userRoles)
     {
         try {
-            $param = $userRoles['iduser'];
-            return $this->connection->QueryTransaction("DELETE FROM user_roles WHERE users_iduser = '" . $param . "'");
+            $query = "DELETE FROM user_roles WHERE users_iduser = :iduser";
+            $param = [':iduser' => $userRoles['iduser']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }

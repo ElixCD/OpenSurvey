@@ -18,7 +18,9 @@ class Rubric implements Data\Interfaces\IRubric
 
     function GetRubric(int $idRubric)
     {
-        $this->rubrics = $this->connection->QuerySelect("SELECT * FROM rubrics WHERE idrubric = '" . $idRubric . "'");
+        $query = "SELECT * FROM rubrics WHERE idrubric = :idRubric";
+        $param = [':idRubric' => $idRubric];
+        $this->rubrics = $this->connection->QuerySelect($query, $param);
 
         foreach ($this->rubrics as $key => $value) {
             if ($value['idrubric'] == $idRubric) {
@@ -30,15 +32,18 @@ class Rubric implements Data\Interfaces\IRubric
 
     function GetRubrics(int $idFactor, int $numberPage = 1)
     {
-        $this->rubrics = $this->connection->QuerySelect("SELECT * FROM rubrics WHERE factors_idfactor = " . $idFactor);
+        $query = "SELECT * FROM rubrics WHERE factors_idfactor = :idFactor";
+        $param = [':idFactor' => $idFactor];
+        $this->rubrics = $this->connection->QuerySelect($query, $param);
         return $this->rubrics;
     }
 
     function SaveRubric($rubrics)
     {
         try {
-            $param = $rubrics['description'];
-            return $this->connection->QueryTransaction("INSERT INTO rubrics VALUES (NULL, '" . $rubrics['description'] . "', '" . $rubrics['value'] . "', '" . $rubrics['idfactor'] . "' )");
+            $query = "INSERT INTO rubrics VALUES (NULL, :description, :value, :idfactor )";
+            $param = [':description' => $rubrics['description'], ':value' => $rubrics['value'], ':idfactor' => $rubrics['idfactor']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -47,8 +52,9 @@ class Rubric implements Data\Interfaces\IRubric
     function UpdateRubric($rubrics = [])
     {
         try {
-            $query = "UPDATE rubrics SET value = '" . $rubrics['value'] . "', factors_idfactor = '" . $rubrics['idfactor'] . "', description = '" . $rubrics['description'] . "' WHERE idrubric = " . (int) $rubrics['idrubric'];
-            return $this->connection->QueryTransaction($query);
+            $query = "UPDATE rubrics SET value = :value, factors_idfactor = :idfactor, description = :description WHERE idrubric = :idrubric";
+            $param = [':value' => $rubrics['value'], ':idfactor' =>  $rubrics['idfactor'], ':description' => $rubrics['description'], ':idrubric' => (int) $rubrics['idrubric']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -57,8 +63,9 @@ class Rubric implements Data\Interfaces\IRubric
     function DeleteRubric($rubrics)
     {
         try {
-            $param = $rubrics['idrubric'];
-            return $this->connection->QueryTransaction("DELETE FROM rubrics WHERE idrubric = '" . $param . "' ");
+            $query = "DELETE FROM rubrics WHERE idrubric = :idrubric ";
+            $param = [':idrubric' => $rubrics['idrubric']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }

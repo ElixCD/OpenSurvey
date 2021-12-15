@@ -59,7 +59,7 @@ $factor = $dbFactor->GetFactor($idFactor);
                                         <div class="row">
                                             <div class="col-md-10"><label class="card-title">Lista de rúbricas</label></div>
                                             <div class="col-md-2  text-end">
-                                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#rubricModal" onclick="rubricAction='new'; ClearQuestionFields();">
+                                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#rubricModal" onclick="rubricAction='new'; ClearRubricFields();">
                                                     <span class="material-icons">add_circle_outline</span>
                                                     <span class="btn-single-icon">Nueva rúbrica</span>
                                                 </button>

@@ -28,7 +28,9 @@ class Module implements Data\Interfaces\IModule
 
     function GetModule(int $idModule)
     {
-        $this->Module = $this->connection->QuerySelect("SELECT * FROM modules WHERE idmodule = '" . $idModule . "'");
+        $query = "SELECT * FROM modules WHERE idmodule = :idModule";
+        $parameters = [':idModule ' => $idModule];
+        $this->Module = $this->connection->QuerySelect($query, $parameters);
 
         foreach ($this->Module as $key => $value) {
             if ($value['idmodule'] == $idModule) {
@@ -47,7 +49,9 @@ class Module implements Data\Interfaces\IModule
     function SaveModule($name, $idmodule_type)
     {
         try {
-            return $this->connection->QueryTransaction("INSERT INTO modules VALUES (NULL, '" . $name . "' )");
+            $query = "INSERT INTO modules VALUES (NULL, :name )";
+            $parameters = [':name' => $name];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -56,8 +60,9 @@ class Module implements Data\Interfaces\IModule
     function UpdateModule($Module)
     {
         try {
-            $query = "UPDATE modules SET name = '" . $Module['name'] . "' WHERE idmodule = " . (int) $Module['idmodule'];
-            return $this->connection->QueryTransaction($query);
+            $query = "UPDATE modules SET name = :name WHERE idmodule = :idmodule";
+            $parameters = [':name' => $Module['name'],  ':idmodule' => (int) $Module['idmodule']];
+            return $this->connection->QueryTransaction($query, $parameters);
         } catch (\Throwable $th) {
             return $th;
         }
@@ -66,8 +71,9 @@ class Module implements Data\Interfaces\IModule
     function DeleteModule($Module)
     {
         try {
-            $param = $Module['idmodule'];
-            return $this->connection->QueryTransaction("DELETE FROM modules WHERE idmodule = '" . $param . "' )");
+            $query = "DELETE FROM modules WHERE idmodule = :idmodule )";
+            $param = [':idmodule' => $Module['idmodule']];
+            return $this->connection->QueryTransaction($query, $param);
         } catch (\Throwable $th) {
             return $th;
         }

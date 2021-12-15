@@ -6,7 +6,7 @@ $newQuestion = [
     "idfactor" => isset($_POST['idfactor']) ? (int) $_POST['idfactor'] : "",
     "idsurvey" => isset($_POST['idSurvey']) ? (int) $_POST['idSurvey'] : "",
     "value" => isset($_POST['d']) ? $_POST['d'] : "",
-    "mandatory" => isset($_POST['mandatory']) ? $_POST['mandatory'] : false,
+    "mandatory" => isset($_POST['mandatory']) ? (bool) $_POST['mandatory'] : false,
     "idquestion" => isset($_POST['idQuestion']) ? $_POST['idQuestion'] : ""
 ];
 

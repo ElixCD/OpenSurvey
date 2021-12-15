@@ -199,7 +199,7 @@ $factors = $dbFactor->getFactors(1);
             connection = createConnection();
 
             let d = document.getElementById('surveyname').value;
-            let a = document.getElementById('survey-active').checked;
+            let a = document.getElementById('survey-active').checked ? 1 : 0;
 
             connection.onreadystatechange = function() {
                 if (connection.readyState == 4 && connection.status == 200) {
@@ -214,13 +214,13 @@ $factors = $dbFactor->getFactors(1);
         function CurrentQuestion() {
             document.getElementById('question').value = document.getElementById('question-lbl' + idQuestion).value;
             document.getElementById('factores').value = document.getElementById('factor-lbl' + idQuestion).value;
-            document.getElementById('mandatory').checked = document.getElementById('mandatory-chk' + idQuestion).checked;
+            document.getElementById('mandatory').checked = document.getElementById('mandatory-chk' + idQuestion).checked ;
         }
 
         function SaveQuestion() {
             let d = document.getElementById('question').value;
             let idfactor = document.getElementById('factores').value;
-            let mandatory = document.getElementById('mandatory').checked;
+            let mandatory = document.getElementById('mandatory').checked ? 1 : 0;
 
             connection = createConnection();
 
