@@ -1,7 +1,7 @@
 <?php
 
 namespace Domain;
-use Data\Interfaces\IQuestion;
+use OurVoice\Data\IQuestion;
 
 class QuestionDomain
 {

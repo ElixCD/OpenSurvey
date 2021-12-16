@@ -10,7 +10,7 @@ $idUser = $_GET['id'];
 $dbUser = new UserDomain();
 $dbRol = new RolDomain();
 
-$user = $dbUser->getUserData($idUser);
+$user = $dbUser->GetUserDataById($idUser);
 $roles = $dbRol->getRoles();
 
 $filtro = function ($array) {

@@ -1,7 +1,7 @@
 <?php
 namespace Domain;
 
-use Data\Interfaces\ISurvey;
+use OurVoice\Data\ISurvey;
 
 class SurveyDomain
 {

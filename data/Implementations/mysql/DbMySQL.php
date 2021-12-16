@@ -4,9 +4,9 @@ namespace Data\MySql;
 
 use PDO;
 use PDOException;
-use Data;
+use OurVoice\Data\IDb;
 
-class DbMySQL implements Data\Interfaces\IDb
+class DbMySQL implements IDb
 {
     private $gbd;
     private bool $success;

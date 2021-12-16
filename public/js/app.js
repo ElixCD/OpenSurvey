@@ -16,6 +16,9 @@ function login() {
             if(data.isSuccess){
                 window.location.replace(data.url);
             }
+            else{
+                alert(data.message);
+            }
         })
         .catch(function(err) {            
             console.log(err.message);
@@ -98,6 +101,29 @@ function SaveUser(action, name, email, active, idrol, url, locate, iduser = null
     }
 
     let params = "action=" + action + "&name=" + name + "&email=" + email + "&active=" + active + "&idrol=" + idrol;
+
+    if (iduser != null) params += "&iduser=" + iduser
+
+    execute(connection, 'POST', url, params);
+}
+
+function SavePassword(action, password, url, locate, iduser = null) {
+    let backUrl = document.referrer;
+
+    let connection = createConnection();
+
+    connection.onreadystatechange = function () {
+        if (connection.readyState == 4) {
+            let obj = JSON.parse(connection.responseText);
+            alert(obj.msj);
+            if (obj.error == false) {
+                if(locate != null)
+                    location.href = locate;
+            }
+        }
+    }
+
+    let params = "action=" + action + "&password=" + password;
 
     if (iduser != null) params += "&iduser=" + iduser
 

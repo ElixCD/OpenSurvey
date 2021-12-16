@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data;
+use OurVoice;
 use Exception;
 
-class Rubric implements Data\Interfaces\IRubric
+class Rubric implements OurVoice\Data\IRubric
 {
     public $rubrics = [];
 

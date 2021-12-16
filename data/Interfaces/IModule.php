@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\Interfaces;
+namespace OurVoice\Data;
 
 interface IModule
 {

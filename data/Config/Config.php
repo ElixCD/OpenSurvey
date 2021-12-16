@@ -1,6 +1,6 @@
 <?php
 
-namespace Data;
+namespace OurVoice\Data;
 
 class Config
 {

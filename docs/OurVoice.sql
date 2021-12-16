@@ -5,9 +5,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP DATABASE IF EXISTS `OurVoice`;
-CREATE DATABASE IF NOT EXISTS `OurVoice` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `OurVoice`;
+DROP DATABASE IF EXISTS `ourvoice`;
+CREATE DATABASE IF NOT EXISTS `ourvoice` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `ourvoice`;
 
 DROP TABLE IF EXISTS `factors`;
 CREATE TABLE IF NOT EXISTS `factors` (
@@ -17,14 +17,14 @@ CREATE TABLE IF NOT EXISTS `factors` (
   PRIMARY KEY (`idfactor`),
   KEY `fk_factor_users1_idx` (`users_iduser`),
   CONSTRAINT `fk_factor_users1` FOREIGN KEY (`users_iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `modules`;
 CREATE TABLE IF NOT EXISTS `modules` (
   `idmodule` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`idmodule`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `module_access`;
 CREATE TABLE IF NOT EXISTS `module_access` (
@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS `module_access` (
   CONSTRAINT `fk_module_access_modules1` FOREIGN KEY (`modules_idmodule`) REFERENCES `modules` (`idmodule`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_module_access_permissions1` FOREIGN KEY (`permissions_idpermission`) REFERENCES `permissions` (`idpermission`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_module_access_user_types1` FOREIGN KEY (`user_types_iduser_type`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
   `idpermission` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(45) NOT NULL,
   PRIMARY KEY (`idpermission`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `questions`;
 CREATE TABLE IF NOT EXISTS `questions` (
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   KEY `fk_questions_survey1_idx` (`surveys_idsurvey`),
   CONSTRAINT `fk_questions_factor1` FOREIGN KEY (`factors_idfactor`) REFERENCES `factors` (`idfactor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_questions_survey1` FOREIGN KEY (`surveys_idsurvey`) REFERENCES `surveys` (`idsurvey`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `responses`;
 CREATE TABLE IF NOT EXISTS `responses` (
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `idrol` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(45) NOT NULL,
   PRIMARY KEY (`idrol`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `rubrics`;
 CREATE TABLE IF NOT EXISTS `rubrics` (
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `rubrics` (
   PRIMARY KEY (`idrubric`),
   KEY `fk_rubric_factor1_idx` (`factors_idfactor`),
   CONSTRAINT `fk_rubric_factor1` FOREIGN KEY (`factors_idfactor`) REFERENCES `factors` (`idfactor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `surveys`;
 CREATE TABLE IF NOT EXISTS `surveys` (
@@ -96,19 +96,19 @@ CREATE TABLE IF NOT EXISTS `surveys` (
   `name` varchar(45) NOT NULL,
   `active` binary(1) NOT NULL,
   PRIMARY KEY (`idsurvey`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `iduser` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `active` binary(1) NOT NULL,
   `last_login` datetime DEFAULT NULL,
   `register_date` datetime NOT NULL,
   PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_relations`;
 CREATE TABLE IF NOT EXISTS `user_relations` (
@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `user_relations` (
   KEY `fk_user_relations_users2_idx` (`users_iduser_user`),
   CONSTRAINT `fk_user_relations_users_admin` FOREIGN KEY (`users_iduser_admin`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_relations_users_user` FOREIGN KEY (`users_iduser_user`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE IF NOT EXISTS `user_roles` (
@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   KEY `fk_user_rol_roles1_idx` (`roles_idrol`),
   CONSTRAINT `fk_user_rol_roles1` FOREIGN KEY (`roles_idrol`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_rol_users1` FOREIGN KEY (`users_iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `user_surveys`;
 CREATE TABLE IF NOT EXISTS `user_surveys` (
@@ -148,9 +148,9 @@ CREATE TABLE IF NOT EXISTS `user_surveys` (
   KEY `fk_user_survey_survey1_idx` (`surveys_idsurvey`),
   CONSTRAINT `fk_user_survey_survey1` FOREIGN KEY (`surveys_idsurvey`) REFERENCES `surveys` (`idsurvey`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_survey_users1` FOREIGN KEY (`users_iduser`) REFERENCES `users` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

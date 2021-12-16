@@ -2,7 +2,10 @@
 
 namespace Domain;
 
-use Data\Interfaces\IUser;
+// session_start();
+
+use OurVoice\Data\IUser;
+use OurVoice\Security;
 
 class UserDomain
 {
@@ -13,7 +16,7 @@ class UserDomain
     function __construct()
     {
         $this->message = "";
-        $this->User = new $GLOBALS['Config']::$User;
+        $this->User = new $GLOBALS['Config']::$User();
     }
 
     //Region Single Crud
@@ -52,7 +55,21 @@ class UserDomain
 
     function UpdateUser(array $datos)
     {
-        $result = $this->User->updateUser($datos);
+        $security = new Security();
+
+        $user = $this->GetUserDataById($datos['iduser']);
+
+        $password = $security->ValidatePassword($datos['password'], $user['password']);
+
+        if ($password != 0) {
+            $datos['password'] = $password;
+            $this->User->UpdatePassword($datos);
+        }
+
+        if ($datos['name'] != "" && $datos['idrol'] != 0)
+        {
+            $this->User->updateUser($datos);
+        }
 
         if ($this->User->IsSuccess()) {
             $userRol = new $GLOBALS['Config']::$UserRol;
@@ -62,7 +79,7 @@ class UserDomain
                 $userRol->UpdateUserRol($datos);
             }
         }
-        return $result;
+        // return $result;
     }
 
     function DeleteUser(array $datos)
@@ -83,12 +100,34 @@ class UserDomain
     /***************************  ***************************/
 
     //Region User Data
-    function GetUserData($idUser)
+    function GetUserDataById($idUser)
     {
         $dbUserRol = new $GLOBALS['Config']::$UserRol;
 
-        $user = $this->User->GetUser($idUser);
+        $user = $this->User->GetUserById($idUser);
         $userRoles = $dbUserRol->GetUserRolesByUser($idUser);
+        $user["roles"] = $userRoles;
+
+        return $user;
+    }
+
+    function GetUserByEmail($email)
+    {
+        $dbUserRol = new $GLOBALS['Config']::$UserRol;
+
+        $user = $this->User->GetUserById($email);
+        $userRoles = $dbUserRol->GetUserRolesByUser($email);
+        $user["roles"] = $userRoles;
+
+        return $user;
+    }
+
+    function GetUserById($email)
+    {
+        $dbUserRol = new $GLOBALS['Config']::$UserRol;
+
+        $user = $this->User->GetUserById($email);
+        $userRoles = $dbUserRol->GetUserRolesByUser($email);
         $user["roles"] = $userRoles;
 
         return $user;

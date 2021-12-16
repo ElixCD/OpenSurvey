@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\Interfaces;
+namespace OurVoice\Data;
 
 interface IUser
 {
@@ -8,13 +8,19 @@ interface IUser
 
     function GetMessage();
 
-    function GetUser(int $idUser);
+    function GetUserById(int $idUser);
+
+    function GetUserByEmail(string $idUser);
 
     function GetUsers(int $numberPage);
 
     function SaveUser($user);
 
     function UpdateUser($user);
+
+    function UpdatePassword($user);
+
+    function UpdateLastLogin(int $iduser);
 
     function DeleteUser($user);
 

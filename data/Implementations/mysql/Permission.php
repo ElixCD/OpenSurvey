@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data\Interfaces\IPermission;
+use OurVoice;
 use Exception;
 
-class Permission implements IPermission
+class Permission implements OurVoice\Data\IPermission
 {
     private $Permission = [];
 

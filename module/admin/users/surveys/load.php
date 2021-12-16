@@ -6,7 +6,7 @@ use Domain\UserDomain;
 $idUser = $_GET['id'];
 
 $dbUser = new UserDomain();
-$user = $dbUser->getUserData($idUser);
+$user = $dbUser->GetUserDataById($idUser);
 $userSurveys = $dbUser->getUserSurveysPropetary($idUser);
 
 ?>

@@ -6,19 +6,16 @@
     },
     "autoload": {
         "psr-4": {
+            "Dotenv\\" : "vendor/vlucas/phpdotenv/src/", 
             "OurVoice\\": "core/",
-            "OurVoice\\Modules\\": "module/",
-            "Utils\\" : "utils/",
-            "Dotenv\\" : "vendor/vlucas/phpdotenv/src/",
+            "OurVoice\\Data\\" : ["data/Interfaces/","data/Config"],
             "OurVoice\\Models\\" : "models/",
-            "Data\\" : "data/",
+            "OurVoice\\Modules\\": "module/",
             "Domain\\" : "domain",
-            "Data\\MySql\\" : "data/mysql",
+            "Data\\MySql\\" : "data/Implementations/mysql",
+            "Utils\\" : "utils/",
             "OurVoice\\Components\\" : "components/"
         },
         "files": ["config/LoadEnviroment.php","lib/Helper.php"]
-    },
-    "require-dev": {
-        "phpunit/phpunit": "9.5.10"
     }
 }

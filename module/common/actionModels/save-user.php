@@ -11,7 +11,7 @@ $newUser = [
     "active" => isset($_POST['active']) ? (bool) $_POST['active'] : false,
     "last_login" =>  NULL,
     "register_date" => NULL,
-    "idrol" => isset($_POST['idrol']) ? $_POST['idrol'] : 0
+    "idrol" => isset($_POST['idrol']) ? (int) $_POST['idrol'] : 0
 ];
 
 $arr = [];

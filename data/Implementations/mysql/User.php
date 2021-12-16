@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data;
+use OurVoice;
 use Exception;
 
-class User implements Data\Interfaces\IUser
+class User implements OurVoice\Data\IUser
 {
     public $users = [];
 
@@ -40,7 +40,7 @@ class User implements Data\Interfaces\IUser
         return false;
     }
 
-    function GetUser(int $idUser)
+    function GetUserById(int $idUser)
     {
         $params = [];
         $params = [':idUser' => $idUser];
@@ -49,6 +49,23 @@ class User implements Data\Interfaces\IUser
         foreach ($this->users as $key => $value) {
             if (is_array($value)) {
                 if ($value['iduser'] == $idUser) {
+                    return $value;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    function GetUserByEmail(string $email)
+    {
+        $params = [];
+        $params = [':email' => $email];
+        $this->users = $this->connection->QuerySelect("SELECT * FROM users WHERE email= :email ", $params);
+
+        foreach ($this->users as $key => $value) {
+            if (is_array($value)) {
+                if ($value['email'] == $email) {
                     return $value;
                 }
             }
@@ -84,14 +101,38 @@ class User implements Data\Interfaces\IUser
 
             $query = "UPDATE users SET name = :name, active = :active WHERE iduser= :iduser";
 
-            $name =  $user["name"];
-            $active = (int) $user['active'];
-
-            $query2 = "UPDATE users SET name = '$name', active = '$active' WHERE iduser= :iduser";
-
             $params = [':name' => $user['name'], ':active' => (int) $user['active'], ':iduser' => (int) $user['iduser']];
 
-            // $query = "UPDATE users SET name = '" . $user['name'] . "', active = " . (bool) $user['active'] . " WHERE iduser= " . (int) $user['iduser'];
+            return $this->connection->QueryTransaction($query, $params);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    function UpdatePassword($user)
+    {
+        try {
+            date_default_timezone_set('UTC');
+
+            $query = "UPDATE users SET password = :password WHERE iduser= :iduser";
+            $params = [':password' => $user['password'], ':iduser' => (int) $user['iduser']];
+
+            return $this->connection->QueryTransaction($query, $params);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    function UpdateLastLogin(int $iduser)
+    {
+        try {
+            date_default_timezone_set('UTC');
+
+            $lastLogin = gmdate("Y/m/d H:i:s", time());
+
+            $query = "UPDATE users SET last_login = :lastLogin WHERE iduser= :iduser";
+            $params = [':lastLogin' => $lastLogin, ':iduser' => $iduser];
+
             return $this->connection->QueryTransaction($query, $params);
         } catch (\Throwable $th) {
             return $th;

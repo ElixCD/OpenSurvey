@@ -1,6 +1,6 @@
 <?php
 
-use Data\Config;
+use OurVoice\Data\Config;
 
 $dotenv = Dotenv\Dotenv::createMutable(__DIR__);
 $dotenv->load();

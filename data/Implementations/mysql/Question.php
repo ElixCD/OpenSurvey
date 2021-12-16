@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data;
+use OurVoice;
 use Exception;
 
-class Question implements Data\Interfaces\IQuestion
+class Question implements OurVoice\Data\IQuestion
 {
     public $questions = [];
 

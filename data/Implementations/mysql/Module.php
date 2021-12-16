@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data;
+use OurVoice;
 use Exception;
 
-class Module implements Data\Interfaces\IModule
+class Module implements OurVoice\Data\IModule
 {
     public $Module = [];
 

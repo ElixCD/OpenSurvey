@@ -120,9 +120,9 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
                                             <input type="password" class="form-control" disabled name="repeat" id="repeat" value="<?php echo $user['password']; ?>">
                                         </div>
                                     </div>
-                                    <div class="col-md-12 text-right d-none" id="btn-password">
+                                    <div class="col-md-12 text-right d-none mt-3" id="btn-password">
                                         <button type="reset" class="btn btn-secondary" onclick="activate('form-password',1);">Cancelar</button>
-                                        <button type="button" class="btn btn-primary" onclick="SavePassword();">Guardar</button>
+                                        <button type="button" class="btn btn-primary" onclick="SaveUserPassword();">Guardar</button>
                                     </div>
 
                                 </div>
@@ -134,6 +134,12 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
             </div>
         </div>
     </main>
+
+    <pre>
+        <?php
+        print_r($user);
+        ?>
+    </pre>
 
     <?php
     include_once "../../common/register-js.php";
@@ -177,17 +183,18 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
             activate('form-data', 1);
 
             let url = '../../common/actionModels/session-reload.php';
-            SessionReload("user",url);
+            SessionReload("user", url);
         }
 
-        function SavePassword() {
+        function SaveUserPassword() {
             let password = document.getElementById('password').value;
             let repeat = document.getElementById('repeat').value;
 
             if (password == repeat) {
-                // SaveUser(action, name, email, active, idrol, './save-user.php', <?php //echo $idUser; 
-                                                                                    ?>);
+                SavePassword('update', password, '../../common/actionModels/save-user.php', null, <?php echo $user['iduser']; ?>);
                 activate('form-password', 1);
+                let url = '../../common/actionModels/session-reload.php';
+            SessionReload("user", url);
             } else {
                 alert("Las contraseñas no coinciden");
             }

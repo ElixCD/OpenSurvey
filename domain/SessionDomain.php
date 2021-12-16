@@ -3,7 +3,8 @@
 namespace Domain;
 
 use OurVoice\SesionStatus;
-use Data\Interfaces\IUser;
+use OurVoice\Data\IUser;
+use OurVoice\Security;
 
 class SessionDomain
 {
@@ -15,96 +16,70 @@ class SessionDomain
     function __construct()
     {
         $this->message = "";
-        $this->User = new $GLOBALS['Config']::$User;
+        $this->User = new $GLOBALS['Config']::$User();
+        $this->isSuccess = false;
     }
 
     function IsSuccess()
     {
-        if ($this->message == "")
-            return $this->User->IsSuccess();
-        else
-            return $this->isSuccess;
+        return $this->isSuccess;
     }
 
     function GetMessage()
     {
-        if ($this->message == "")
-            return $this->User->GetMessage();
-        else
-            return $this->message;
+        return $this->message;
     }
 
     function GetUserLogin(string $email, string $password)
     {
-        $user = $this->User->GetUserLogin($email, $password);        
-        $this->ValidateUser($user);
+        $sec = new Security();
+        $user = $sec->ValidateUserLogin($email, $password);
+        $this->isSuccess = $sec->IsSuccess();
+
+        if ($sec->IsSuccess()) {
+            $this->GetUserById((int) $user['iduser']);
+        }
+        else{
+            $this->message = $sec->GetMessage();
+        }
     }
 
-    function UserLogout(){
+    function UserLogout()
+    {
         SesionStatus::EndSession("user");
     }
 
-
-    function GetUserById(string $id)
+    function GetUserById(int $id)
     {
-        $user = $this->User->GetUser($id);
-        $this->ValidateUser($user);       
+        $user = $this->User->GetUserById($id);
+        $this->ValidateUser($user);
     }
 
-    private function ValidateUser($user){
+    private function ValidateUser($user)
+    {
 
-        if(!$this->User->IsSuccess()){
+        if (!$this->User->IsSuccess()) {
             $this->isSuccess = false;
             $this->message = $this->User->GetMessage();
             return;
         }
 
-        if(count($this->User->users) <= 0){
+        if (count($this->User->users) <= 0) {
             $this->isSuccess = false;
             $this->message = "El usuario no existe.";
             return;
         }
 
         $dbUser = new UserDomain;
-        $user = $dbUser->GetUserData($user['iduser']);
+        $user = $dbUser->GetUserDataById($user['iduser']);
 
-        if (!$dbUser->IsSuccess()){
+        if (!$dbUser->IsSuccess()) {
             $this->isSuccess = false;
             $this->message = "El usuario no tiene roles asignados.";
             return;
         }
 
+        $this->User->UpdateLastLogin($user['iduser']);
         SesionStatus::CreateSession("user", $user);
-
-        // if ($dbUser->IsSuccess()) {
-        //     SesionStatus::CreateSession("user", $user);
-        // }
-        // else{
-        //     $this->isSuccess = false;
-        //     $this->message = "El usuario no tiene roles asignados.";
-        // }
-
-        // if ($this->User->IsSuccess()) {
-        //     if(count($this->User->users) > 0){
-        //         $dbUser = new UserDomain;
-        //         $user = $dbUser->GetUserData($user['iduser']);
-        //         if ($dbUser->IsSuccess()) {
-        //             SesionStatus::CreateSession("user", $user);
-        //         }
-        //         else{
-        //             $this->isSuccess = false;
-        //             $this->message = "El usuario no tiene roles asignados.";
-        //         }
-        //     }
-        //     else{
-        //         $this->isSuccess = false;
-        //         $this->message = "El usuario no existe.";
-        //     }
-        // }
-        // else{
-        //     $this->isSuccess = false;
-        //     $this->message = $this->User->GetMessage();
-        // }
     }
-
 }

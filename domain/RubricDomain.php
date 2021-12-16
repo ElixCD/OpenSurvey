@@ -1,7 +1,7 @@
 <?php
 
 namespace Domain;
-use Data\Interfaces\IRubric;
+use OurVoice\Data\IRubric;
 
 class RubricDomain
 {
@@ -10,7 +10,7 @@ class RubricDomain
 
     function __construct()
     {
-        $this->Rubric = new $GLOBALS['Config']::$Rubric;
+        $this->Rubric = new $GLOBALS['Config']::$Rubric();
     }
 
     function IsSuccess(){

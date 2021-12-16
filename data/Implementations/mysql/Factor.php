@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data;
+use OurVoice;
 use Exception;
 
-class Factor implements Data\Interfaces\IFactor
+class Factor implements OurVoice\Data\IFactor
 {
     private $connection;
 

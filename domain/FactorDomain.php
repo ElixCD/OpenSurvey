@@ -1,7 +1,7 @@
 <?php
 
 namespace Domain;
-use Data\Interfaces\IFactor;
+use OurVoice\Data\IFactor;
 
 class FactorDomain
 {

@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data;
+use OurVoice;
 use Exception;
 
-class Rol implements Data\Interfaces\IRol
+class Rol implements OurVoice\Data\IRol
 {
     private $Rol = [];
 

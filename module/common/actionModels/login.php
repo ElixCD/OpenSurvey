@@ -1,26 +1,24 @@
 <?php
 require '../../../vendor/autoload.php';
-// OurVoice\SesionStatus::startSession();
-
-use Domain\SessionDomain;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$user = new SessionDomain();
-$user->GetUserLogin($email, $password);
+$userlogin = new Domain\SessionDomain();
 
-if ($user->IsSuccess()) {
-    $currentUrl = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-    $posModule = stripos($currentUrl,"module");
-    $url = substr($currentUrl, 0, $posModule);
+$userlogin->GetUserLogin($email, $password);
+
+if ($userlogin->IsSuccess()) {
     
-    $arr = ['isSuccess' => $user->IsSuccess(), 'message' => $user->GetMessage(), 'url' => $url."module/admin"];
-    $json = json_encode($arr);
-    echo $json;  
-} else {
+    $currentUrl = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+    $posModule = stripos($currentUrl, "module");
+    $url = substr($currentUrl, 0, $posModule);
 
-    $arr = ['isSuccess' => $user->IsSuccess(), 'message' => $user->GetMessage()];
+    $arr = ['isSuccess' => $userlogin->IsSuccess(), 'message' => $userlogin->GetMessage(), 'url' => $url . "module/admin"];
     $json = json_encode($arr);
-    echo $json;    
+    echo $json;
+} else {
+    $arr = ['isSuccess' => $userlogin->IsSuccess(), 'message' => $userlogin->GetMessage()];
+    $json = json_encode($arr);
+    echo $json;
 }

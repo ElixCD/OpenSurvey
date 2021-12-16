@@ -1,7 +1,7 @@
 <?php
 
 namespace Domain;
-use Data\Interfaces\IRol;
+use OurVoice\Data\IRol;
 
 class RolDomain
 {

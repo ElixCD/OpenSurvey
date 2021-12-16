@@ -2,10 +2,10 @@
 
 namespace Data\MySql;
 
-use Data;
+use OurVoice;
 use Exception;
 
-class Survey implements Data\Interfaces\ISurvey
+class Survey implements OurVoice\Data\ISurvey
 {
     public $surveys = [];
 
