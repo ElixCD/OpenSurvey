@@ -1,8 +1,13 @@
 <?php
+
+
 require '../../../vendor/autoload.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 $User = new Domain\UserDomain();
-$Users = $User->GetUsers(1);
+$Users = $User->GetUsers();
 
 ?>
 
@@ -65,6 +70,5 @@ $Users = $User->GetUsers(1);
 include_once "../../common/modal.php";
 $modal = new ModalConfirmation("deleteFactorModal", "Usuarios", "<div class='col-md-12'>Se eliminara el usuario.<br />¿Desea continuar?</div>", "SaveUser()");
 $modal->DrawComponent();
-
 
 ?>

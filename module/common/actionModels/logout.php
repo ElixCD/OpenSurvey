@@ -3,8 +3,8 @@ require '../../../vendor/autoload.php';
 
 use Domain\SessionDomain;
 
-$sesion = new SessionDomain();
-$sesion->UserLogout();
+$session = new SessionDomain();
+$session->UserLogout();
 
 $currentUrl = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 $posModule = stripos($currentUrl, "module");

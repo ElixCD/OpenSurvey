@@ -6,6 +6,7 @@ namespace Domain;
 
 use OurVoice\Data\IUser;
 use OurVoice\Security;
+use OurVoice\SessionStatus;
 
 class UserDomain
 {
@@ -36,9 +37,29 @@ class UserDomain
             return $this->message;
     }
 
-    function GetUsers(int $numberPage = 1)
+    function GetUsers()
+    {
+        $user = SessionStatus::GetSessionData('user');
+
+         $rol = $user['roles'][0];
+
+         if($rol['idrol'] == 1){
+            return $this->GetUsersGeneral(1);
+         }
+         else{
+            return $this->GetUsersByParent($user['iduser'], 1);
+         }
+
+    }
+
+    function GetUsersGeneral(int $numberPage = 1)
     {
         return $this->User->GetUsers($numberPage);
+    }
+
+    function GetUsersByParent(int $idParent, int $numberPage = 1)
+    {
+        return $this->User->GetUsersByParent($idParent, $numberPage);
     }
 
     function SaveUser(array $datos)

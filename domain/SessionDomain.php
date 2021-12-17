@@ -2,7 +2,7 @@
 
 namespace Domain;
 
-use OurVoice\SesionStatus;
+use OurVoice\SessionStatus;
 use OurVoice\Data\IUser;
 use OurVoice\Security;
 
@@ -46,7 +46,7 @@ class SessionDomain
 
     function UserLogout()
     {
-        SesionStatus::EndSession("user");
+        SessionStatus::EndSession("user");
     }
 
     function GetUserById(int $id)
@@ -80,6 +80,6 @@ class SessionDomain
         }
 
         $this->User->UpdateLastLogin($user['iduser']);
-        SesionStatus::CreateSession("user", $user);
+        SessionStatus::CreateSession("user", $user);
     }
 }

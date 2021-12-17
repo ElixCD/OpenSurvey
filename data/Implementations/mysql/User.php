@@ -80,6 +80,18 @@ class User implements OurVoice\Data\IUser
         return $this->users;
     }
 
+    function GetUsersByParent(int $idParent, int $numberPage = 1)
+    {
+        $query = "SELECT u1.* FROM users AS u
+        LEFT JOIN user_relations AS ur ON ur.users_iduser_admin = u.iduser
+        LEFT JOIN users AS u1 ON u1.iduser = ur.users_iduser_user
+        WHERE ur.users_iduser_admin = :iduser_admin";
+        $param = [':iduser_admin' => $idParent];
+
+        $this->users = $this->connection->QuerySelect($query, $param);
+        return $this->users;
+    }
+
     function SaveUser($user)
     {
         try {

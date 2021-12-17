@@ -2,7 +2,7 @@
 
 namespace OurVoice;
 
-class SesionStatus
+class SessionStatus
 {
     static function startSession($name)
     {

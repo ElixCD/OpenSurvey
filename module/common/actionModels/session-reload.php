@@ -2,9 +2,9 @@
 require '../../../vendor/autoload.php';
 use Domain\SessionDomain;
 
-$sesionName = $_POST['name'];
+$sessionName = $_POST['name'];
 
-$user = OurVoice\SesionStatus::GetSessionData($sesionName);
+$user = OurVoice\SessionStatus::GetSessionData($sessionName);
 
 $userDomain = new SessionDomain();
 $userDomain->GetUserById($user['iduser']);

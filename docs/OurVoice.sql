@@ -29,16 +29,16 @@ CREATE TABLE IF NOT EXISTS `modules` (
 DROP TABLE IF EXISTS `module_access`;
 CREATE TABLE IF NOT EXISTS `module_access` (
   `idmodule_access` int(11) NOT NULL AUTO_INCREMENT,
-  `user_types_iduser_type` int(11) NOT NULL,
+  `roles_idrol` int(11) NOT NULL,
   `modules_idmodule` int(11) NOT NULL,
   `permissions_idpermission` int(11) NOT NULL,
   PRIMARY KEY (`idmodule_access`),
-  KEY `fk_module_access_user_types1_idx` (`user_types_iduser_type`),
   KEY `fk_module_access_modules1_idx` (`modules_idmodule`),
   KEY `fk_module_access_permissions1_idx` (`permissions_idpermission`),
+  KEY `fk_module_access_user_types1_idx` (`roles_idrol`) USING BTREE,
   CONSTRAINT `fk_module_access_modules1` FOREIGN KEY (`modules_idmodule`) REFERENCES `modules` (`idmodule`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_module_access_permissions1` FOREIGN KEY (`permissions_idpermission`) REFERENCES `permissions` (`idpermission`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_module_access_user_types1` FOREIGN KEY (`user_types_iduser_type`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_module_access_roles1` FOREIGN KEY (`roles_idrol`) REFERENCES `roles` (`idrol`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `permissions`;

@@ -2,9 +2,9 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-// OurVoice\SesionStatus::startSession();
+// OurVoice\SessionStatus::startSession();
 
-if(!OurVoice\SesionStatus::sessionStarted("user"))
+if(!OurVoice\SessionStatus::sessionStarted("user"))
     header("Location: ../../../");
 
 ?>

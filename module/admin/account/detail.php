@@ -2,7 +2,7 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-$user = OurVoice\SesionStatus::GetSessionData("user");
+$user = OurVoice\SessionStatus::GetSessionData("user");
 
 
 ?>
@@ -52,7 +52,7 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
                         </div>
 
                         <div class="row">
-                            <form id="form-data" class="col-12">
+                            <form id="form-data" class="col-12 mb-1">
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group bmd-form-group">
@@ -91,7 +91,7 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 mt-1">
                                 <h3>Contraseña</h3>
                                 <hr>
                             </div>
@@ -135,12 +135,6 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
         </div>
     </main>
 
-    <pre>
-        <?php
-        print_r($user);
-        ?>
-    </pre>
-
     <?php
     include_once "../../common/register-js.php";
     ?>
@@ -182,8 +176,6 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
             SaveUser('update', name, email, active, idrol, '../../common/actionModels/save-user.php', null, <?php echo $user['iduser']; ?>);
             activate('form-data', 1);
 
-            let url = '../../common/actionModels/session-reload.php';
-            SessionReload("user", url);
         }
 
         function SaveUserPassword() {
@@ -193,8 +185,7 @@ $user = OurVoice\SesionStatus::GetSessionData("user");
             if (password == repeat) {
                 SavePassword('update', password, '../../common/actionModels/save-user.php', null, <?php echo $user['iduser']; ?>);
                 activate('form-password', 1);
-                let url = '../../common/actionModels/session-reload.php';
-            SessionReload("user", url);
+
             } else {
                 alert("Las contraseñas no coinciden");
             }

@@ -14,6 +14,8 @@ interface IUser
 
     function GetUsers(int $numberPage);
 
+    function GetUsersByParent(int $idParent, int $numberPage);
+
     function SaveUser($user);
 
     function UpdateUser($user);

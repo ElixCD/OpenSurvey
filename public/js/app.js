@@ -8,19 +8,19 @@ function login() {
     data.append('password', document.getElementById("password").value);
 
     fetch(url, {
-            method: 'POST',
-            body: data
-        })
+        method: 'POST',
+        body: data
+    })
         .then((resp) => resp.json())
-        .then(function(data) {
-            if(data.isSuccess){
+        .then(function (data) {
+            if (data.isSuccess) {
                 window.location.replace(data.url);
             }
-            else{
+            else {
                 alert(data.message);
             }
         })
-        .catch(function(err) {            
+        .catch(function (err) {
             console.log(err.message);
         });
 }
@@ -94,9 +94,15 @@ function SaveUser(action, name, email, active, idrol, url, locate, iduser = null
             let obj = JSON.parse(connection.responseText);
             alert(obj.msj);
             if (obj.error == false) {
-                if(locate != null)
+                if (locate != null)
                     location.href = locate;
+                else {
+                    let url = '../../common/actionModels/session-reload.php';
+                    SessionReload("user", url);
+                    location.reload();
+                }
             }
+
         }
     }
 
@@ -117,8 +123,13 @@ function SavePassword(action, password, url, locate, iduser = null) {
             let obj = JSON.parse(connection.responseText);
             alert(obj.msj);
             if (obj.error == false) {
-                if(locate != null)
+                if (locate != null)
                     location.href = locate;
+                else {
+                    let url = '../../common/actionModels/session-reload.php';
+                    SessionReload("user", url);
+                    location.reload();
+                }
             }
         }
     }
@@ -130,9 +141,9 @@ function SavePassword(action, password, url, locate, iduser = null) {
     execute(connection, 'POST', url, params);
 }
 
-function SessionReload(session,url){
+function SessionReload(session, url) {
     let connection = createConnection();
-    execute(connection, 'POST', url, "name="+session);
+    execute(connection, 'POST', url, "name=" + session);
 }
 
 

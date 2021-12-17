@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
-OurVoice\SesionStatus::startSession("user");
+OurVoice\SessionStatus::startSession("user");
 
 ?>
 
