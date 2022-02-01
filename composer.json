@@ -13,6 +13,7 @@
             "OurVoice\\Modules\\": "module/",
             "Domain\\" : "domain",
             "Data\\MySql\\" : "data/Implementations/mysql",
+            "Data\\PgSql\\" : "data/Implementations/pgsql",
             "Utils\\" : "utils/",
             "OurVoice\\Components\\" : "components/"
         },

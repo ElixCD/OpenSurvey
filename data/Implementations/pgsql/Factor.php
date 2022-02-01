@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\MySql;
+namespace Data\PgSql;
 
 use OurVoice;
 use Exception;
@@ -11,7 +11,7 @@ class Factor implements OurVoice\Data\IFactor
 
     function __construct()
     {
-        $this->connection = new DbMySql();
+        $this->connection = new DbPgSql();
     }
 
     function IsSuccess(): bool

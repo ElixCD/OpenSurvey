@@ -8,7 +8,7 @@ interface IModuleAccess
 
     function GetMessage();
 
-    function GetModulesAccesse(int $idModuleAccess);
+    function GetModulesAccess(int $idModuleAccess);
 
     function GetModuleAccess(int $numberPage);
 

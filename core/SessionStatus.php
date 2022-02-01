@@ -4,7 +4,7 @@ namespace OurVoice;
 
 class SessionStatus
 {
-    static function startSession($name)
+    static function startSession()
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -15,12 +15,8 @@ class SessionStatus
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-        }
-        if (isset($_SESSION[$name])) {
-            return true;
-        } else {
-            return false;
-        }
+        }        
+        return isset($_SESSION[$name]);
     }
 
     static function CreateSession($name, $value): void

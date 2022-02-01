@@ -51,7 +51,7 @@ class SessionDomain
 
     function GetUserById(int $id)
     {
-        $user = $this->User->GetUserById($id);
+        $user =   $this->User->GetUserById($id);
         $this->ValidateUser($user);
     }
 
@@ -71,13 +71,15 @@ class SessionDomain
         }
 
         $dbUser = new UserDomain;
-        $user = $dbUser->GetUserDataById($user['iduser']);
+        $user = $dbUser->GetUserRolesByIdUser($user['iduser']);
 
         if (!$dbUser->IsSuccess()) {
             $this->isSuccess = false;
             $this->message = "El usuario no tiene roles asignados.";
             return;
         }
+
+        $dbModules = new ModulesDomain();
 
         $this->User->UpdateLastLogin($user['iduser']);
         SessionStatus::CreateSession("user", $user);

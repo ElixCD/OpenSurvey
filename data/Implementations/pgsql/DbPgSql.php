@@ -1,12 +1,12 @@
 <?php
 
-namespace Data\MySql;
+namespace Data\PgSql;
 
 use PDO;
 use PDOException;
 use OurVoice\Data\IDb;
 
-class DbMySql implements IDb
+class DbPgSql implements IDb
 {
     private $gbd;
     private bool $success;
@@ -15,7 +15,8 @@ class DbMySql implements IDb
     function __construct()
     {
         try {
-            $this->gbd = new PDO('mysql:dbname=' . $_ENV['DB'] . ';host=' . $_ENV['HOST'] . ';', $_ENV['USR'], $_ENV['SECRET_KEY']);
+            $string = 'pgsql:dbname=' . $_ENV['DB'] . ';host=' . $_ENV['HOST'] . ';port='. $_ENV['DBPORT'].';user='. $_ENV['USR'].';password='.$_ENV['SECRET_KEY'].';';
+            $this->gbd = new PDO($string );
         } catch (PDOException $e) {
             throw new PDOException('Connection error: ' . $e->getMessage(), 1);
         }

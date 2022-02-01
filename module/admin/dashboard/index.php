@@ -2,11 +2,12 @@
 require '../../../vendor/autoload.php';
 include_once "../../common/getPath.php";
 
-// OurVoice\SessionStatus::startSession();
+use OurVoice\SessionStatus;
 
-if(!OurVoice\SessionStatus::sessionStarted("user"))
+if(!OurVoice\SessionStatus::sessionStarted("user")){
     header("Location: ../../../");
-
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,11 @@ if(!OurVoice\SessionStatus::sessionStarted("user"))
     ?>
 
     <main class="container">
-        
+        <pre>
+            <?php
+            print_r(SessionStatus::GetSessionData('user'));
+            ?>
+        </pre>
     </main>
 
 

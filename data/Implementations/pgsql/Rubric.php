@@ -1,6 +1,6 @@
 <?php
 
-namespace Data\MySql;
+namespace Data\PgSql;
 
 use OurVoice;
 use Exception;
@@ -13,7 +13,7 @@ class Rubric implements OurVoice\Data\IRubric
 
     function __construct()
     {
-        $this->connection = new DbMySql();
+        $this->connection = new DbPgSql();
     }
 
     function GetRubric(int $idRubric)

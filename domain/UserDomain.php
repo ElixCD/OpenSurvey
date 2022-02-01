@@ -11,8 +11,8 @@ use OurVoice\SessionStatus;
 class UserDomain
 {
     private IUser $User;
-    private bool $isSuccess;
-    private string $message;
+    private bool $isSuccess = false;
+    private $message;
 
     function __construct()
     {
@@ -20,18 +20,14 @@ class UserDomain
         $this->User = new $GLOBALS['Config']::$User();
     }
 
-    //Region Single Crud
     function IsSuccess()
     {
-        if ($this->message == "")
-            return $this->User->IsSuccess();
-        else
-            return $this->isSuccess;
+        return $this->isSuccess;
     }
 
     function GetMessage()
     {
-        if ($this->message == "")
+        if ($this->isSuccess == "")
             return $this->User->GetMessage();
         else
             return $this->message;
@@ -41,36 +37,48 @@ class UserDomain
     {
         $user = SessionStatus::GetSessionData('user');
 
-         $rol = $user['roles'][0];
+        $rol = $user['roles'][0];
 
-         if($rol['idrol'] == 1){
+        if ($rol == 1) {
             return $this->GetUsersGeneral(1);
-         }
-         else{
+        } else {
             return $this->GetUsersByParent($user['iduser'], 1);
-         }
-
+        }
     }
 
     function GetUsersGeneral(int $numberPage = 1)
     {
-        return $this->User->GetUsers($numberPage);
+        $salida =  $this->User->GetUsers($numberPage);
+        $this->isSuccess = $this->User->isSuccess;
+        $this->message = $this->User->GetMessage();
+        return $salida;
     }
 
     function GetUsersByParent(int $idParent, int $numberPage = 1)
     {
-        return $this->User->GetUsersByParent($idParent, $numberPage);
+        $salida = $this->User->GetUsersByParent($idParent, $numberPage);
+        $this->isSuccess = $this->User->isSuccess();
+        $this->message = $this->User->GetMessage();
+        return $salida;
     }
 
     function SaveUser(array $datos)
     {
         $datos["register_date"] = date("Y-m-d h:i:s");
         $result = $this->User->SaveUser($datos);
+
+        $this->isSuccess = $this->User->isSuccess;
+        $this->message = $this->User->GetMessage();
+
         if ($this->User->IsSuccess()) {
             $datos["iduser"] = $result;
             $userRol = new $GLOBALS['Config']::$UserRol;
             $userRol->SaveUserRol($datos);
+
+            $this->isSuccess = $userRol->isSuccess;
+            $this->message = $userRol->GetMessage();
         }
+
         return $result;
     }
 
@@ -78,7 +86,9 @@ class UserDomain
     {
         $security = new Security();
 
-        $user = $this->GetUserDataById($datos['iduser']);
+        $user = $this->GetUserById($datos['iduser']);
+
+        // $roles = $this->GetUserRolesById($datos['iduser']);
 
         $password = $security->ValidatePassword($datos['password'], $user['password']);
 
@@ -87,10 +97,12 @@ class UserDomain
             $this->User->UpdatePassword($datos);
         }
 
-        if ($datos['name'] != "" && $datos['idrol'] != 0)
-        {
+        if ($datos['name'] != "" && $datos['idrol'] != 0) {
             $this->User->updateUser($datos);
         }
+
+        $this->isSuccess = $this->User->isSuccess;
+        $this->message = $this->User->GetMessage();
 
         if ($this->User->IsSuccess()) {
             $userRol = new $GLOBALS['Config']::$UserRol;
@@ -99,6 +111,8 @@ class UserDomain
             } else {
                 $userRol->UpdateUserRol($datos);
             }
+            $this->isSuccess = $userRol->isSuccess;
+            $this->message = $userRol->GetMessage();
         }
         // return $result;
     }
@@ -108,26 +122,48 @@ class UserDomain
         $userRol = new $GLOBALS['Config']::$UserRol;
         $userRol->DeleteUserRoles($datos);
 
+        $this->isSuccess = $userRol->IsSuccess();
+        $this->message = $userRol->GetMessage();
+
+        $salida = [];
         if ($this->User->IsSuccess) {
-            return $this->User->DeleteUser($datos);
-        } else {
-            $this->isSuccess = $userRol->IsSuccess();
-            $this->message = $userRol->GetMessage();
-            return array();
+            $salida = $this->User->DeleteUser($datos);
+            $this->isSuccess = $this->User->IsSuccess();
+            $this->message = $this->User->GetMessage();
         }
+
+        return $salida;
     }
     //endregion
 
     /***************************  ***************************/
 
     //Region User Data
-    function GetUserDataById($idUser)
-    {
-        $dbUserRol = new $GLOBALS['Config']::$UserRol;
+    // function GetUserRoles($user)
+    // {
+    //     $user["roles"] = [];
+    //     $dbUserRol = new $GLOBALS['Config']::$UserRol;
+    //     $userRoles = $dbUserRol->GetUserRolesByUser($user['iduser']);
+    //     $user["roles"] = $userRoles;
+    //     $this->isSuccess = $userRoles->IsSuccess();
+    //     $this->message = $userRoles->GetMessage();
+    //     return $user;
+    // }
 
+    function GetUserRolesByIdUser($idUser)
+    {
+        $user["roles"] = [];
+        $dbUserRol = new $GLOBALS['Config']::$UserRol;
         $user = $this->User->GetUserById($idUser);
-        $userRoles = $dbUserRol->GetUserRolesByUser($idUser);
-        $user["roles"] = $userRoles;
+        $this->isSuccess = $this->User->IsSuccess();
+        $this->message = $this->User->GetMessage();
+
+        if ($this->isSuccess) {
+            $userRoles = $dbUserRol->GetUserRolesByUser($idUser);
+            $user["roles"] = $userRoles;
+            $this->isSuccess = $dbUserRol->IsSuccess();
+            $this->message = $dbUserRol->GetMessage();
+        }
 
         return $user;
     }
